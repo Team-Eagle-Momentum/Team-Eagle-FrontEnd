@@ -2,7 +2,6 @@
   text-align: center;
 }
 
-
 /* Nav Bar */
 .nav {
   /* background-color: var(--off-white); */
@@ -45,45 +44,6 @@
   color: black;
 } */
 
-
-/* Login Page */
-.login-wrap {
-  background-color: #00a1fe;
-  max-width: 300px;
-  margin: auto;
-  padding: 1em;
-  border-radius: 50px;
-  text-align: center;
-  border: solid;
-}
-
-.login-field {
-  margin-bottom: 10px;
-}
-
-.login-submit {
-  margin: 5px;
-}
-
-.login-new-user:link {
-  text-decoration: none;
-}
-
-.login-new-user:visited {
-  text-decoration: none;
-}
-
-.login-new-user:hover {
-  /* color: #ffffff; */
-  text-decoration: none;
-}
-
-.login-new-user:active {
-  /* color: #000000; */
-  text-decoration: none;
-}
-
-
 /* Register Page */
 .register-wrap {
   background-color: #00a1fe;
@@ -108,7 +68,6 @@
   display: inline-block;
   text-align: left;
 }
-
 
 /* 
 .App-logo {
