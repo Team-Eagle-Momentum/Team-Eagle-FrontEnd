@@ -15,8 +15,6 @@
 
 .login-submit {
   margin: 5px;
-  display: flex;
-  flex-direction: column;
 }
 
 .login-new-user:link {

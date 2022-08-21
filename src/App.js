@@ -5,7 +5,7 @@ import Home from './components/Home'
 import LoginForm from './components/Login/Login'
 import RegisterForm from './components/Register'
 
-const PrivateRoute = () => {}
+// const PrivateRoute = () => {}
 
 function App() {
   return (
