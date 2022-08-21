@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Home from './components/Home'
 import LoginForm from './components/Login/Login'
-import RegisterForm from './components/Register'
+import RegisterForm from './components/Register/Register'
 
 // const PrivateRoute = () => {}
 
