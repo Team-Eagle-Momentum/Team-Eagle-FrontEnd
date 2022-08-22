@@ -2,7 +2,7 @@ import './Login.css'
 import { Link } from 'react-router-dom'
 import { useState, useContext } from 'react'
 import axios from 'axios'
-import {} from 'react-router-dom'
+import { } from 'react-router-dom'
 import { useParams, useNavigate } from 'react-router-dom'
 
 export const LoginForm = () => {
@@ -13,19 +13,21 @@ export const LoginForm = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    console.log(username)
-    console.log(password)
+    // console.log(username)
+    // console.log(password)
     axios
       .post('https://commutilator-api.herokuapp.com/api/auth/token/login/', {
         username: username,
         password: password,
       })
       .then((res) => {
+        const token = res.data.auth_token
+        localStorage.setItem('auth_token', token)
         console.log('fromDetails query param', fromDetails)
         if (fromDetails) {
           navigate('/details')
         } else {
-          navigate('/home')
+          navigate('/')
         }
       })
   }
