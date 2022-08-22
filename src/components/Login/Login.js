@@ -1,12 +1,15 @@
 import './Login.css'
 import { Link } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import axios from 'axios'
+import { LoginContext } from '../../contexts/Context'
 
 
 export const LoginForm = () => {
-  const [username, setUsername] = useState('')
+  // const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+
+  const { setUsername } = useContext(LoginContext)
 
   const handleSubmit = (event) => {
     event.preventDefault()
