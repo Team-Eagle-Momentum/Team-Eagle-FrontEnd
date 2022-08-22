@@ -1,6 +1,6 @@
 import {
   Input,
-  ChakraProvider as CharkhaProvider,
+  ChakraProvider,
   theme,
   Flex,
   Text,
@@ -130,7 +130,7 @@ export default function Home() {
   }
 
   return (
-    <CharkhaProvider theme={theme}>
+    <ChakraProvider theme={theme}>
       <Flex
         position='relative'
         flexDirection='column'
@@ -323,6 +323,6 @@ export default function Home() {
           </GridItem>
         </Grid>
       </div>
-    </CharkhaProvider>
+    </ChakraProvider>
   )
 }
