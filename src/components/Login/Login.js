@@ -1,6 +1,8 @@
-import { Link, Navigate } from 'react-router-dom'
-import { useState } from 'react'
 import './Login.css'
+import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import axios from 'axios'
+
 
 export const LoginForm = () => {
   const [username, setUsername] = useState('')
@@ -10,6 +12,11 @@ export const LoginForm = () => {
     event.preventDefault()
     console.log(username)
     console.log(password)
+    axios
+      .post('https://commutilator-api.herokuapp.com/api/auth/token/login/', {
+        username: username,
+        password: password,
+      })
   }
 
   return (
