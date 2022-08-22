@@ -1,5 +1,6 @@
 import './Register.css';
 import { useState } from 'react';
+import axios from 'axios';
 
 
 export const RegisterForm = () => {
@@ -14,8 +15,12 @@ export const RegisterForm = () => {
         console.log(email)
         console.log(username)
         console.log(password)
-
-
+        axios
+            .post('https://commutilator-api.herokuapp.com/api/auth/users/', {
+                email: email,
+                username: username,
+                password: password,
+            })
     }
 
     return (
