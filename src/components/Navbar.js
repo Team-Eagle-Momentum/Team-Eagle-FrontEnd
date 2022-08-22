@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { Heading } from '@chakra-ui/react'
 
 export default function Navbar() {
+  const token = localStorage.getItem('auth')
   return (
     <>
       <div className='nav'>
@@ -13,11 +14,11 @@ export default function Navbar() {
             <li className='nav-item'>
               <Link to={'/'}>Home</Link>
             </li>
-            <li className="nav-item">
-              <Link to={"/login"}>Login</Link>
+            <li className='nav-item'>
+              <Link to={'/login'}>Login</Link>
             </li>
-            <li className="nav-item">
-              <Link to={"/register"}>Register</Link>
+            <li className='nav-item'>
+              <Link to={'/register'}>Register</Link>
             </li>
           </ul>
         </div>
