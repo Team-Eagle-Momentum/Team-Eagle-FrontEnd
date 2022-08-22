@@ -1,6 +1,6 @@
 import './App.css'
 import React, { useState, createContext } from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Home from './components/Home'
 import LoginForm from './components/Login/Login'
@@ -8,6 +8,15 @@ import RegisterForm from './components/Register/Register'
 // import {  } from './contexts/Context'
 
 export const AppContext = createContext()
+
+const PrivateRoute = ({ children }) => {
+  const token = localStorage.getItem('auth_token')
+  if (token) {
+    return children
+  } else {
+    return <Navigate to='/' />
+  }
+}
 
 function App() {
   const [resultCalculation, setResultCalculation] = useState({
@@ -23,6 +32,7 @@ function App() {
           <Route path='/login' element={<LoginForm />} />
           <Route path='/register' element={<RegisterForm />} />
           {/* <Route path='/details/:id' element={<RegisterForm />} /> */}
+          <Route path='/details' element={<PrivateRoute> <p>Hello you are logged in</p> </PrivateRoute>} />
         </Routes>
       </AppContext.Provider>
     </>

@@ -19,6 +19,9 @@ export default function Navbar() {
             <li className='nav-item'>
               <Link to={'/register'}>Register</Link>
             </li>
+            <li className='nav-item'>
+              <Link to={'/details'}>Details</Link>
+            </li>
           </ul>
         </div>
       </div>
