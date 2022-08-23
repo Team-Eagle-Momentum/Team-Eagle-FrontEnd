@@ -4,17 +4,19 @@ import Navbar from './components/Navbar'
 import Home from './components/Home'
 import LoginForm from './components/Login/Login'
 import RegisterForm from './components/Register'
-import { extendTheme, theme, ChakraProvider } from '@chakra-ui/react'
+import { extendTheme, ChakraProvider } from '@chakra-ui/react'
 
-// const colors = {
-//   brand: {
-//     900: '#8BF5E5',
-//     800: '#153e75',
-//     700: '#2a69ac',
-//   },
-// }
+const colors = {
+  brand: {
+    lightBlue: '#C1F1F1',
+    aqua: '#99F0E0',
+    purple: '#CED3F5',
+    orange: '#F0B199',
+    yellow: '#ECF3B1'
+  },
+}
 
-// const theme = extendTheme({ colors })
+const theme = extendTheme({ colors })
 
 function App() {
   return (

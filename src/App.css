@@ -1,19 +1,16 @@
 .App {
   text-align: center;
+  font-family: 'Source Code Pro';
 }
 
 /* Nav Bar */
 .nav {
-  /* background-color: var(--off-white); */
-  position: static;
-  /* top: 0px; */
-  width: 100%;
+  font-family: 'Source Code Pro';
+  font-weight: 700;
   height: 60px;
-  /* z-index: 500; */
-  margin-bottom: 20px;
 }
 
-.nav .nav-content {
+/* .nav .nav-content {
   max-width: 1000px;
   padding: 0rem 3rem;
   margin: 0 auto;
@@ -36,7 +33,7 @@
   text-decoration: underline;
   cursor: pointer;
   font-weight: bold;
-}
+} */
 
 /* .nav-item:visited {
   text-decoration: none;

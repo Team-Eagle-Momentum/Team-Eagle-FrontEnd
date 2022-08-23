@@ -1,28 +1,36 @@
 import { Link } from 'react-router-dom'
-import { Heading } from '@chakra-ui/react'
+import { Box, Flex, IconButton } from '@chakra-ui/react'
+import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons'
 
 export default function Navbar() {
   const token = localStorage.getItem('auth')
+
   return (
     <>
-      <div className='nav'>
-        <div className='nav-content'>
-          <div>
-            <h1>Commutilator</h1>
-          </div>
-          <ul className='nav-items'>
-            <li className='nav-item'>
-              <Link to={'/'}>Home</Link>
-            </li>
-            <li className='nav-item'>
+      <Flex bg='brand.aqua' className="nav">
+
+        <Box bg='brand.purple'>
+          <h1><Link to={'/'}>Commutilator</Link></h1>
+        </Box>
+
+        <Box>
+          <button
+            className="navigation__toggle--open"
+            aria-haspopup="true"
+            aria-expanded="false"
+            color='black'
+            aria-label='Menu'
+          >
+            <HamburgerIcon />
+          </button>
+            <Box class>
               <Link to={'/login'}>Login</Link>
-            </li>
-            <li className='nav-item'>
               <Link to={'/register'}>Register</Link>
-            </li>
-          </ul>
-        </div>
-      </div>
+            </Box>
+        </Box>
+
+
+      </Flex>
     </>
   )
 }
