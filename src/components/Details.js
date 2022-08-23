@@ -1,25 +1,25 @@
-import { BASE_URL } from '../utils/constants'
-import axios from 'axios'
-import React from 'react'
-import { useParams } from 'react-router-dom'
+import { BASE_URL } from "../utils/constants";
+import axios from "axios";
+import React from "react";
+import { useParams } from "react-router-dom";
 
 export default function Details() {
   const [calcData, setCalcData] = React.useState({
     result: {
-      weekly: '',
-      daily: '',
-      annual: '',
-      monthly: '',
+      weekly: "",
+      daily: "",
+      annual: "",
+      monthly: "",
     },
     commute: {
-      avg_gas_commute: '',
-      end_avg_gas: '',
-      start_avg_gas: '',
+      avg_gas_commute: "",
+      end_avg_gas: "",
+      start_avg_gas: "",
     },
-  })
+  });
 
-  const { id } = useParams()
-  const token = localStorage.getItem('token')
+  const { id } = useParams();
+  const token = localStorage.getItem("token");
 
   React.useEffect(() => {
     // ONLY IF USER IS LOGGED IN
@@ -36,20 +36,20 @@ export default function Details() {
           }
         )
         .then((res) => {
-          setCalcData(res.data)
+          setCalcData(res.data);
         })
         .catch((err) => {
-          console.log('ERROR', err)
-        })
+          console.log("ERROR", err);
+        });
     }
-  }, [])
+  }, []);
 
-  console.log('data', calcData)
+  console.log("data", calcData);
 
   return (
     <>
       <div>
-        Details:
+        Result Details:
         <p> Daily: ${calcData.result.daily}</p>
         <p> Weekly: ${calcData.result.weekly}</p>
         <p> Monthly: ${calcData.result.monthly}</p>
@@ -58,13 +58,21 @@ export default function Details() {
       <div>
         Calculation Factors:
         <p>
-          {' '}
+          {" "}
           Avergae Price of gas at starting location:
           {calcData.commute.start_avg_gas}
         </p>
-        <p> Avergae Price of gas at ending location:{}</p>
-        <p> Avergae Price of gas for the commute:{}</p>
+        <p>
+          {" "}
+          Avergae Price of gas at ending location:
+          {calcData.commute.end_avg_gas}
+        </p>
+        <p>
+          {" "}
+          Avergae Price of gas for the commute:
+          {calcData.commute.avg_gas_commute}
+        </p>
       </div>
     </>
-  )
+  );
 }
