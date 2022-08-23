@@ -31,6 +31,7 @@ export default function Navbar() {
                 <span
                   onClick={() => {
                     localStorage.clear()
+                    // todo: need to clear useContext state
                     navigate('/')
                   }}
                 >

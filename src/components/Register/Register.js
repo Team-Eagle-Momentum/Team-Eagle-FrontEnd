@@ -1,27 +1,25 @@
 import './Register.css'
 import { useState } from 'react'
 import axios from 'axios'
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'
 
 export const RegisterForm = () => {
   const [email, setEmail] = useState('')
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  // const navigateTo = useNavigate()
+  const navigateTo = useNavigate()
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    // console.log(email)
-    // console.log(username)
-    // console.log(password)
-    axios.post('https://commutilator-api.herokuapp.com/api/auth/users/', {
-      email: email,
-      username: username,
-      password: password,
-    })
-    // .then(() => {
-    //     navigateTo('/login')
-    // })
+    axios
+      .post('https://commutilator-api.herokuapp.com/api/auth/users/', {
+        email: email,
+        username: username,
+        password: password,
+      })
+      .then(() => {
+        navigateTo('/login')
+      })
   }
 
   return (

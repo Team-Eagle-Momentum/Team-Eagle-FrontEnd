@@ -18,7 +18,7 @@ const PrivateRoute = ({ children }) => {
     return children // ---> <Details />
   }
   if (urlParams.values()) {
-    return <Navigate to='/login?login=true' />
+    return <Navigate to='/login?fromDetails=true' />
   }
   return <Navigate to='/' />
 }
