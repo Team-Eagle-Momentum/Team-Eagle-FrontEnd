@@ -1,11 +1,11 @@
 import {
   Input,
-  ChakraProvider as CharkhaProvider,
-  theme,
   Flex,
   Text,
   Center,
-  GridItem,
+  Box,
+  theme,
+  ChakraProvider
 } from '@chakra-ui/react'
 import React, { useState, useEffect, useRef } from 'react'
 import { Autocomplete } from '@react-google-maps/api'
@@ -120,7 +120,7 @@ export default function Home() {
   }
 
   return (
-    <CharkhaProvider theme={theme}>
+    <ChakraProvider theme={theme}>
       <p>
         Welcome to Commutilator! Commutilator helps you calculate your commute
         cost based on local gas averages and your own vehicle
@@ -135,7 +135,7 @@ export default function Home() {
           {currentStep === 3 && (
             <div>
               <div templateColumns='repeat(5, 1fr)' gap={4}>
-                <GridItem colSpan={2}>
+                <Box colSpan={2}>
                   <Map
                     distance={distance}
                     duration={duration}
@@ -143,8 +143,8 @@ export default function Home() {
                     originRef={originRef}
                     destinationRef={destinationRef}
                   />
-                </GridItem>
-                <GridItem colStart={4} colEnd={6}>
+                </Box>
+                <Box colStart={4} colEnd={6}>
                   {resultCalculation.result.weekly > 0 ? (
                     <Center w='300px' h='500px'>
                       <Text>
@@ -159,7 +159,7 @@ export default function Home() {
                       </Text>
                     </Center>
                   )}
-                </GridItem>
+                </Box>
               </div>
             </div>
           )}
@@ -351,6 +351,6 @@ export default function Home() {
           ''
         )}
       </Flex>
-    </CharkhaProvider>
+    </ChakraProvider>
   )
 }

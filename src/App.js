@@ -1,15 +1,25 @@
-import './App.css'
+// import './App.css'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Home from './components/Home'
 import LoginForm from './components/Login/Login'
 import RegisterForm from './components/Register'
-import { ChakraProvider } from '@chakra-ui/react'
+import { extendTheme, theme, ChakraProvider } from '@chakra-ui/react'
+
+// const colors = {
+//   brand: {
+//     900: '#8BF5E5',
+//     800: '#153e75',
+//     700: '#2a69ac',
+//   },
+// }
+
+// const theme = extendTheme({ colors })
 
 function App() {
   return (
     <>
-      <ChakraProvider>
+      <ChakraProvider theme={theme}>
         <Navbar></Navbar>
         <Routes>
           <Route path='/' element={<Home />} />
