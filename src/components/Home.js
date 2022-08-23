@@ -1,11 +1,11 @@
 import {
-  Input,
-  Flex,
-  Text,
-  Center,
+  Button,
   Box,
-  theme,
-  ChakraProvider
+  ChakraProvider,
+  Flex,
+  Center,
+  Text,
+  Input
 } from '@chakra-ui/react'
 import React, { useState, useEffect, useRef } from 'react'
 import { Autocomplete } from '@react-google-maps/api'
@@ -120,58 +120,25 @@ export default function Home() {
   }
 
   return (
-    <ChakraProvider theme={theme}>
-      <p>
+    <ChakraProvider>
+      <Box>
         Welcome to Commutilator! Commutilator helps you calculate your commute
         cost based on local gas averages and your own vehicle
-      </p>
+      </Box>
       <Flex
         position='relative'
         flexDirection='column'
         alignItems='center'
         w='100vw'
       >
-        <p>
-          {currentStep === 3 && (
-            <div>
-              <div templateColumns='repeat(5, 1fr)' gap={4}>
-                <Box colSpan={2}>
-                  <Map
-                    distance={distance}
-                    duration={duration}
-                    directionsResponse={directionsResponse}
-                    originRef={originRef}
-                    destinationRef={destinationRef}
-                  />
-                </Box>
-                <Box colStart={4} colEnd={6}>
-                  {resultCalculation.result.weekly > 0 ? (
-                    <Center w='300px' h='500px'>
-                      <Text>
-                        Weekly Results: ${resultCalculation.result.weekly}
-                      </Text>
-                    </Center>
-                  ) : (
-                    <Center w='300px' h='500px'>
-                      <Text>
-                        Please enter your car information to get the weekly
-                        result.
-                      </Text>
-                    </Center>
-                  )}
-                </Box>
-              </div>
-            </div>
-          )}
-        </p>
         {currentStep === 1 ? (
           <>
             <p>
-              Step {currentStep}/2 - Enter your starting and ending location
+              Step {currentStep}/2 - Enter the starting and ending location of your commute.
             </p>
             <div style={{ paddingBottom: '40px' }}>
               <label htmlFor='starting-location-field'>
-                Starting Location:{' '}
+                Start:{' '}
               </label>
               <Autocomplete>
                 <Input type='text' placeholder='Origin' ref={originRef} />
@@ -235,18 +202,13 @@ export default function Home() {
                   required
                 />
               </div>
-              <div style={{ paddingBottom: '40px' }}>
-                <p>
-                  <b>OR</b>
-                </p>
+              <div>
+                <b>OR</b>
               </div>
-
-              <div style={{ paddingBottom: '20px' }}>
-                <p>
-                  <b>Select Vehicle Information to Auto-Populate MPG Value</b>
-                </p>
+              <div>
+                <b>Select Vehicle Information to Auto-Populate MPG Value</b>
               </div>
-              <div style={{ paddingBottom: '40px' }}>
+              <div>
                 <label htmlFor='year-field'>Year: </label>
                 <select
                   id='year-field'
@@ -263,7 +225,7 @@ export default function Home() {
                   ))}
                 </select>
               </div>
-              <div style={{ paddingBottom: '40px' }}>
+              <div>
                 <label htmlFor='car-make-field'>Car Make: </label>
                 <select
                   id='car-make-field'
@@ -280,7 +242,7 @@ export default function Home() {
                   ))}
                 </select>
               </div>
-              <div style={{ paddingBottom: '40px' }}>
+              <div>
                 <label htmlFor='car-model-field'>Car Model: </label>
                 <select
                   id='car-model-field'
@@ -306,6 +268,28 @@ export default function Home() {
         ) : (
           ''
         )}
+        <p>
+          {currentStep === 3 && (
+            <>
+              <Box>
+                <Map
+                  distance={distance}
+                  duration={duration}
+                  directionsResponse={directionsResponse}
+                  originRef={originRef}
+                  destinationRef={destinationRef}
+                />
+              </Box>
+              <Box>
+                <Center w='300px' h='500px'>
+                  <Text>
+                    Weekly Results: ${resultCalculation.result.weekly}
+                  </Text>
+                </Center>
+              </Box>
+            </>
+          )}
+        </p>
         {currentStep === 3 ? (
           <button
             onClick={() => {
