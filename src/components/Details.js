@@ -15,6 +15,16 @@ export default function Details() {
       monthly: "",
     },
   });
+
+  export default function Details() {
+    const [gasData, setGasData] = React.useState({
+        result: {
+          starting: "",
+          ending: "",
+          commute: "",
+        },
+    });
+
   const { id } = useParams();
   const token = localStorage.getItem("token");
 
@@ -34,6 +44,7 @@ export default function Details() {
         )
         .then((res) => {
           setCalcData(res.data);
+          setGasData(res.data)
         })
         .catch((err) => {
           console.log("ERROR", err);
@@ -42,12 +53,19 @@ export default function Details() {
   }, []);
 
   return (
-    <div>
+
+<div>
       Details:
       <p> Daily: ${calcData.result.daily}</p>
       <p> Weekly: ${calcData.result.weekly}</p>
       <p> Monthly: ${calcData.result.monthly}</p>
       <p> Annualy: ${calcData.result.annual}</p>
     </div>
+    <div>
+Calculation Factors:
+<p> Avergae Price of gas at starting location:{}</p>
+<p> Avergae Price of gas at ending location:{}</p>
+<p> Avergae Price of gas for the commute:{}</p>
+</div>
   );
 }
