@@ -1,40 +1,33 @@
 import './App.css'
-import React, { useState, createContext } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Home from './components/Home'
 import LoginForm from './components/Login/Login'
-import RegisterForm from './components/Register/Register'
-// import {  } from './contexts/Context'
+import RegisterForm from './components/Register'
+import { extendTheme, theme, ChakraProvider } from '@chakra-ui/react'
 
-export const AppContext = createContext()
+// const colors = {
+//   brand: {
+//     900: '#8BF5E5',
+//     800: '#153e75',
+//     700: '#2a69ac',
+//   },
+// }
 
-const PrivateRoute = ({ children }) => {
-  const token = localStorage.getItem('auth_token')
-  if (token) {
-    return children
-  } else {
-    return <Navigate to='/' />
-  }
-}
+// const theme = extendTheme({ colors })
 
 function App() {
-  const [resultCalculation, setResultCalculation] = useState({
-    result: { weekly: '' },
-  })
-
   return (
     <>
-      <AppContext.Provider value={{ resultCalculation, setResultCalculation }}>
+      <ChakraProvider theme={theme}>
         <Navbar></Navbar>
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/login' element={<LoginForm />} />
           <Route path='/register' element={<RegisterForm />} />
           {/* <Route path='/details/:id' element={<RegisterForm />} /> */}
-          <Route path='/details' element={<PrivateRoute> <p>Hello you are logged in</p> </PrivateRoute>} />
         </Routes>
-      </AppContext.Provider>
+      </ChakraProvider>
     </>
   )
 }

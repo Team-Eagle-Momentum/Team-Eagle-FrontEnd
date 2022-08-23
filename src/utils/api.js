@@ -35,7 +35,9 @@ export const createCommute = async (
   cityEnd,
   workDay,
   distanceValue,
-  avgGasLocation
+  avgGasLocation,
+  startGas,
+  endGas
 ) => {
   const response = await axios.post(`${BASE_URL}/commute/`, {
     start_location: cityStart,
@@ -43,6 +45,8 @@ export const createCommute = async (
     days_per_week_commuting: workDay,
     distance: parseFloat(distanceValue),
     avg_gas_commute: avgGasLocation,
+    start_avg_gas: startGas,
+    end_avg_gas: endGas,
   })
   return response
 }
