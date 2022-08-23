@@ -1,6 +1,3 @@
-import { useState } from 'react'
-import { Navigate, useNavigate } from 'react-router-dom'
-import resultCalculation from './Home'
 import { BASE_URL } from '../utils/constants'
 import axios from 'axios'
 import React from 'react'
@@ -13,6 +10,11 @@ export default function Details() {
       daily: '',
       annual: '',
       monthly: '',
+    },
+    commute: {
+      avg_gas_commute: '',
+      end_avg_gas: '',
+      start_avg_gas: '',
     },
   })
 
@@ -42,6 +44,8 @@ export default function Details() {
     }
   }, [])
 
+  console.log('data', calcData)
+
   return (
     <>
       <div>
@@ -53,7 +57,11 @@ export default function Details() {
       </div>
       <div>
         Calculation Factors:
-        <p> Avergae Price of gas at starting location:{}</p>
+        <p>
+          {' '}
+          Avergae Price of gas at starting location:
+          {calcData.commute.start_avg_gas}
+        </p>
         <p> Avergae Price of gas at ending location:{}</p>
         <p> Avergae Price of gas for the commute:{}</p>
       </div>
