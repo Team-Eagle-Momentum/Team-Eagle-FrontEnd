@@ -2,6 +2,17 @@ import { BASE_URL } from "../utils/constants";
 import axios from "axios";
 import React from "react";
 import { useParams } from "react-router-dom";
+import {
+  Box,
+  ChakraProvider,
+  Flex,
+  Center,
+  Text,
+  Input,
+  Grid,
+  GridItem,
+  Spacer,
+} from "@chakra-ui/react";
 
 export default function Details() {
   const [calcData, setCalcData] = React.useState({
@@ -48,31 +59,45 @@ export default function Details() {
 
   return (
     <>
-      <div>
-        Result Details:
-        <p> Daily: ${calcData.result.daily}</p>
-        <p> Weekly: ${calcData.result.weekly}</p>
-        <p> Monthly: ${calcData.result.monthly}</p>
-        <p> Annualy: ${calcData.result.annual}</p>
-      </div>
-      <div>
-        Calculation Factors:
-        <p>
-          {" "}
-          Avergae Price of gas at starting location:
-          {calcData.commute.start_avg_gas}
-        </p>
-        <p>
-          {" "}
-          Avergae Price of gas at ending location:
-          {calcData.commute.end_avg_gas}
-        </p>
-        <p>
-          {" "}
-          Avergae Price of gas for the commute:
-          {calcData.commute.avg_gas_commute}
-        </p>
-      </div>
+      <Flex
+        space-evenly
+        fontSize={"30px"}
+        alignItems={"center"}
+        justifyContent="space-between"
+      >
+        <Spacer />
+        <Box p="100" bg="blue">
+          <div>
+            Result Details:
+            <p> Daily: ${calcData.result.daily}</p>
+            <p> Weekly: ${calcData.result.weekly}</p>
+            <p> Monthly: ${calcData.result.monthly}</p>
+            <p> Annualy: ${calcData.result.annual}</p>
+          </div>
+        </Box>
+        <Spacer />
+        <Box p="100" bg="blue">
+          <div>
+            Calculation Factors:
+            <p>
+              {" "}
+              Average Price of gas at starting location:$
+              {calcData.commute.start_avg_gas}
+            </p>
+            <p>
+              {" "}
+              Average Price of gas at ending location:$
+              {calcData.commute.end_avg_gas}
+            </p>
+            <p>
+              {" "}
+              Average Price of gas for the commute:$
+              {calcData.commute.avg_gas_commute}
+            </p>
+          </div>
+        </Box>
+        <Spacer />
+      </Flex>
     </>
   );
 }
