@@ -1,22 +1,22 @@
-import { useState } from 'react'
-import { Navigate, useNavigate } from 'react-router-dom'
-import resultCalculation from './Home'
-import { BASE_URL } from '../utils/constants'
-import axios from 'axios'
-import React from 'react'
-import { useParams } from 'react-router-dom'
+import { useState } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
+import resultCalculation from "./Home";
+import { BASE_URL } from "../utils/constants";
+import axios from "axios";
+import React from "react";
+import { useParams } from "react-router-dom";
 
 export default function Details() {
   const [calcData, setCalcData] = React.useState({
     result: {
-      weekly: '',
-      daily: '',
-      annual: '',
-      monthly: '',
+      weekly: "",
+      daily: "",
+      annual: "",
+      monthly: "",
     },
-  })
-  const { id } = useParams()
-  const token = localStorage.getItem('token')
+  });
+  const { id } = useParams();
+  const token = localStorage.getItem("token");
 
   React.useEffect(() => {
     // ONLY IF USER IS LOGGED IN
@@ -33,21 +33,21 @@ export default function Details() {
           }
         )
         .then((res) => {
-          setCalcData(res.data)
+          setCalcData(res.data);
         })
         .catch((err) => {
-          console.log('ERROR', err)
-        })
+          console.log("ERROR", err);
+        });
     }
-  }, [])
+  }, []);
 
   return (
     <div>
-      Details
-      <p>{calcData.result.weekly}</p>
-      {calcData.result.monthly}
-      {calcData.result.daily}
-      {calcData.result.annual}
+      Details:
+      <p> Daily: ${calcData.result.daily}</p>
+      <p> Weekly: ${calcData.result.weekly}</p>
+      <p> Monthly: ${calcData.result.monthly}</p>
+      <p> Annualy: ${calcData.result.annual}</p>
     </div>
-  )
+  );
 }
