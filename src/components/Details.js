@@ -16,7 +16,7 @@ export default function Details() {
     },
   });
 
-  export default function Details() {
+  export default function CommuteData() {
     const [gasData, setGasData] = React.useState({
         result: {
           starting: "",
