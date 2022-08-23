@@ -1,10 +1,14 @@
 import './App.css'
-import { Navigate, Route, Routes } from 'react-router-dom'
+
+import React, { useState, createContext } from 'react'
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Home from './components/Home'
 import LoginForm from './components/Login/Login'
-import RegisterForm from './components/Register'
+import RegisterForm from './components/Register/Register'
+import Details from './components/Details'
 import { extendTheme, theme, ChakraProvider } from '@chakra-ui/react'
+// import {  } from './contexts/Context'
 
 // const colors = {
 //   brand: {
@@ -14,7 +18,22 @@ import { extendTheme, theme, ChakraProvider } from '@chakra-ui/react'
 //   },
 // }
 
+
+const PrivateRoute = ({ children }) => {
+  const urlParams = new URLSearchParams(window.location.search)
+
+  const token = localStorage.getItem('token')
+  if (token) {
+    return children // ---> <Details />
+  }
+  if (urlParams.values()) {
+    return <Navigate to='/login?fromDetails=true' />
+  }
+  return <Navigate to='/' />
+}
+
 // const theme = extendTheme({ colors })
+
 
 function App() {
   return (
@@ -26,14 +45,19 @@ function App() {
           <Route path='/login' element={<LoginForm />} />
           <Route path='/register' element={<RegisterForm />} />
           {/* <Route path='/details/:id' element={<RegisterForm />} /> */}
+          <Route
+            path='/details/:id'
+            element={
+              <PrivateRoute>
+                <Details />
+              </PrivateRoute>
+            }
+          />
+
         </Routes>
       </ChakraProvider>
     </>
   )
 }
-
-// 1, check for auth token in state,
-// 2, if token is valid return route
-// 2, redirect to register form
 
 export default App

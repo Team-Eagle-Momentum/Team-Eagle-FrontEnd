@@ -1,16 +1,34 @@
-import { Link, Navigate } from 'react-router-dom'
+import { useParams, useNavigate, useSearchParams, Link, Navigate } from 'react-router-dom'
 import { useState } from 'react'
-import './Login.css'
 import axios from 'axios'
 
+import './Login.css'
+import { AppContext } from '../../App'
+
+
 export const LoginForm = () => {
+  const { resultCalculation } = useContext(AppContext)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  let [searchParams, setSearchParams] = useSearchParams()
+
+  let navigate = useNavigate()
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    console.log(username)
-    console.log(password)
+    axios
+      .post('https://commutilator-api.herokuapp.com/api/auth/token/login/', {
+        username: username,
+        password: password,
+      })
+      .then(async (res) => {
+        const token = res.data.auth_token
+        localStorage.setItem('token', token)
+        if (searchParams.get('fromDetails') === 'true') {
+          return navigate(`/details/${resultCalculation.id}`)
+        }
+        navigate('/')
+      })
   }
 
   return (

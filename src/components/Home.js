@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react'
 import React, { useState, useEffect, useRef } from 'react'
 import { Autocomplete } from '@react-google-maps/api'
-
+import { Link } from 'react-router-dom'
 import Map from './Map'
 import {
   createCalcData,
@@ -270,8 +270,9 @@ export default function Home() {
         )}
         <p>
           {currentStep === 3 && (
-            <>
-              <Box>
+          <div className='map-container'>
+            <Grid templateColumns='repeat(5, 1fr)' gap={4}>
+              <GridItem colSpan={2}>
                 <Map
                   distance={distance}
                   duration={duration}
@@ -279,15 +280,31 @@ export default function Home() {
                   originRef={originRef}
                   destinationRef={destinationRef}
                 />
-              </Box>
-              <Box>
-                <Center w='300px' h='500px'>
-                  <Text>
-                    Weekly Results: ${resultCalculation.result.weekly}
-                  </Text>
-                </Center>
-              </Box>
-            </>
+              </GridItem>
+
+              {/* result  */}
+              <GridItem colStart={4} colEnd={6}>
+                {resultCalculation.result.weekly > 0 ? (
+                  <Center w='300px' h='500px'>
+                    <Text>Weekly Results: ${resultCalculation.result.weekly}</Text>
+
+                    <Link
+                      style={{ zIndex: 100000 }}
+                      to={`/details/${resultCalculation.id}?fromDetails=true`}
+                    >
+                      View Details
+                    </Link>
+                  </Center>
+                ) : (
+                  <Center w='300px' h='500px'>
+                    <Text>
+                      Please enter your car information to get the weekly result.
+                    </Text>
+                  </Center>
+                )}
+              </GridItem>
+            </Grid>
+          </div>
           )}
         </p>
         {currentStep === 3 ? (
