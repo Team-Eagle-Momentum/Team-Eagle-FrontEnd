@@ -1,10 +1,15 @@
-import { useParams, useNavigate, useSearchParams, Link, Navigate } from 'react-router-dom'
-import { useState } from 'react'
+import {
+  useParams,
+  useNavigate,
+  useSearchParams,
+  Link,
+  Navigate,
+} from 'react-router-dom'
+import { useState, useContext } from 'react'
 import axios from 'axios'
 
 import './Login.css'
 import { AppContext } from '../../App'
-
 
 export const LoginForm = () => {
   const { resultCalculation } = useContext(AppContext)

@@ -1,5 +1,4 @@
 import './App.css'
-
 import React, { useState, createContext } from 'react'
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar'
@@ -8,7 +7,8 @@ import LoginForm from './components/Login/Login'
 import RegisterForm from './components/Register/Register'
 import Details from './components/Details'
 import { extendTheme, theme, ChakraProvider } from '@chakra-ui/react'
-// import {  } from './contexts/Context'
+
+export const AppContext = createContext()
 
 // const colors = {
 //   brand: {
@@ -17,7 +17,6 @@ import { extendTheme, theme, ChakraProvider } from '@chakra-ui/react'
 //     700: '#2a69ac',
 //   },
 // }
-
 
 const PrivateRoute = ({ children }) => {
   const urlParams = new URLSearchParams(window.location.search)
@@ -34,11 +33,14 @@ const PrivateRoute = ({ children }) => {
 
 // const theme = extendTheme({ colors })
 
-
 function App() {
+  const [resultCalculation, setResultCalculation] = useState({
+    result: { weekly: '' },
+  })
+
   return (
-    <>
-      <ChakraProvider theme={theme}>
+    <ChakraProvider theme={theme}>
+      <AppContext.Provider value={{ resultCalculation, setResultCalculation }}>
         <Navbar></Navbar>
         <Routes>
           <Route path='/' element={<Home />} />
@@ -53,10 +55,9 @@ function App() {
               </PrivateRoute>
             }
           />
-
         </Routes>
-      </ChakraProvider>
-    </>
+      </AppContext.Provider>
+    </ChakraProvider>
   )
 }
 
