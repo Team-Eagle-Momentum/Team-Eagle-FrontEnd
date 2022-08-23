@@ -6,6 +6,7 @@ export default function Navbar() {
   const token = localStorage.getItem('token')
   const navigate = useNavigate()
 
+
   return (
     <>
       <div className='nav'>

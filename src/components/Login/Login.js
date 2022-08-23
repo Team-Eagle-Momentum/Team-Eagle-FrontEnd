@@ -1,10 +1,10 @@
-import './Login.css'
-import { Link } from 'react-router-dom'
-import { useState, useContext } from 'react'
+import { useParams, useNavigate, useSearchParams, Link, Navigate } from 'react-router-dom'
+import { useState } from 'react'
 import axios from 'axios'
-import {} from 'react-router-dom'
-import { useParams, useNavigate, useSearchParams } from 'react-router-dom'
+
+import './Login.css'
 import { AppContext } from '../../App'
+
 
 export const LoginForm = () => {
   const { resultCalculation } = useContext(AppContext)
@@ -54,8 +54,6 @@ export const LoginForm = () => {
           </div>
           <div className='login-submit'>
             <input type='submit' value='Log In' />
-          </div>
-          <div className='login-submit'>
             <Link className='login-new-user' to={'/register'}>
               New user? Create an Account
             </Link>
