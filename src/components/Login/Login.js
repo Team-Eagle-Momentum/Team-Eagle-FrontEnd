@@ -2,14 +2,17 @@ import './Login.css'
 import { Link } from 'react-router-dom'
 import { useState, useContext } from 'react'
 import axios from 'axios'
-import { } from 'react-router-dom'
+import {} from 'react-router-dom'
 import { useParams, useNavigate } from 'react-router-dom'
+import { AppContext } from '../../App'
 
 export const LoginForm = () => {
+  const { resultCalculation } = useContext(AppContext)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const { fromDetails } = useParams()
   let navigate = useNavigate()
+  const urlParams = new URLSearchParams(window.location.search)
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -20,12 +23,13 @@ export const LoginForm = () => {
         username: username,
         password: password,
       })
-      .then((res) => {
+      .then(async (res) => {
         const token = res.data.auth_token
-        localStorage.setItem('auth_token', token)
+        localStorage.setItem('token', token)
         console.log('fromDetails query param', fromDetails)
-        if (fromDetails) {
-          navigate('/details')
+
+        if (urlParams.values()) {
+          navigate(`/details/${resultCalculation.id}`)
         } else {
           navigate('/')
         }

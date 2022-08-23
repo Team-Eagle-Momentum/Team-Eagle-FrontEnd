@@ -1,28 +1,53 @@
-import { useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
-import resultCalculation from "./Home";
-import { BASE_URL } from "../utils/constants";
-import axios from "axios";
-import React from "react";
-import { useParams } from "react-router-dom";
+import { useState } from 'react'
+import { Navigate, useNavigate } from 'react-router-dom'
+import resultCalculation from './Home'
+import { BASE_URL } from '../utils/constants'
+import axios from 'axios'
+import React from 'react'
+import { useParams } from 'react-router-dom'
 
 export default function Details() {
-  const [calcData, setCalcData] = React.useState({});
-  const { id } = useParams();
+  const [calcData, setCalcData] = React.useState({
+    result: {
+      weekly: '',
+      daily: '',
+      annual: '',
+      monthly: '',
+    },
+  })
+  const { id } = useParams()
+  const token = localStorage.getItem('token')
 
   React.useEffect(() => {
-    axios.get(`${BASE_URL}/details/${id}`).then((res) => {
-      setCalcData(res.data);
-    });
-  }, []);
+    // ONLY IF USER IS LOGGED IN
+    // update the object to attach the currently logged in user
+    if (token) {
+      axios
+        .put(
+          `${BASE_URL}/detail/${id}`,
+          {},
+          {
+            headers: {
+              Authorization: `Token ${token}`,
+            },
+          }
+        )
+        .then((res) => {
+          setCalcData(res.data)
+        })
+        .catch((err) => {
+          console.log('ERROR', err)
+        })
+    }
+  }, [])
 
   return (
     <div>
-      {calcData.weekly}
-      {calcData.monthly}
-      {calcData.daily}
-      {calcData.annual}
       Details
+      <p>{calcData.result.weekly}</p>
+      {calcData.result.monthly}
+      {calcData.result.daily}
+      {calcData.result.annual}
     </div>
-  );
+  )
 }
