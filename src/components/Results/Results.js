@@ -8,15 +8,19 @@ import {
   Tbody,
   Td,
 } from '@chakra-ui/react'
+import { useNavigate } from 'react-router-dom'
 
 import { getCalculationList } from '../../utils/api'
+import './Results.css'
 
 function Results() {
   const [results, setResults] = React.useState([])
+  const navigate = useNavigate()
 
   React.useEffect(() => {
     const fetchResults = async () => {
       const resultsData = await getCalculationList()
+      console.log('results', resultsData)
       setResults(resultsData)
     }
     fetchResults()
@@ -39,19 +43,33 @@ function Results() {
     return formattedDate
   }
 
+  const navigateToDetails = (id) => {
+    navigate(`/details/${id}`)
+  }
+
   return (
-    <TableContainer>
+    <TableContainer className='table-container'>
       <Table variant='striped' colorScheme={'teal'}>
         <Thead>
           <Tr>
             <Th>Date</Th>
+            <Th>Average Gas Commute</Th>
+            <Th>Vehicle MPG</Th>
+            <Th>Weekly Cost</Th>
           </Tr>
         </Thead>
         <Tbody>
           {results.map((result) => {
             return (
-              <Tr key={result.id}>
+              <Tr
+                onClick={() => navigateToDetails(result.id)}
+                className='results-item'
+                key={result.id}
+              >
                 <Td>{formatDate(result.result.created_at)}</Td>
+                <Td>${result.commute.avg_gas_commute}</Td>
+                <Td>{result.vehicle.mpg} mpg</Td>
+                <Td>${result.result.weekly}</Td>
               </Tr>
             )
           })}

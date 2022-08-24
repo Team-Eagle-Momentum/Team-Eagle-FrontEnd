@@ -29,6 +29,9 @@ export default function Navbar() {
             ) : (
               <>
                 <li className='nav-item'>
+                  <Link to={'/results'}>My Results</Link>
+                </li>
+                <li className='nav-item'>
                   <span
                     onClick={() => {
                       localStorage.clear()
@@ -38,9 +41,6 @@ export default function Navbar() {
                   >
                     Logout
                   </span>
-                </li>
-                <li className='nav-item'>
-                  <Link to={'/results'}>My Results</Link>
                 </li>
               </>
             )}
