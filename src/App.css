@@ -3,22 +3,34 @@
   font-family: 'Source Code Pro';
 }
 
-/* Nav Bar */
-.nav {
+/* Header */
+.title {
   font-family: 'Source Code Pro';
   font-weight: 700;
-  height: 60px;
+  font-size: xx-large;
 }
 
-/* .nav .nav-content {
-  max-width: 1000px;
-  padding: 0rem 3rem;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 100%;
+.tagline {
+  font-family: 'Source Code Pro';
+  font-weight: 500;
+  font-size: medium;
 }
+
+/* Footer */
+.footer {
+  font-family: 'Source Code Pro';
+  font-weight: 200;
+  font-size: small;
+}
+
+/* Navbar */
+.navbar {
+  font-family: 'Source Code Pro';
+  font-weight: 500;
+  font-size: medium;
+}
+
+/* 
 
 .nav-item {
   display: inline;

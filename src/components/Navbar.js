@@ -1,7 +1,9 @@
+import Logo from '.././CommutilatorLogo.png'
 import { Link } from 'react-router-dom'
 import {
   Box,
   Flex,
+  Image,
   IconButton,
   Popover,
   PopoverTrigger,
@@ -20,9 +22,24 @@ export default function Navbar() {
 
   return (
     <>
-      <Box>
-        "Hi"
-      </Box>
+      <Flex bg='brand.aqua'>
+        <Box>
+          <Image
+            m='5px'
+            boxSize='80px'
+            borderRadius='full'
+            src={Logo}
+            alt='CommutilatorLogo' />
+        </Box>
+        <Box
+          flexDirection='column'
+          alignItems='left'
+          w='50vw'
+          m='5px'>
+          <Box className='title'><Link to={'/'}>Commutilator</Link></Box>
+          <Box className='tagline'>A Commute Calculator for Today's Driver</Box>
+        </Box>
+      </Flex>
     </>
   )
 }

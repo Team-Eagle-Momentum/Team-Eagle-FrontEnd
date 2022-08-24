@@ -1,6 +1,6 @@
 import './App.css'
 import { Navigate, Route, Routes } from 'react-router-dom'
-import Header from './components/Header'
+import Navbar from './components/Navbar'
 import Home from './components/Home'
 import LoginForm from './components/Login/Login'
 import RegisterForm from './components/Register'
@@ -23,7 +23,7 @@ function App() {
   return (
     <>
       <ChakraProvider theme={theme}>
-        <Header></Header>
+        <Navbar></Navbar>
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/login' element={<LoginForm />} />

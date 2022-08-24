@@ -6,10 +6,7 @@ export default function Navbar() {
 
     return (
         <>
-            <Flex bg='brand.aqua' className="nav">
-                <Box bg='brand.purple'>
-                    <h1><Link to={'/'}>Commutilator</Link></h1>
-                </Box>
+            <Flex bg='brand.aqua' className='footer'>
             </Flex>
         </>
     )

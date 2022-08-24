@@ -10,7 +10,7 @@ import {
 import React, { useState, useEffect, useRef } from 'react'
 import { Autocomplete } from '@react-google-maps/api'
 
-import Navbar from './components/Navbar'
+import Navbar from './Navbar'
 import Map from './Map'
 import {
   createCalcData,
@@ -138,7 +138,7 @@ export default function Home() {
             <p>
               Step {currentStep}/2 - Enter the starting and ending location of your commute.
             </p>
-            <div style={{ paddingBottom: '40px' }}>
+            <div>
               <label htmlFor='starting-location-field'>
                 Start:{' '}
               </label>
@@ -146,7 +146,7 @@ export default function Home() {
                 <Input type='text' placeholder='Origin' ref={originRef} />
               </Autocomplete>
             </div>
-            <div style={{ paddingBottom: '50px' }}>
+            <div>
               <label htmlFor='ending-location-field'>Ending Location: </label>
               <Autocomplete>
                 <Input
@@ -156,7 +156,7 @@ export default function Home() {
                 />
               </Autocomplete>
             </div>
-            <div style={{ paddingBottom: '50px' }}>
+            <div>
               <label htmlFor='work-days-field'>Days per Week Commuting: </label>
               <select
                 id='work-days-field'
@@ -180,11 +180,11 @@ export default function Home() {
               Step {currentStep}/2 - Enter your vehicle MPG (or select vehicle
               information)
             </p>
-            <div style={{ paddingBottom: '20px' }}>
+            <div>
               <p>
                 <b>Input MPG Value</b>
               </p>
-              <div style={{ paddingBottom: '40px' }}>
+              <div>
                 {carModels.length === 0 ? (
                   <p>No models found, please enter MPG</p>
                 ) : combinedMPGVal === 0.0 ? (
