@@ -39,10 +39,9 @@ export default function Home() {
   const [distance, setDistance] = useState('')
   const [duration, setDuration] = useState('')
   const [directionsResponse, setDirectionsResponse] = useState(null)
-  const [currentStep, setCurrentStep] = useState(1)
   const [commuteId, setCommuteId] = useState(0)
 
-  const { resultCalculation, setResultCalculation } = useContext(AppContext)
+  const { resultCalculation, setResultCalculation, currentStep, setCurrentStep } = useContext(AppContext)
 
   useEffect(() => {
     const getMakesAsync = async () => {

@@ -38,9 +38,11 @@ function App() {
     result: { weekly: '' },
   })
 
+  const [currentStep, setCurrentStep] = useState(1)
+
   return (
     <ChakraProvider theme={theme}>
-      <AppContext.Provider value={{ resultCalculation, setResultCalculation }}>
+      <AppContext.Provider value={{ resultCalculation, setResultCalculation, currentStep, setCurrentStep }}>
         <Navbar></Navbar>
         <Routes>
           <Route path='/' element={<Home />} />

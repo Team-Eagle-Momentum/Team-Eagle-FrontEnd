@@ -7,7 +7,7 @@ export default function Navbar() {
   const token = localStorage.getItem('token')
   const navigate = useNavigate()
 
-  const { setResultCalculation } = useContext(AppContext)
+  const { setResultCalculation, setCurrentStep } = useContext(AppContext)
 
   return (
     <>
@@ -38,6 +38,7 @@ export default function Navbar() {
                     setResultCalculation({
                       result: { weekly: '' },
                     })
+                    setCurrentStep(1)
                     navigate('/')
                   }}
                 >
