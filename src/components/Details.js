@@ -76,7 +76,7 @@ export default function Details() {
           </div>
         </Box>
         <Spacer />
-        <Box p="100" bg="blue">
+        <Box p="120" bg="blue">
           <div>
             Calculation Factors:
             <p>
