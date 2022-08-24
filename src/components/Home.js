@@ -7,6 +7,12 @@ import {
   Input,
   Grid,
   GridItem,
+  Divider,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  NumberIncrementStepper,
+  NumberDecrementStepper,
 } from '@chakra-ui/react'
 import React, { useState, useEffect, useRef, useContext } from 'react'
 import { Autocomplete } from '@react-google-maps/api'
@@ -122,242 +128,253 @@ export default function Home() {
 
   return (
     <ChakraProvider>
-    <Flex
+      <Flex
         className='body'
         direction='column'
-        alignItems='center'
-      >
-      <Box
-        m='3px'>
-        Welcome to Commutilator! Commutilator helps you calculate your commute
-        cost based on local gas averages and your own vehicle
-      </Box>
-      <Box bg='brand.yellow'>
-        {currentStep === 1 ? (
-          <>
-            <p>
-              Step {currentStep}/2 - Enter the starting and ending location of
-              your commute.
-            </p>
-            <div>
-              <label htmlFor='starting-location-field'>
-                Start:{' '}
-              </label>
-              <Autocomplete>
-                <Input type='text' placeholder='Origin' ref={originRef} />
-              </Autocomplete>
-            </div>
-            <div>
-              <label htmlFor='ending-location-field'>Ending Location: </label>
-              <Autocomplete>
-                <Input
-                  type='text'
-                  placeholder='Destination'
-                  ref={destinationRef}
-                />
-              </Autocomplete>
-            </div>
-            <div>
-              <label htmlFor='work-days-field'>Days per Week Commuting: </label>
-              <select
-                id='work-days-field'
-                defaultValue=''
-                onChange={(e) => setWorkDay(e.target.value)}
-              >
-                <option value='' disabled hidden>
-                  Select Days
-                </option>
-                {WORK_DAYS.map((day, index) => (
-                  <option key={index} value={day}>
-                    {day}
+        alignItems='center'>
+        <Box
+          m='10px'>
+          Welcome to Commutilator! Commutilator helps you calculate your
+          commute cost based on the route, your personal vehicle information,
+          and local gas prices.
+        </Box>
+        <Box>
+          {currentStep === 1 ? (
+            <>
+              <Box
+                m='10px'>
+                Step {currentStep} - Enter the starting and ending location of
+                your commute.
+              </Box>
+              <Box>
+                <label htmlFor='starting-location-field'>
+                  Start:{' '}
+                </label>
+                <Autocomplete>
+                  <Input
+                    type='text'
+                    placeholder='Enter a Location'
+                    ref={originRef} />
+                </Autocomplete>
+              </Box>
+              <Box
+                m='5px'>
+                <label htmlFor='ending-location-field'>Ending Location: </label>
+                <Autocomplete>
+                  <Input
+                    type='text'
+                    placeholder='Enter a Location'
+                    ref={destinationRef} />
+                </Autocomplete>
+              </Box>
+              <div>
+                <label htmlFor='work-days-field'>Days per Week Commuting: </label>
+                <NumberInput defaultValue={1} min={1} max={7}>
+                  <NumberInputField />
+                  <NumberInputStepper>
+                    <NumberIncrementStepper />
+                    <NumberDecrementStepper />
+                  </NumberInputStepper>
+                </NumberInput>
+                <select
+                  id='work-days-field'
+                  defaultValue=''
+                  onChange={(e) => setWorkDay(e.target.value)}
+                >
+                  <option value='' disabled hidden>
+                    Select Days
                   </option>
-                ))}
-              </select>
-            </div>
-          </>
-        ) : currentStep === 2 ? (
-          <>
-            <p>
-              Step {currentStep}/2 - Enter your vehicle MPG (or select vehicle
-              information)
-            </p>
-            <div>
+                  {WORK_DAYS.map((day, index) => (
+                    <option key={index} value={day}>
+                      {day}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </>
+          ) : currentStep === 2 ? (
+            <>
               <p>
-                <b>Input MPG Value</b>
+                Step {currentStep} - Enter your vehicle MPG (or select vehicle
+                information)
               </p>
               <div>
-                {carModels.length === 0 ? (
-                  <p>No models found, please enter MPG</p>
-                ) : combinedMPGVal === 0.0 ? (
-                  <p>No MPG found, please enter MPG</p>
-                ) : (
-                  ''
-                )}
-                {combinedMPGVal === 0.0 && (
-                  <p>No MPG found, please enter MPG</p>
-                )}
-                <label htmlFor='mpg-input-field'>Combined MPG: </label>
-                <input
-                  id='mpg-input-field'
-                  type='text'
-                  value={combinedMPGVal}
-                  onChange={(e) => setCombinedMPGVal(e.target.value)}
-                  required
-                />
-              </div>
-              <div>
-                <b>OR</b>
-              </div>
-              <div>
-                <b>Select Vehicle Information to Auto-Populate MPG Value</b>
-              </div>
-              <div>
-                <label htmlFor='year-field'>Year: </label>
-                <select
-                  id='year-field'
-                  defaultValue=''
-                  onChange={(e) => setSelectYear(e.target.value)}
-                >
-                  <option value='' disabled hidden>
-                    Select Year
-                  </option>
-                  {YEARS.map((year, index) => (
-                    <option key={index} value={year}>
-                      {year}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <label htmlFor='car-make-field'>Car Make: </label>
-                <select
-                  id='car-make-field'
-                  defaultValue=''
-                  onChange={(e) => setCarMakeID(e.target.value)}
-                >
-                  <option value='' disabled hidden>
-                    Select Car Make
-                  </option>
-                  {carMakes.map((carMake, index) => (
-                    <option key={index} value={carMake.Id}>
-                      {carMake.Name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <label htmlFor='car-model-field'>Car Model: </label>
-                <select
-                  id='car-model-field'
-                  defaultValue=''
-                  onChange={(e) => setCarTrimID(e.target.value)}
-                >
-                  <option value='' disabled hidden>
-                    Select Car Model
-                  </option>
-                  {carModels.length > 0 ? (
-                    carModels.map((carModel, index) => (
-                      <option key={index} value={carModel.TrimId}>
-                        {carModel.ModelName} {carModel.TrimName}
-                      </option>
-                    ))
+                <p>
+                  <b>Input MPG Value</b>
+                </p>
+                <div>
+                  {carModels.length === 0 ? (
+                    <p>No models found, please enter MPG</p>
+                  ) : combinedMPGVal === 0.0 ? (
+                    <p>No MPG found, please enter MPG</p>
                   ) : (
-                    <option>No models found</option>
+                    ''
                   )}
-                </select>
-              </div>
-            </div>
-          </>
-        ) : (
-          ''
-        )}
-        <p>
-          {currentStep === 3 && (
-            <div className='map-container'>
-              <Grid templateColumns='repeat(5, 1fr)' gap={4}>
-                <GridItem colSpan={2}>
-                  <Map
-                    distance={distance}
-                    duration={duration}
-                    directionsResponse={directionsResponse}
-                    originRef={originRef}
-                    destinationRef={destinationRef}
+                  {combinedMPGVal === 0.0 && (
+                    <p>No MPG found, please enter MPG</p>
+                  )}
+                  <label htmlFor='mpg-input-field'>MPG: </label>
+                  <input
+                    id='mpg-input-field'
+                    type='text'
+                    value={combinedMPGVal}
+                    onChange={(e) => setCombinedMPGVal(e.target.value)}
+                    required
                   />
-                </GridItem>
-
-                {/* result  */}
-                <GridItem colStart={4} colEnd={6}>
-                  {resultCalculation.result.weekly > 0 ? (
-                    <Center w='300px' h='500px'>
-                      <Text>
-                        Weekly Results: ${resultCalculation.result.weekly}
-                      </Text>
-
-                      <Link
-                        style={{ zIndex: 100000 }}
-                        to={`/details/${resultCalculation.id}?fromDetails=true`}
-                      >
-                        View Details
-                      </Link>
-                    </Center>
-                  ) : (
-                    <Center w='300px' h='500px'>
-                      <Text>
-                        Please enter your car information to get the weekly
-                        result.
-                      </Text>
-                    </Center>
-                  )}
-                </GridItem>
-              </Grid>
-            </div>
+                </div>
+                <div>
+                  <b>OR</b>
+                </div>
+                <div>
+                  <b>Select Vehicle Information to Auto-Populate MPG Value</b>
+                </div>
+                <div>
+                  <label htmlFor='year-field'>Year: </label>
+                  <select
+                    id='year-field'
+                    defaultValue=''
+                    onChange={(e) => setSelectYear(e.target.value)}
+                  >
+                    <option value='' disabled hidden>
+                      Select Year
+                    </option>
+                    {YEARS.map((year, index) => (
+                      <option key={index} value={year}>
+                        {year}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label htmlFor='car-make-field'>Car Make: </label>
+                  <select
+                    id='car-make-field'
+                    defaultValue=''
+                    onChange={(e) => setCarMakeID(e.target.value)}
+                  >
+                    <option value='' disabled hidden>
+                      Select Car Make
+                    </option>
+                    {carMakes.map((carMake, index) => (
+                      <option key={index} value={carMake.Id}>
+                        {carMake.Name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label htmlFor='car-model-field'>Car Model: </label>
+                  <select
+                    id='car-model-field'
+                    defaultValue=''
+                    onChange={(e) => setCarTrimID(e.target.value)}
+                  >
+                    <option value='' disabled hidden>
+                      Select Car Model
+                    </option>
+                    {carModels.length > 0 ? (
+                      carModels.map((carModel, index) => (
+                        <option key={index} value={carModel.TrimId}>
+                          {carModel.ModelName} {carModel.TrimName}
+                        </option>
+                      ))
+                    ) : (
+                      <option>No models found</option>
+                    )}
+                  </select>
+                </div>
+              </div>
+            </>
+          ) : (
+            ''
           )}
-        </p>
-        {currentStep === 3 ? (
-          <button
-            onClick={() => {
-              setCommuteId(0)
-              setResultCalculation({
-                result: { weekly: '' },
-              })
-              setCurrentStep(1)
-            }}
-          >
-            New Calculation
-          </button>
-        ) : currentStep === 2 ? (
-          <button
-            onClick={async (e) => {
-              e.preventDefault()
-              let [vehicleId] = await Promise.all([
-                createVehicle(combinedMPGVal),
-              ])
-              let [data] = await Promise.all([
-                createCalcData(commuteId, vehicleId),
-              ])
-              setResultCalculation(data)
-              setCurrentStep(currentStep + 1)
-            }}
-          >
-            Commutilate Route
-          </button>
-        ) : currentStep === 1 ? (
-          <button
-            onClick={async () => {
-              let [resultDistance] = await Promise.all([calculateRoute()])
-              let [commuteId] = await Promise.all([
-                commutePostData(resultDistance),
-              ])
-              setCommuteId(commuteId)
-              setCurrentStep(currentStep + 1)
-            }}
-          >
-            Next
-          </button>
-        ) : (
-          ''
-        )}
-      </Box>
+          <p>
+            {currentStep === 3 && (
+              <div className='map-container'>
+                <Grid templateColumns='repeat(5, 1fr)' gap={4}>
+                  <GridItem colSpan={2}>
+                    <Map
+                      distance={distance}
+                      duration={duration}
+                      directionsResponse={directionsResponse}
+                      originRef={originRef}
+                      destinationRef={destinationRef}
+                    />
+                  </GridItem>
+
+                  {/* result  */}
+                  <GridItem colStart={4} colEnd={6}>
+                    {resultCalculation.result.weekly > 0 ? (
+                      <Center w='300px' h='500px'>
+                        <Text>
+                          Weekly Results: ${resultCalculation.result.weekly}
+                        </Text>
+
+                        <Link
+                          style={{ zIndex: 100000 }}
+                          to={`/details/${resultCalculation.id}?fromDetails=true`}
+                        >
+                          View Details
+                        </Link>
+                      </Center>
+                    ) : (
+                      <Center w='300px' h='500px'>
+                        <Text>
+                          Please enter your car information to get the weekly
+                          result.
+                        </Text>
+                      </Center>
+                    )}
+                  </GridItem>
+                </Grid>
+              </div>
+            )}
+          </p>
+          {currentStep === 3 ? (
+            <button
+              onClick={() => {
+                setCommuteId(0)
+                setResultCalculation({
+                  result: { weekly: '' },
+                })
+                setCurrentStep(1)
+              }}
+            >
+              New Calculation
+            </button>
+          ) : currentStep === 2 ? (
+            <button
+              onClick={async (e) => {
+                e.preventDefault()
+                let [vehicleId] = await Promise.all([
+                  createVehicle(combinedMPGVal),
+                ])
+                let [data] = await Promise.all([
+                  createCalcData(commuteId, vehicleId),
+                ])
+                setResultCalculation(data)
+                setCurrentStep(currentStep + 1)
+              }}
+            >
+              Commutilate Route
+            </button>
+          ) : currentStep === 1 ? (
+            <button
+              onClick={async () => {
+                let [resultDistance] = await Promise.all([calculateRoute()])
+                let [commuteId] = await Promise.all([
+                  commutePostData(resultDistance),
+                ])
+                setCommuteId(commuteId)
+                setCurrentStep(currentStep + 1)
+              }}
+            >
+              Next
+            </button>
+          ) : (
+            ''
+          )}
+        </Box>
       </Flex>
     </ChakraProvider>
   )
