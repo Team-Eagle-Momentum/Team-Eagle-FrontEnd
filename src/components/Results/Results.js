@@ -15,13 +15,14 @@ import './Results.css'
 
 function Results() {
   const [results, setResults] = React.useState([])
+  const [user, setUser] = React.useState('')
   const navigate = useNavigate()
 
   React.useEffect(() => {
     const fetchResults = async () => {
       const resultsData = await getCalculationList()
-      console.log('results', resultsData)
       setResults(resultsData)
+      setUser(resultsData[0].user)
     }
     fetchResults()
   }, [])
@@ -48,34 +49,39 @@ function Results() {
   }
 
   return (
-    <TableContainer className='table-container'>
-      <Table variant='striped' colorScheme={'teal'}>
-        <Thead>
-          <Tr>
-            <Th>Date</Th>
-            <Th>Average Gas Commute</Th>
-            <Th>Vehicle MPG</Th>
-            <Th>Weekly Cost</Th>
-          </Tr>
-        </Thead>
-        <Tbody>
-          {results.map((result) => {
-            return (
-              <Tr
-                onClick={() => navigateToDetails(result.id)}
-                className='results-item'
-                key={result.id}
-              >
-                <Td>{formatDate(result.result.created_at)}</Td>
-                <Td>${result.commute.avg_gas_commute}</Td>
-                <Td>{result.vehicle.mpg} mpg</Td>
-                <Td>${result.result.weekly}</Td>
-              </Tr>
-            )
-          })}
-        </Tbody>
-      </Table>
-    </TableContainer>
+    <div className='table-container'>
+      <h1 className='results-header'>
+        Welcome {user}! <br /> Here are your calculation results:
+      </h1>
+      <TableContainer>
+        <Table variant='striped' colorScheme={'teal'}>
+          <Thead>
+            <Tr>
+              <Th>Date</Th>
+              <Th>Average Gas Commute</Th>
+              <Th>Vehicle MPG</Th>
+              <Th>Weekly Cost</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            {results.map((result) => {
+              return (
+                <Tr
+                  onClick={() => navigateToDetails(result.id)}
+                  className='results-item'
+                  key={result.id}
+                >
+                  <Td>{formatDate(result.result.created_at)}</Td>
+                  <Td>${result.commute.avg_gas_commute}</Td>
+                  <Td>{result.vehicle.mpg} mpg</Td>
+                  <Td>${result.result.weekly}</Td>
+                </Tr>
+              )
+            })}
+          </Tbody>
+        </Table>
+      </TableContainer>
+    </div>
   )
 }
 

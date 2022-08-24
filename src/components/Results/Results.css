@@ -7,3 +7,9 @@
   cursor: pointer;
   background-color: rgb(210, 210, 210) !important;
 }
+
+.results-header {
+  font-size: 1.4rem;
+  margin-bottom: 4rem;
+  /* font-weight: bold; */
+}
