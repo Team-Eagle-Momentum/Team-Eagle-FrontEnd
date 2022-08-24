@@ -6,7 +6,6 @@ export default function Navbar() {
   const token = localStorage.getItem('token')
   const navigate = useNavigate()
 
-
   return (
     <>
       <div className='nav'>
@@ -28,17 +27,22 @@ export default function Navbar() {
                 </li>
               </>
             ) : (
-              <li className='nav-item'>
-                <span
-                  onClick={() => {
-                    localStorage.clear()
-                    // todo: need to clear useContext state
-                    navigate('/')
-                  }}
-                >
-                  Logout
-                </span>
-              </li>
+              <>
+                <li className='nav-item'>
+                  <Link to={'/results'}>My Results</Link>
+                </li>
+                <li className='nav-item'>
+                  <span
+                    onClick={() => {
+                      localStorage.clear()
+                      // todo: need to clear useContext state
+                      navigate('/')
+                    }}
+                  >
+                    Logout
+                  </span>
+                </li>
+              </>
             )}
           </ul>
         </div>
