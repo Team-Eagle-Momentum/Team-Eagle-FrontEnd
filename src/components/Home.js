@@ -127,8 +127,7 @@ export default function Home() {
     )
     return response.data.id
   }
-  console.log('origin ref', originRef.current)
-  console.log('ending ref', destinationRef.current)
+
   return (
     <ChakraProvider className='container-home'>
       <div className='hero-text'>
@@ -149,8 +148,7 @@ export default function Home() {
               completed={progressBar}
             />
             <p className='form-title'>
-              Step {currentStep}/2 - Enter the starting and ending location of
-              your commute.
+              Step 1 - Enter the starting and ending location of your commute.
             </p>
             <div style={{ paddingBottom: '40px' }}>
               <label htmlFor='starting-location-field'>Start: </label>
@@ -195,8 +193,7 @@ export default function Home() {
               completed={progressBar}
             />
             <p className='form-title'>
-              Step {currentStep}/2 - Enter your vehicle MPG (or select vehicle
-              information)
+              Step 2 - Enter your vehicle MPG (or select vehicle information)
             </p>
             <div style={{ paddingBottom: '20px' }}>
               <p>
