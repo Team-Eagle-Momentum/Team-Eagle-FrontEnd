@@ -24,6 +24,7 @@ import {
 import { roundNumber, splitAddress } from '../utils/helpers'
 import { YEARS, WORK_DAYS } from '../utils/constants'
 import { AppContext } from '../App'
+import ProgressBar from './ProgressBar'
 
 export default function Home() {
   const originRef = useRef()
@@ -42,6 +43,12 @@ export default function Home() {
   const [commuteId, setCommuteId] = useState(0)
 
   const { resultCalculation, setResultCalculation } = useContext(AppContext)
+
+  const [progressBar, setProgressBar] = useState(0)
+
+  useEffect(() => {
+    // setInterval(() => setProgressBar(Math.floor(Math.random() * 100) + 1), 2000)
+  }, [])
 
   useEffect(() => {
     const getMakesAsync = async () => {
@@ -80,7 +87,6 @@ export default function Home() {
   }, [selectYear, carTrimID])
 
   async function calculateRoute() {
-    console.log('calculateRoute', originRef)
     if (originRef.current.value === '' || destinationRef.current.value === '') {
       return
     }
@@ -121,11 +127,11 @@ export default function Home() {
   }
 
   return (
-    <ChakraProvider>
-      <Box>
+    <ChakraProvider className='container-home'>
+      <div className='hero-text'>
         Welcome to Commutilator! Commutilator helps you calculate your commute
-        cost based on local gas averages and your own vehicle
-      </Box>
+        cost based on local gas averages, the route, and your vehicle mpg
+      </div>
       <Flex
         position='relative'
         flexDirection='column'
@@ -134,7 +140,12 @@ export default function Home() {
       >
         {currentStep === 1 ? (
           <>
-            <p>
+            <ProgressBar
+              key={'p-bar'}
+              bgcolor={'#6a1b9a'}
+              completed={progressBar}
+            />
+            <p className='form-title'>
               Step {currentStep}/2 - Enter the starting and ending location of
               your commute.
             </p>
@@ -174,7 +185,12 @@ export default function Home() {
           </>
         ) : currentStep === 2 ? (
           <>
-            <p>
+            <ProgressBar
+              key={'p-bar'}
+              bgcolor={'#6a1b9a'}
+              completed={progressBar}
+            />
+            <p className='form-title'>
               Step {currentStep}/2 - Enter your vehicle MPG (or select vehicle
               information)
             </p>
@@ -268,8 +284,14 @@ export default function Home() {
         ) : (
           ''
         )}
-        <p>
-          {currentStep === 3 && (
+
+        {currentStep === 3 && (
+          <>
+            <ProgressBar
+              key={'p-bar'}
+              bgcolor={'#6a1b9a'}
+              completed={progressBar}
+            />
             <div className='map-container'>
               <Grid templateColumns='repeat(5, 1fr)' gap={4}>
                 <GridItem colSpan={2}>
@@ -308,11 +330,13 @@ export default function Home() {
                 </GridItem>
               </Grid>
             </div>
-          )}
-        </p>
+          </>
+        )}
+
         {currentStep === 3 ? (
           <button
             onClick={() => {
+              setProgressBar(0)
               setCommuteId(0)
               setResultCalculation({
                 result: { weekly: '' },
@@ -326,6 +350,7 @@ export default function Home() {
           <button
             onClick={async (e) => {
               e.preventDefault()
+              setProgressBar(100)
               let [vehicleId] = await Promise.all([
                 createVehicle(combinedMPGVal),
               ])
@@ -345,6 +370,7 @@ export default function Home() {
               let [commuteId] = await Promise.all([
                 commutePostData(resultDistance),
               ])
+              setProgressBar(50)
               setCommuteId(commuteId)
               setCurrentStep(currentStep + 1)
             }}
