@@ -122,16 +122,17 @@ export default function Home() {
 
   return (
     <ChakraProvider>
-      <Box>
+    <Flex
+        className='body'
+        direction='column'
+        alignItems='center'
+      >
+      <Box
+        m='3px'>
         Welcome to Commutilator! Commutilator helps you calculate your commute
         cost based on local gas averages and your own vehicle
       </Box>
-      <Flex
-        position='relative'
-        flexDirection='column'
-        alignItems='center'
-        w='100vw'
-      >
+      <Box bg='brand.yellow'>
         {currentStep === 1 ? (
           <>
             <p>
@@ -356,6 +357,7 @@ export default function Home() {
         ) : (
           ''
         )}
+      </Box>
       </Flex>
     </ChakraProvider>
   )

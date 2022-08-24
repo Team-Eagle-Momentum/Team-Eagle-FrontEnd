@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  font-family: 'Source Code Pro';
+  font-family: 'Source Code Pro', 'Palanquin';
 }
 
 /* Text */
@@ -17,8 +17,8 @@
 }
 
 .body {
-  font-family: 'Source Code Pro';
-  font-weight: 200;
+  font-family: 'Palanquin';
+  font-weight: 300;
   font-size: medium;
 }
 
