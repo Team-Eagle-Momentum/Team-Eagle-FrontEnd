@@ -7,6 +7,7 @@ import {
   Input,
   Grid,
   GridItem,
+  Button
 } from '@chakra-ui/react'
 import React, { useState, useEffect, useRef, useContext } from 'react'
 import { Autocomplete } from '@react-google-maps/api'
@@ -119,6 +120,37 @@ export default function Home() {
     )
     return response.data.id
   }
+
+  // Slider 
+  const [slideCount, setSlideCount] = useState(0)
+
+  const preVal = resultCalculation.result
+  const slides = { "Daily": preVal.daily, "Weekly": preVal.weekly, "Monthly": preVal.monthly, "Annually": preVal.annual }
+  const slidesLength = Object.keys(slides).length - 1
+
+  // console.log(slides)
+  // console.log('object key', Object.keys(slides)[0])
+  // console.log('object value', Object.values(slides)[0])
+  // console.log(slideCount)
+
+  const handleNext = () => {
+    if (slideCount < slidesLength) {
+      setSlideCount(slideCount + 1)
+    }
+    // if (slideCount === slidesLength) {
+    //   setSlideCount(0)
+    // }
+  }
+
+  const handleBack = () => {
+    if (slideCount > 0) {
+      setSlideCount(slideCount - 1)
+    }
+    // if (slideCount === 0) {
+    //   setSlideCount(slidesLength)
+    // }
+  }
+
 
   return (
     <ChakraProvider>
@@ -286,9 +318,21 @@ export default function Home() {
                 <GridItem colStart={4} colEnd={6}>
                   {resultCalculation.result.weekly > 0 ? (
                     <Center w='300px' h='500px'>
-                      <Text>
-                        Weekly Results: ${resultCalculation.result.weekly}
-                      </Text>
+                      <div>
+                        <Text>
+                          {/* Weekly Results: ${resultCalculation.result.weekly} */}
+                          {Object.keys(slides)[slideCount]}: ${Object.values(slides)[slideCount]}
+                        </Text>
+                      </div>
+
+                      <div>
+                        <Button onClick={() => handleNext()} disabled={slideCount === slidesLength}>
+                          Next
+                        </Button>
+                        <Button onClick={() => handleBack()} disabled={slideCount === 0}>
+                          Back
+                        </Button>
+                      </div>
 
                       <Link
                         style={{ zIndex: 100000 }}
@@ -296,6 +340,7 @@ export default function Home() {
                       >
                         View Details
                       </Link>
+
                     </Center>
                   ) : (
                     <Center w='300px' h='500px'>
