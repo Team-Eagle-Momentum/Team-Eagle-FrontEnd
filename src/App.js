@@ -7,7 +7,7 @@ import LoginForm from './components/Login/Login'
 import RegisterForm from './components/Register/Register'
 import Details from './components/Details'
 import Footer from './components/Footer'
-import { extendTheme, theme, ChakraProvider } from '@chakra-ui/react'
+import { extendTheme, ChakraProvider } from '@chakra-ui/react'
 
 const colors = {
   brand: {

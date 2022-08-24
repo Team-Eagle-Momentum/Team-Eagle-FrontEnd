@@ -122,7 +122,6 @@ export default function Home() {
 
   return (
     <ChakraProvider>
-      <Navbar></Navbar>
       <Box>
         Welcome to Commutilator! Commutilator helps you calculate your commute
         cost based on local gas averages and your own vehicle

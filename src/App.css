@@ -3,20 +3,25 @@
   font-family: 'Source Code Pro';
 }
 
-/* Header */
+/* Text */
 .title {
   font-family: 'Source Code Pro';
   font-weight: 700;
   font-size: xx-large;
 }
 
-.tagline {
+.subtitle {
   font-family: 'Source Code Pro';
   font-weight: 500;
   font-size: medium;
 }
 
-/* Footer */
+.body {
+  font-family: 'Source Code Pro';
+  font-weight: 200;
+  font-size: medium;
+}
+
 .footer {
   font-family: 'Source Code Pro';
   font-weight: 200;
