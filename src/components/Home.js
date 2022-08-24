@@ -25,6 +25,7 @@ import { roundNumber, splitAddress } from '../utils/helpers'
 import { YEARS, WORK_DAYS } from '../utils/constants'
 import { AppContext } from '../App'
 import ProgressBar from './ProgressBar'
+import useSpinner from 'use-spinner'
 
 export default function Home() {
   const originRef = useRef()
@@ -41,6 +42,7 @@ export default function Home() {
   const [directionsResponse, setDirectionsResponse] = useState(null)
   const [currentStep, setCurrentStep] = useState(1)
   const [commuteId, setCommuteId] = useState(0)
+  const [stepTwoLoading, setStepTwoLoading] = useState(true)
 
   const { resultCalculation, setResultCalculation } = useContext(AppContext)
 
@@ -86,7 +88,7 @@ export default function Home() {
     }
   }, [selectYear, carTrimID])
 
-  async function calculateRoute() {
+  const calculateRoute = async () => {
     if (originRef.current.value === '' || destinationRef.current.value === '') {
       return
     }
@@ -125,7 +127,8 @@ export default function Home() {
     )
     return response.data.id
   }
-
+  console.log('origin ref', originRef.current)
+  console.log('ending ref', destinationRef.current)
   return (
     <ChakraProvider className='container-home'>
       <div className='hero-text'>
@@ -138,7 +141,7 @@ export default function Home() {
         alignItems='center'
         w='100vw'
       >
-        {currentStep === 1 ? (
+        {currentStep === 1 && (
           <>
             <ProgressBar
               key={'p-bar'}
@@ -183,7 +186,8 @@ export default function Home() {
               </select>
             </div>
           </>
-        ) : currentStep === 2 ? (
+        )}
+        {currentStep === 2 && (
           <>
             <ProgressBar
               key={'p-bar'}
@@ -281,10 +285,7 @@ export default function Home() {
               </div>
             </div>
           </>
-        ) : (
-          ''
         )}
-
         {currentStep === 3 && (
           <>
             <ProgressBar
@@ -303,36 +304,27 @@ export default function Home() {
                     destinationRef={destinationRef}
                   />
                 </GridItem>
-
                 {/* result  */}
                 <GridItem colStart={4} colEnd={6}>
-                  {resultCalculation.result.weekly > 0 ? (
-                    <Center w='300px' h='500px'>
-                      <Text>
-                        Weekly Results: ${resultCalculation.result.weekly}
-                      </Text>
+                  <Center w='300px' h='500px'>
+                    <Text>
+                      Weekly Results: ${resultCalculation.result.weekly}
+                    </Text>
 
-                      <Link
-                        style={{ zIndex: 100000 }}
-                        to={`/details/${resultCalculation.id}?fromDetails=true`}
-                      >
-                        View Details
-                      </Link>
-                    </Center>
-                  ) : (
-                    <Center w='300px' h='500px'>
-                      <Text>
-                        Please enter your car information to get the weekly
-                        result.
-                      </Text>
-                    </Center>
-                  )}
+                    <Link
+                      style={{ zIndex: 100000 }}
+                      to={`/details/${resultCalculation.id}?fromDetails=true`}
+                    >
+                      View Details
+                    </Link>
+                  </Center>
                 </GridItem>
               </Grid>
             </div>
           </>
         )}
 
+        {/* buttons  */}
         {currentStep === 3 ? (
           <button
             onClick={() => {
@@ -366,11 +358,11 @@ export default function Home() {
         ) : currentStep === 1 ? (
           <button
             onClick={async () => {
+              setProgressBar(50)
               let [resultDistance] = await Promise.all([calculateRoute()])
               let [commuteId] = await Promise.all([
                 commutePostData(resultDistance),
               ])
-              setProgressBar(50)
               setCommuteId(commuteId)
               setCurrentStep(currentStep + 1)
             }}
