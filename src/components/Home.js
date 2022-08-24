@@ -125,7 +125,7 @@ export default function Home() {
   const [slideCount, setSlideCount] = useState(0)
 
   const preVal = resultCalculation.result
-  const slides = { "Daily": preVal.daily, "Weekly": preVal.weekly, "Monthly": preVal.monthly, "Annually": preVal.annual }
+  const slides = { "Daily": preVal.daily, "Weekly": preVal.weekly, "Monthly": preVal.monthly, "Annual": preVal.annual }
   const slidesLength = Object.keys(slides).length - 1
 
   // console.log(slides)
@@ -321,7 +321,7 @@ export default function Home() {
                       <div>
                         <Text>
                           {/* Weekly Results: ${resultCalculation.result.weekly} */}
-                          {Object.keys(slides)[slideCount]}: ${Object.values(slides)[slideCount]}
+                          {Object.keys(slides)[slideCount]} Cost: ${Object.values(slides)[slideCount]}
                         </Text>
                       </div>
 
