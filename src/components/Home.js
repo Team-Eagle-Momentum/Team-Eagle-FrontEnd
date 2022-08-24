@@ -24,6 +24,8 @@ import {
 import { roundNumber, splitAddress } from '../utils/helpers'
 import { YEARS, WORK_DAYS } from '../utils/constants'
 import { AppContext } from '../App'
+import ProgressBar from './ProgressBar'
+import useSpinner from 'use-spinner'
 
 export default function Home() {
   const originRef = useRef()
@@ -40,8 +42,15 @@ export default function Home() {
   const [directionsResponse, setDirectionsResponse] = useState(null)
   const [currentStep, setCurrentStep] = useState(1)
   const [commuteId, setCommuteId] = useState(0)
+  const [stepTwoLoading, setStepTwoLoading] = useState(true)
 
   const { resultCalculation, setResultCalculation } = useContext(AppContext)
+
+  const [progressBar, setProgressBar] = useState(0)
+
+  useEffect(() => {
+    // setInterval(() => setProgressBar(Math.floor(Math.random() * 100) + 1), 2000)
+  }, [])
 
   useEffect(() => {
     const getMakesAsync = async () => {
@@ -79,8 +88,7 @@ export default function Home() {
     }
   }, [selectYear, carTrimID])
 
-  async function calculateRoute() {
-    console.log('calculateRoute', originRef)
+  const calculateRoute = async () => {
     if (originRef.current.value === '' || destinationRef.current.value === '') {
       return
     }
@@ -121,22 +129,26 @@ export default function Home() {
   }
 
   return (
-    <ChakraProvider>
-      <Box>
+    <ChakraProvider className='container-home'>
+      <div className='hero-text'>
         Welcome to Commutilator! Commutilator helps you calculate your commute
-        cost based on local gas averages and your own vehicle
-      </Box>
+        cost based on local gas averages, the route, and your vehicle mpg
+      </div>
       <Flex
         position='relative'
         flexDirection='column'
         alignItems='center'
         w='100vw'
       >
-        {currentStep === 1 ? (
+        {currentStep === 1 && (
           <>
-            <p>
-              Step {currentStep}/2 - Enter the starting and ending location of
-              your commute.
+            <ProgressBar
+              key={'p-bar'}
+              bgcolor={'#6a1b9a'}
+              completed={progressBar}
+            />
+            <p className='form-title'>
+              Step 1 - Enter the starting and ending location of your commute.
             </p>
             <div style={{ paddingBottom: '40px' }}>
               <label htmlFor='starting-location-field'>Start: </label>
@@ -172,11 +184,16 @@ export default function Home() {
               </select>
             </div>
           </>
-        ) : currentStep === 2 ? (
+        )}
+        {currentStep === 2 && (
           <>
-            <p>
-              Step {currentStep}/2 - Enter your vehicle MPG (or select vehicle
-              information)
+            <ProgressBar
+              key={'p-bar'}
+              bgcolor={'#6a1b9a'}
+              completed={progressBar}
+            />
+            <p className='form-title'>
+              Step 2 - Enter your vehicle MPG (or select vehicle information)
             </p>
             <div style={{ paddingBottom: '20px' }}>
               <p>
@@ -265,11 +282,14 @@ export default function Home() {
               </div>
             </div>
           </>
-        ) : (
-          ''
         )}
-        <p>
-          {currentStep === 3 && (
+        {currentStep === 3 && (
+          <>
+            <ProgressBar
+              key={'p-bar'}
+              bgcolor={'#6a1b9a'}
+              completed={progressBar}
+            />
             <div className='map-container'>
               <Grid templateColumns='repeat(5, 1fr)' gap={4}>
                 <GridItem colSpan={2}>
@@ -281,38 +301,31 @@ export default function Home() {
                     destinationRef={destinationRef}
                   />
                 </GridItem>
-
                 {/* result  */}
                 <GridItem colStart={4} colEnd={6}>
-                  {resultCalculation.result.weekly > 0 ? (
-                    <Center w='300px' h='500px'>
-                      <Text>
-                        Weekly Results: ${resultCalculation.result.weekly}
-                      </Text>
+                  <Center w='300px' h='500px'>
+                    <Text>
+                      Weekly Results: ${resultCalculation.result.weekly}
+                    </Text>
 
-                      <Link
-                        style={{ zIndex: 100000 }}
-                        to={`/details/${resultCalculation.id}?fromDetails=true`}
-                      >
-                        View Details
-                      </Link>
-                    </Center>
-                  ) : (
-                    <Center w='300px' h='500px'>
-                      <Text>
-                        Please enter your car information to get the weekly
-                        result.
-                      </Text>
-                    </Center>
-                  )}
+                    <Link
+                      style={{ zIndex: 100000 }}
+                      to={`/details/${resultCalculation.id}?fromDetails=true`}
+                    >
+                      View Details
+                    </Link>
+                  </Center>
                 </GridItem>
               </Grid>
             </div>
-          )}
-        </p>
+          </>
+        )}
+
+        {/* buttons  */}
         {currentStep === 3 ? (
           <button
             onClick={() => {
+              setProgressBar(0)
               setCommuteId(0)
               setResultCalculation({
                 result: { weekly: '' },
@@ -326,6 +339,7 @@ export default function Home() {
           <button
             onClick={async (e) => {
               e.preventDefault()
+              setProgressBar(100)
               let [vehicleId] = await Promise.all([
                 createVehicle(combinedMPGVal),
               ])
@@ -341,6 +355,7 @@ export default function Home() {
         ) : currentStep === 1 ? (
           <button
             onClick={async () => {
+              setProgressBar(50)
               let [resultDistance] = await Promise.all([calculateRoute()])
               let [commuteId] = await Promise.all([
                 commutePostData(resultDistance),
