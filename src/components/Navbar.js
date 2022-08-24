@@ -1,11 +1,13 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useContext } from 'react'
+import { AppContext } from '../App'
 import { Heading } from '@chakra-ui/react'
-import { useNavigate } from 'react-router-dom'
 
 export default function Navbar() {
   const token = localStorage.getItem('token')
   const navigate = useNavigate()
 
+  const { setResultCalculation } = useContext(AppContext)
 
   return (
     <>
@@ -33,6 +35,9 @@ export default function Navbar() {
                   onClick={() => {
                     localStorage.clear()
                     // todo: need to clear useContext state
+                    setResultCalculation({
+                      result: { weekly: '' },
+                    })
                     navigate('/')
                   }}
                 >
