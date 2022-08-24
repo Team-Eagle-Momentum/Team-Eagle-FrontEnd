@@ -1,16 +1,16 @@
 import {
-  Button,
   Box,
   ChakraProvider,
   Flex,
   Center,
   Text,
-  Input
+  Input,
+  Grid,
+  GridItem,
 } from '@chakra-ui/react'
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useContext } from 'react'
 import { Autocomplete } from '@react-google-maps/api'
-
-import Navbar from './Navbar'
+import { Link } from 'react-router-dom'
 import Map from './Map'
 import {
   createCalcData,
@@ -23,6 +23,7 @@ import {
 } from '../utils/api'
 import { roundNumber, splitAddress } from '../utils/helpers'
 import { YEARS, WORK_DAYS } from '../utils/constants'
+import { AppContext } from '../App'
 
 export default function Home() {
   const originRef = useRef()
@@ -37,11 +38,10 @@ export default function Home() {
   const [distance, setDistance] = useState('')
   const [duration, setDuration] = useState('')
   const [directionsResponse, setDirectionsResponse] = useState(null)
-  const [resultCalculation, setResultCalculation] = useState({
-    result: { weekly: '' },
-  })
   const [currentStep, setCurrentStep] = useState(1)
   const [commuteId, setCommuteId] = useState(0)
+
+  const { resultCalculation, setResultCalculation } = useContext(AppContext)
 
   useEffect(() => {
     const getMakesAsync = async () => {
@@ -136,7 +136,8 @@ export default function Home() {
         {currentStep === 1 ? (
           <>
             <p>
-              Step {currentStep}/2 - Enter the starting and ending location of your commute.
+              Step {currentStep}/2 - Enter the starting and ending location of
+              your commute.
             </p>
             <div>
               <label htmlFor='starting-location-field'>
@@ -272,24 +273,44 @@ export default function Home() {
         )}
         <p>
           {currentStep === 3 && (
-            <>
-              <Box>
-                <Map
-                  distance={distance}
-                  duration={duration}
-                  directionsResponse={directionsResponse}
-                  originRef={originRef}
-                  destinationRef={destinationRef}
-                />
-              </Box>
-              <Box>
-                <Center w='300px' h='500px'>
-                  <Text>
-                    Weekly Results: ${resultCalculation.result.weekly}
-                  </Text>
-                </Center>
-              </Box>
-            </>
+            <div className='map-container'>
+              <Grid templateColumns='repeat(5, 1fr)' gap={4}>
+                <GridItem colSpan={2}>
+                  <Map
+                    distance={distance}
+                    duration={duration}
+                    directionsResponse={directionsResponse}
+                    originRef={originRef}
+                    destinationRef={destinationRef}
+                  />
+                </GridItem>
+
+                {/* result  */}
+                <GridItem colStart={4} colEnd={6}>
+                  {resultCalculation.result.weekly > 0 ? (
+                    <Center w='300px' h='500px'>
+                      <Text>
+                        Weekly Results: ${resultCalculation.result.weekly}
+                      </Text>
+
+                      <Link
+                        style={{ zIndex: 100000 }}
+                        to={`/details/${resultCalculation.id}?fromDetails=true`}
+                      >
+                        View Details
+                      </Link>
+                    </Center>
+                  ) : (
+                    <Center w='300px' h='500px'>
+                      <Text>
+                        Please enter your car information to get the weekly
+                        result.
+                      </Text>
+                    </Center>
+                  )}
+                </GridItem>
+              </Grid>
+            </div>
           )}
         </p>
         {currentStep === 3 ? (
