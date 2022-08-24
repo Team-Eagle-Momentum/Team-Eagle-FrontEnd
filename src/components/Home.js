@@ -25,7 +25,6 @@ import { roundNumber, splitAddress } from '../utils/helpers'
 import { YEARS, WORK_DAYS } from '../utils/constants'
 import { AppContext } from '../App'
 import ProgressBar from './ProgressBar'
-import useSpinner from 'use-spinner'
 
 export default function Home() {
   const originRef = useRef()
@@ -42,15 +41,10 @@ export default function Home() {
   const [directionsResponse, setDirectionsResponse] = useState(null)
   const [currentStep, setCurrentStep] = useState(1)
   const [commuteId, setCommuteId] = useState(0)
-  const [stepTwoLoading, setStepTwoLoading] = useState(true)
 
   const { resultCalculation, setResultCalculation } = useContext(AppContext)
 
   const [progressBar, setProgressBar] = useState(0)
-
-  useEffect(() => {
-    // setInterval(() => setProgressBar(Math.floor(Math.random() * 100) + 1), 2000)
-  }, [])
 
   useEffect(() => {
     const getMakesAsync = async () => {

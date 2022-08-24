@@ -7,6 +7,7 @@ import LoginForm from './components/Login/Login'
 import RegisterForm from './components/Register/Register'
 import Details from './components/Details'
 import { extendTheme, theme, ChakraProvider } from '@chakra-ui/react'
+import Results from './components/Results/Results'
 
 export const AppContext = createContext()
 
@@ -46,12 +47,19 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/login' element={<LoginForm />} />
           <Route path='/register' element={<RegisterForm />} />
-          {/* <Route path='/details/:id' element={<RegisterForm />} /> */}
           <Route
             path='/details/:id'
             element={
               <PrivateRoute>
                 <Details />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path='/results'
+            element={
+              <PrivateRoute>
+                <Results />
               </PrivateRoute>
             }
           />
