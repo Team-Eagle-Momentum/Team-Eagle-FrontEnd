@@ -10,6 +10,7 @@ import {
 import React, { useState, useEffect, useRef } from 'react'
 import { Autocomplete } from '@react-google-maps/api'
 
+import Navbar from './components/Navbar'
 import Map from './Map'
 import {
   createCalcData,
@@ -121,6 +122,7 @@ export default function Home() {
 
   return (
     <ChakraProvider>
+      <Navbar></Navbar>
       <Box>
         Welcome to Commutilator! Commutilator helps you calculate your commute
         cost based on local gas averages and your own vehicle

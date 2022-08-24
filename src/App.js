@@ -1,9 +1,10 @@
 import './App.css'
 import { Navigate, Route, Routes } from 'react-router-dom'
-import Navbar from './components/Navbar'
+import Header from './components/Header'
 import Home from './components/Home'
 import LoginForm from './components/Login/Login'
 import RegisterForm from './components/Register'
+import Footer from './components/Footer'
 import { extendTheme, ChakraProvider } from '@chakra-ui/react'
 
 const colors = {
@@ -22,13 +23,14 @@ function App() {
   return (
     <>
       <ChakraProvider theme={theme}>
-        <Navbar></Navbar>
+        <Header></Header>
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/login' element={<LoginForm />} />
           <Route path='/register' element={<RegisterForm />} />
           {/* <Route path='/details/:id' element={<RegisterForm />} /> */}
         </Routes>
+        <Footer></Footer>
       </ChakraProvider>
     </>
   )
