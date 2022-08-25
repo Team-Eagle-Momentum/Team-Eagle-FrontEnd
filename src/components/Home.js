@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  Center,
   ChakraProvider,
   colorScheme,
   Divider,
@@ -259,7 +258,7 @@ export default function Home() {
                     ))}
                   </select>
                 </Box>
-                <div>
+                <Box>
                   <label htmlFor='car-make-field'>Car Make: </label>
                   <select
                     id='car-make-field'
@@ -275,8 +274,8 @@ export default function Home() {
                       </option>
                     ))}
                   </select>
-                </div>
-                <div>
+                </Box>
+                <Box>
                   <label htmlFor='car-model-field'>Car Model: </label>
                   <select
                     id='car-model-field'
@@ -296,7 +295,7 @@ export default function Home() {
                       <option>No models found</option>
                     )}
                   </select>
-                </div>
+                </Box>
               </Box >
             </>
           )}
@@ -307,7 +306,7 @@ export default function Home() {
                 bgcolor={'#6a1b9a'}
                 completed={progressBar}
               />
-              <Box className='map-container'>
+              <Flex>
                 <Grid templateColumns='repeat(5, 1fr)' gap={4}>
                   <GridItem colSpan={2}>
                     <Map
@@ -318,24 +317,23 @@ export default function Home() {
                       destinationRef={destinationRef}
                     />
                   </GridItem>
-
-                  {/* result  */}
                   <GridItem colStart={4} colEnd={6}>
-                    <Center w='300px' h='500px'>
-                      <Text>
-                        Weekly Results: ${resultCalculation.result.weekly}
-                      </Text>
+                    <Text
+                      className='body'
+                      align='center'>
+                      Weekly Results: ${resultCalculation.result.weekly}
+                    </Text>
 
-                      <Link
-                        style={{ zIndex: 100000 }}
-                        to={`/details/${resultCalculation.id}?fromDetails=true`}
-                      >
-                        View Details
-                      </Link>
-                    </Center>
+                    <Link
+                      className='body'
+                      style={{ zIndex: 100000 }}
+                      to={`/details/${resultCalculation.id}?fromDetails=true`}
+                    >
+                      View Details
+                    </Link>
                   </GridItem>
                 </Grid>
-              </Box>
+              </Flex>
             </>
           )}
 
