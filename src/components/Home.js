@@ -113,14 +113,15 @@ export default function Home() {
       // eslint-disable-next-line no-undef
       travelMode: google.maps.TravelMode.DRIVING,
     })
+    console.log('directions response', JSON.stringify(results))
     const distanceResult = results.routes[0].legs[0].distance.text
     setDirectionsResponse(results)
     setDuration(results.routes[0].legs[0].duration.text)
     setDistance(distanceResult)
-    return distanceResult
+    return { distanceResult, results }
   }
 
-  const commutePostData = async (distanceValue) => {
+  const commutePostData = async (distanceValue, directions) => {
     let cityStart = splitAddress(originRef.current.value)
     let cityEnd = splitAddress(destinationRef.current.value)
     const startAvgGasLocation = await getGasPrice(cityStart)
@@ -129,13 +130,14 @@ export default function Home() {
     const endGas = endAvgGasLocation.data.locationAverage
     const avgGasLocation = roundNumber((startGas + endGas) / 2)
     const response = await createCommute(
-      cityStart,
-      cityEnd,
+      originRef.current.value,
+      destinationRef.current.value,
       workDay,
       distanceValue,
       avgGasLocation,
       startGas,
-      endGas
+      endGas,
+      directions
     )
     return response.data.id
   }
@@ -328,11 +330,7 @@ export default function Home() {
             />
             <div className='map-container'>
               <Map
-                distance={distance}
-                duration={duration}
                 directionsResponse={directionsResponse}
-                originRef={originRef}
-                destinationRef={destinationRef}
               />
               <div className='slider-container'>
                 <ResultSlider />
@@ -346,6 +344,7 @@ export default function Home() {
             </div>
           </>
         )}
+
 
         {/*buttons*/}
         {currentStep === 3 ? (
@@ -391,8 +390,9 @@ export default function Home() {
             onClick={async () => {
               setProgressBar(50)
               let [resultDistance] = await Promise.all([calculateRoute()])
+              const { distanceResult, results } = resultDistance
               let [commuteId] = await Promise.all([
-                commutePostData(resultDistance),
+                commutePostData(distanceResult, JSON.stringify(results)),
               ])
               setCommuteId(commuteId)
               setCurrentStep(currentStep + 1)
