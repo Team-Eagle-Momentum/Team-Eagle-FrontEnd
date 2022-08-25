@@ -1,21 +1,21 @@
 import {
-  Button,
   Box,
-  ChakraProvider,
-  Flex,
+  Button,
   Center,
-  Text,
-  Input,
-  Grid,
-  Stack,
+  ChakraProvider,
   colorScheme,
-  GridItem,
   Divider,
+  Flex,
+  Grid,
+  GridItem,
+  Input,
   NumberInput,
   NumberInputField,
   NumberInputStepper,
   NumberIncrementStepper,
   NumberDecrementStepper,
+  Stack,
+  Text,
 } from '@chakra-ui/react'
 import React, { useState, useEffect, useRef, useContext } from 'react'
 import { Autocomplete } from '@react-google-maps/api'
@@ -33,6 +33,7 @@ import {
 import { roundNumber, splitAddress } from '../utils/helpers'
 import { YEARS, WORK_DAYS } from '../utils/constants'
 import { AppContext } from '../App'
+import ProgressBar from './ProgressBar'
 
 export default function Home() {
   const originRef = useRef()
@@ -51,6 +52,8 @@ export default function Home() {
   const [commuteId, setCommuteId] = useState(0)
 
   const { resultCalculation, setResultCalculation } = useContext(AppContext)
+
+  const [progressBar, setProgressBar] = useState(0)
 
   useEffect(() => {
     const getMakesAsync = async () => {
@@ -88,8 +91,7 @@ export default function Home() {
     }
   }, [selectYear, carTrimID])
 
-  async function calculateRoute() {
-    console.log('calculateRoute', originRef)
+  const calculateRoute = async () => {
     if (originRef.current.value === '' || destinationRef.current.value === '') {
       return
     }
@@ -143,8 +145,12 @@ export default function Home() {
           and local gas prices.
         </Box>
         <Box>
-          {currentStep === 1 ? (
+          {currentStep === 1 && (
             <>
+              <ProgressBar
+                key={'p-bar'}
+                bgcolor={'#6a1b9a'}
+                completed={progressBar} />
               <Box
                 mb='10px'>
                 Step {currentStep} - Enter the starting and ending location of
@@ -171,7 +177,7 @@ export default function Home() {
                       ref={destinationRef} />
                   </Autocomplete>
                 </Box>
-                <div>
+                <Box>
                   <label htmlFor='work-days-field'>Days per Week Commuting: </label>
                   <NumberInput defaultValue={1} min={1} max={7}>
                     <NumberInputField />
@@ -194,20 +200,23 @@ export default function Home() {
                       </option>
                     ))}
                   </select>
-                </div>
+                </Box>
               </Stack>
             </>
-          ) : currentStep === 2 ? (
+          )}
+          {currentStep === 2 && (
             <>
-              <p>
-                Step {currentStep} - Enter your vehicle MPG (or select vehicle
-                information)
-              </p>
-              <div>
-                <p>
-                  <b>Input MPG Value</b>
-                </p>
-                <div>
+              <ProgressBar
+                key={'p-bar'}
+                bgcolor={'#6a1b9a'}
+                completed={progressBar}
+              />
+              <Box className='body'>
+                Step {currentStep} - Enter your vehicle MPG (or select vehicle information)
+              </Box>
+              <Box>
+                <Box>Enter MPG</Box>
+                <Box>
                   {carModels.length === 0 ? (
                     <p>No models found, please enter MPG</p>
                   ) : combinedMPGVal === 0.0 ? (
@@ -218,7 +227,7 @@ export default function Home() {
                   {combinedMPGVal === 0.0 && (
                     <p>No MPG found, please enter MPG</p>
                   )}
-                  <label htmlFor='mpg-input-field'>MPG: </label>
+                  <label htmlFor='mpg-input-field'>Combined MPG: </label>
                   <input
                     id='mpg-input-field'
                     type='text'
@@ -226,14 +235,14 @@ export default function Home() {
                     onChange={(e) => setCombinedMPGVal(e.target.value)}
                     required
                   />
-                </div>
-                <div>
+                </Box>
+                <Box>
                   <b>OR</b>
-                </div>
-                <div>
+                </Box>
+                <Box>
                   <b>Select Vehicle Information to Auto-Populate MPG Value</b>
-                </div>
-                <div>
+                </Box>
+                <Box>
                   <label htmlFor='year-field'>Year: </label>
                   <select
                     id='year-field'
@@ -249,7 +258,7 @@ export default function Home() {
                       </option>
                     ))}
                   </select>
-                </div>
+                </Box>
                 <div>
                   <label htmlFor='car-make-field'>Car Make: </label>
                   <select
@@ -288,14 +297,17 @@ export default function Home() {
                     )}
                   </select>
                 </div>
-              </div>
+              </div >
             </>
-          ) : (
-            ''
           )}
-          <p>
-            {currentStep === 3 && (
-              <div className='map-container'>
+          {currentStep === 3 && (
+            <>
+              <ProgressBar
+                key={'p-bar'}
+                bgcolor={'#6a1b9a'}
+                completed={progressBar}
+              />
+              <Box className='map-container'>
                 <Grid templateColumns='repeat(5, 1fr)' gap={4}>
                   <GridItem colSpan={2}>
                     <Map
@@ -309,35 +321,31 @@ export default function Home() {
 
                   {/* result  */}
                   <GridItem colStart={4} colEnd={6}>
-                    {resultCalculation.result.weekly > 0 ? (
-                      <Center w='300px' h='500px'>
-                        <Text>
-                          Weekly Results: ${resultCalculation.result.weekly}
-                        </Text>
+                    <Center w='300px' h='500px'>
+                      <Text>
+                        Weekly Results: ${resultCalculation.result.weekly}
+                      </Text>
 
-                        <Link
-                          style={{ zIndex: 100000 }}
-                          to={`/details/${resultCalculation.id}?fromDetails=true`}
-                        >
-                          View Details
-                        </Link>
-                      </Center>
-                    ) : (
-                      <Center w='300px' h='500px'>
-                        <Text>
-                          Please enter your car information to get the weekly
-                          result.
-                        </Text>
-                      </Center>
-                    )}
+                      <Link
+                        style={{ zIndex: 100000 }}
+                        to={`/details/${resultCalculation.id}?fromDetails=true`}
+                      >
+                        View Details
+                      </Link>
+                    </Center>
                   </GridItem>
                 </Grid>
-              </div>
-            )}
-          </p>
+              </Box>
+            </>
+          )}
+
+          {/*buttons*/}
           {currentStep === 3 ? (
-            <button
+            <Button
+              className='body'
+              colorScheme='teal'
               onClick={() => {
+                setProgressBar(0)
                 setCommuteId(0)
                 setResultCalculation({
                   result: { weekly: '' },
@@ -346,11 +354,14 @@ export default function Home() {
               }}
             >
               New Calculation
-            </button>
+            </Button>
           ) : currentStep === 2 ? (
-            <button
+            <Button
+              className='body'
+              colorScheme='teal'
               onClick={async (e) => {
                 e.preventDefault()
+                setProgressBar(100)
                 let [vehicleId] = await Promise.all([
                   createVehicle(combinedMPGVal),
                 ])
@@ -362,12 +373,13 @@ export default function Home() {
               }}
             >
               Commutilate Route
-            </button>
+            </Button>
           ) : currentStep === 1 ? (
-            <Button 
+            <Button
               className='body'
               colorScheme='teal'
               onClick={async () => {
+                setProgressBar(50)
                 let [resultDistance] = await Promise.all([calculateRoute()])
                 let [commuteId] = await Promise.all([
                   commutePostData(resultDistance),
@@ -380,9 +392,10 @@ export default function Home() {
             </Button>
           ) : (
             ''
-          )}
-        </Box>
-      </Flex>
-    </ChakraProvider>
+          )
+          }
+        </Box >
+      </Flex >
+    </ChakraProvider >
   )
 }

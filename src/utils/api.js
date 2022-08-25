@@ -65,3 +65,13 @@ export const createCalcData = async (calcCommuteId, calcVehicleId) => {
   })
   return response.data
 }
+
+export const getCalculationList = async () => {
+  const token = localStorage.getItem('token')
+  const response = await axios.get(`${BASE_URL}/detail`, {
+    headers: {
+      Authorization: `Token ${token}`,
+    },
+  })
+  return response.data.results
+}

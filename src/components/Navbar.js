@@ -48,6 +48,11 @@ export default function Navbar() {
               </Box>
             </>
           ) : (
+            <>
+            <Box>
+              <Link to={'/results'}>My Results</Link>
+            </Box>
+            </>
             <Box
               onClick={() => {
                 localStorage.clear()

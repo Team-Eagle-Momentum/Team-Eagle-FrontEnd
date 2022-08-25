@@ -1,12 +1,15 @@
 import './App.css'
 import React, { useState, createContext } from 'react'
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
-import Navbar from './components/Navbar'
-import Home from './components/Home'
-import LoginForm from './components/Login/Login'
-import RegisterForm from './components/Register/Register'
+
 import Details from './components/Details'
 import Footer from './components/Footer'
+import Home from './components/Home'
+import LoginForm from './components/Login/Login'
+import Navbar from './components/Navbar'
+import RegisterForm from './components/Register/Register'
+import Results from './components/Results/Results'
+
 import { extendTheme, ChakraProvider } from '@chakra-ui/react'
 
 const colors = {
@@ -49,12 +52,19 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/login' element={<LoginForm />} />
           <Route path='/register' element={<RegisterForm />} />
-          {/* <Route path='/details/:id' element={<RegisterForm />} /> */}
           <Route
             path='/details/:id'
             element={
               <PrivateRoute>
                 <Details />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path='/results'
+            element={
+              <PrivateRoute>
+                <Results />
               </PrivateRoute>
             }
           />

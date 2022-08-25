@@ -1,0 +1,15 @@
+.table-container {
+  max-width: 1000px !important;
+  margin: 0 auto;
+  margin-top: 4rem;
+}
+.results-item:hover > td {
+  cursor: pointer;
+  background-color: rgb(210, 210, 210) !important;
+}
+
+.results-header {
+  font-size: 1.4rem;
+  margin-bottom: 4rem;
+  /* font-weight: bold; */
+}

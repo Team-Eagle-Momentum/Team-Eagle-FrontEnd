@@ -52,6 +52,33 @@
   font-weight: bold;
 } */
 
+.pg-bar {
+  max-width: 1000px;
+  margin-bottom: 2rem;
+}
+
+.pg-bar-text {
+  color: #6a1b9a;
+}
+
+.container-home {
+  max-width: 1000px;
+}
+
+.hero-text {
+  max-width: 50%;
+  text-align: center;
+  margin: 0 auto;
+  margin-bottom: 4rem;
+  margin-top: 4rem;
+  /* font-size: 1.2rem; */
+}
+
+.form-title {
+  margin-bottom: 4rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
 /* .nav-item:visited {
   text-decoration: none;
   color: black;
@@ -68,7 +95,6 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
-
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
