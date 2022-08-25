@@ -30,6 +30,7 @@ import {
 import { roundNumber, splitAddress } from '../utils/helpers'
 import { YEARS, WORK_DAYS } from '../utils/constants'
 import { AppContext } from '../App'
+import ResultSlider from './ResultSlider'
 
 export default function Home() {
   const originRef = useRef()
@@ -45,8 +46,18 @@ export default function Home() {
   const [duration, setDuration] = useState('')
   const [directionsResponse, setDirectionsResponse] = useState(null)
   const [commuteId, setCommuteId] = useState(0)
+  const dayLabelStyles = {
+    mt: '3',
+    ml: '-1',
+    fontSize: 'sm',
+  }
 
-  const { resultCalculation, setResultCalculation, currentStep, setCurrentStep } = useContext(AppContext)
+  const {
+    resultCalculation,
+    setResultCalculation,
+    currentStep,
+    setCurrentStep,
+  } = useContext(AppContext)
 
   useEffect(() => {
     const getMakesAsync = async () => {
@@ -111,7 +122,6 @@ export default function Home() {
     const endAvgGasLocation = await getGasPrice(cityEnd)
     const startGas = startAvgGasLocation.data.locationAverage
     const endGas = endAvgGasLocation.data.locationAverage
-
     const avgGasLocation = roundNumber((startGas + endGas) / 2)
     const response = await createCommute(
       cityStart,
@@ -124,24 +134,6 @@ export default function Home() {
     )
     return response.data.id
   }
-
-  // Slider 
-  // const [sliderValue, setSliderValue] = useState(0)
-  // console.log(sliderValue)
-
-  // const preVal = resultCalculation.result
-  // const slides = { "Daily": preVal.daily, "Weekly": preVal.weekly, "Monthly": preVal.monthly, "Annual": preVal.annual }
-  // console.log(slides)
-  // console.log(Object.values(slides)[0])
-
-  const dayLabelStyles = {
-    mt: '3',
-    ml: '-1',
-    fontSize: 'sm',
-  }
-
-  // console.log(workDay)  
-
 
   return (
     <ChakraProvider>
@@ -179,23 +171,15 @@ export default function Home() {
             </div>
             <div style={{ paddingBottom: '50px' }}>
               <label htmlFor='work-days-field'>Days per Week Commuting: </label>
-              {/* <select
-                id='work-days-field'
-                defaultValue=''
-                onChange={(e) => setWorkDay(e.target.value)}
-              >
-                <option value='' disabled hidden>
-                  Select Days
-                </option>
-                {WORK_DAYS.map((day, index) => (
-                  <option key={index} value={day}>
-                    {day}
-                  </option>
-                ))}
-              </select> */}
-
               <Box pt={6} pb={6}>
-                <Slider aria-label='slider-ex-6' defaultValue={3} min={1} max={5} step={1} onChange={(val) => setWorkDay(val)}>
+                <Slider
+                  aria-label='slider-ex-6'
+                  defaultValue={3}
+                  min={1}
+                  max={5}
+                  step={1}
+                  onChange={(val) => setWorkDay(val)}
+                >
                   <SliderMark value={1} {...dayLabelStyles}>
                     1
                   </SliderMark>
@@ -211,17 +195,10 @@ export default function Home() {
                   <SliderMark value={5} {...dayLabelStyles}>
                     5
                   </SliderMark>
-                  {/* <SliderMark value={6} {...dayLabelStyles}>
-                    6
-                  </SliderMark>
-                  <SliderMark value={7} {...dayLabelStyles}>
-                    7
-                  </SliderMark> */}
                   <SliderTrack>
                     <SliderFilledTrack />
                   </SliderTrack>
-                  <SliderThumb>
-                  </SliderThumb>
+                  <SliderThumb></SliderThumb>
                 </Slider>
               </Box>
             </div>
@@ -322,51 +299,28 @@ export default function Home() {
         ) : (
           ''
         )}
-        <p>
-          {currentStep === 3 && (
-            <div className='map-container'>
-              <Grid templateColumns='repeat(5, 1fr)' gap={4}>
-                <GridItem colSpan={2}>
-                  <Map
-                    distance={distance}
-                    duration={duration}
-                    directionsResponse={directionsResponse}
-                    originRef={originRef}
-                    destinationRef={destinationRef}
-                  />
-                </GridItem>
+        {currentStep === 3 && (
+          <div className='map-container'>
+            <Map
+              distance={distance}
+              duration={duration}
+              directionsResponse={directionsResponse}
+              originRef={originRef}
+              destinationRef={destinationRef}
+            />
+            <div className='slider-container'>
+              <ResultSlider />
 
-                {/* result  */}
-                <GridItem colStart={4} colEnd={6}>
-                  {resultCalculation.result.weekly > 0 ? (
-                    <Center w='300px' h='400px'>
-                      <div>
-                        <Text>
-                          Weekly Results: ${resultCalculation.result.weekly}
-                        </Text>
-                      </div>
-
-                      <Link
-                        style={{ zIndex: 100000 }}
-                        to={`/details/${resultCalculation.id}?fromDetails=true`}
-                      >
-                        View Details
-                      </Link>
-
-                    </Center>
-                  ) : (
-                    <Center w='300px' h='500px'>
-                      <Text>
-                        Please enter your car information to get the weekly
-                        result.
-                      </Text>
-                    </Center>
-                  )}
-                </GridItem>
-              </Grid>
+              <Link
+                style={{ zIndex: 100000 }}
+                to={`/details/${resultCalculation.id}?fromDetails=true`}
+              >
+                View Details
+              </Link>
             </div>
-          )}
-        </p>
+          </div>
+        )}
+
         {currentStep === 3 ? (
           <button
             onClick={() => {
@@ -374,6 +328,7 @@ export default function Home() {
               setResultCalculation({
                 result: { weekly: '' },
               })
+              setCombinedMPGVal('')
               setCurrentStep(1)
               setWorkDay(3)
             }}

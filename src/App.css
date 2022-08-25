@@ -38,6 +38,37 @@
   font-weight: bold;
 }
 
+.map-container {
+  display: flex;
+  /* background-color: blue; */
+  width: 100%;
+}
+
+.map-container > div:first-child {
+  /* width: 100%; */
+  background-color: red;
+}
+
+.slider-container {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.slider-container > a {
+  margin: 0 auto;
+  margin-top: 4rem;
+}
+
+.chakra-slider__thumb.css-1beztny {
+  background-color: rgb(176, 171, 171);
+}
+
+.chakra-slider__thumb.css-yy5vui {
+  background-color: rgb(176, 171, 171);
+}
+
 /* .nav-item:visited {
   text-decoration: none;
   color: black;
