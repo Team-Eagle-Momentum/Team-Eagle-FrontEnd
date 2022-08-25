@@ -1,41 +1,31 @@
 .App {
   text-align: center;
+  font-family: 'Source Code Pro', 'Palanquin';
 }
 
-/* Nav Bar */
-.nav {
-  /* background-color: var(--off-white); */
-  position: static;
-  /* top: 0px; */
-  width: 100%;
-  height: 60px;
-  /* z-index: 500; */
-  margin-bottom: 20px;
+/* Text */
+.title {
+  font-family: 'Source Code Pro';
+  font-weight: 700;
+  font-size: xx-large;
 }
 
-.nav .nav-content {
-  max-width: 1000px;
-  padding: 0rem 3rem;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 100%;
+.subtitle {
+  font-family: 'Source Code Pro';
+  font-weight: 500;
+  font-size: medium;
 }
 
-.nav-item {
-  display: inline;
-  margin-left: 2rem;
+.body {
+  font-family: 'Palanquin';
+  font-weight: 300;
+  font-size: medium;
 }
 
-.nav-items {
-  color: blue;
-}
-
-.nav-item:hover {
-  text-decoration: underline;
-  cursor: pointer;
-  font-weight: bold;
+.footer {
+  font-family: 'Source Code Pro';
+  font-weight: 200;
+  font-size: small;
 }
 
 .pg-bar {
@@ -44,7 +34,10 @@
 }
 
 .pg-bar-text {
-  color: #6a1b9a;
+  font-family: 'Palanquin';
+  font-weight: 300;
+  font-size: medium;
+  color: #300243;
 }
 
 .container-home {
@@ -65,42 +58,3 @@
   font-size: 1.2rem;
   font-weight: bold;
 }
-/* .nav-item:visited {
-  text-decoration: none;
-  color: black;
-} */
-
-/* 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-} */
