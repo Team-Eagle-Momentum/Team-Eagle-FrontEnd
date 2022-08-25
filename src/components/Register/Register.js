@@ -3,6 +3,17 @@ import { useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
+import {
+  Box,
+  Button,
+  Center,
+  colorScheme,
+  Divider,
+  Flex,
+  Input,
+  Stack,
+} from '@chakra-ui/react'
+
 export const RegisterForm = () => {
   const [email, setEmail] = useState('')
   const [username, setUsername] = useState('')
@@ -24,44 +35,56 @@ export const RegisterForm = () => {
 
   return (
     <>
-      <div className='register-wrap'>
-        <h2>Create an Account</h2>
-        <form onSubmit={handleSubmit}>
-          <div className='register-field'>
-            <label htmlFor='email-field' className='user-label'>
-              email:{' '}
-            </label>
-            <input
-              id='email-field'
-              onChange={(e) => setEmail(e.target.value)}
-              type='text'
-            />
-          </div>
-          <div className='register-field'>
-            <label htmlFor='username-field' className='user-label'>
-              username:{' '}
-            </label>
-            <input
-              id='username-field'
-              onChange={(e) => setUsername(e.target.value)}
-              type='text'
-            />
-          </div>
-          <div className='register-field'>
-            <label htmlFor='password-field' className='user-label'>
-              password:{' '}
-            </label>
-            <input
-              id='password-field'
-              onChange={(e) => setPassword(e.target.value)}
-              type='password'
-            />
-          </div>
-          <div className='register-submit'>
-            <input type='submit' value='Create Account' />
-          </div>
-        </form>
-      </div>
+      <Flex
+        alignItems='center'
+        direction='column'
+        className='body'>
+        <Divider m='25px' variant='unstyled' />
+        <Stack
+          bg='brand.yellow'
+          align='center'
+          w='500px'
+          h='200px'
+          borderRadius='lg'>
+          <Box mt='10px' className='subtitle'>Create an Account</Box>
+          <form onSubmit={handleSubmit}>
+            <Box className='register-field'>
+              <label htmlFor='email-field' className='user-label'>
+                Email:{' '}
+              </label>
+              <input
+                id='email-field'
+                onChange={(e) => setEmail(e.target.value)}
+                type='text'
+              />
+            </Box>
+            <Box className='register-field'>
+              <label htmlFor='username-field' className='user-label'>
+                Username:{' '}
+              </label>
+              <input
+                id='username-field'
+                onChange={(e) => setUsername(e.target.value)}
+                type='text'
+              />
+            </Box>
+            <Box className='register-field'>
+              <label htmlFor='password-field' className='user-label'>
+                Password:{' '}
+              </label>
+              <input
+                id='password-field'
+                onChange={(e) => setPassword(e.target.value)}
+                type='password'
+              />
+            </Box>
+            <Box>
+              <Button variant='outline' colorScheme='black'>Create Account</Button>
+              <input type='submit' value='Create Account' />
+            </Box>
+          </form>
+        </Stack>
+      </Flex>
     </>
   )
 }
