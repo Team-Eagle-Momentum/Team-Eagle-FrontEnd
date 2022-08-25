@@ -58,7 +58,7 @@ export const LoginForm = () => {
           bg='brand.yellow'
           align='center'
           w='500px'
-          h='300px'
+          h='260px'
           borderRadius='lg'>
           <Box mt='10px' className='subtitle'>Login</Box>
           <form onSubmit={handleSubmit}>
@@ -80,7 +80,7 @@ export const LoginForm = () => {
                 type='password'
               />
             </Box>
-            <Button colorScheme='whiteAlpha'>Log In</Button>
+            <Button variant='outline' colorScheme='black'>Log In</Button>
             <input type='submit' value='Log In' />
           </form>
           <Box>
