@@ -132,16 +132,11 @@ export default function Home() {
 
   return (
     <ChakraProvider>
-      <Flex
-        className='body'
-        direction='column'
-        alignItems='center'>
-        <Box
-          mt='10px'
-          mb='10px'>
-          Welcome to Commutilator! Commutilator helps you calculate your
-          commute cost based on the route, your personal vehicle information,
-          and local gas prices.
+      <Flex className='body' direction='column' alignItems='center'>
+        <Box mt='10px' mb='10px'>
+          Welcome to Commutilator! Commutilator helps you calculate your commute
+          cost based on the route, your personal vehicle information, and local
+          gas prices.
         </Box>
         <Box>
           {currentStep === 1 && (
@@ -149,9 +144,9 @@ export default function Home() {
               <ProgressBar
                 key={'p-bar'}
                 bg='brand.purple'
-                completed={progressBar} />
-              <Box
-                mb='10px'>
+                completed={progressBar}
+              />
+              <Box mb='10px'>
                 Step {currentStep} - Enter the starting and ending location of
                 your commute.
               </Box>
@@ -164,20 +159,26 @@ export default function Home() {
                     <Input
                       type='text'
                       placeholder='Enter a Location'
-                      ref={originRef} />
+                      ref={originRef}
+                    />
                   </Autocomplete>
                 </Box>
                 <Box>
-                  <label htmlFor='ending-location-field'>Ending Location: </label>
+                  <label htmlFor='ending-location-field'>
+                    Ending Location:{' '}
+                  </label>
                   <Autocomplete>
                     <Input
                       type='text'
                       placeholder='Enter a Location'
-                      ref={destinationRef} />
+                      ref={destinationRef}
+                    />
                   </Autocomplete>
                 </Box>
                 <Box>
-                  <label htmlFor='work-days-field'>Days per Week Commuting: </label>
+                  <label htmlFor='work-days-field'>
+                    Days per Week Commuting:{' '}
+                  </label>
                   <NumberInput defaultValue={1} min={1} max={7}>
                     <NumberInputField />
                     <NumberInputStepper>
@@ -211,7 +212,8 @@ export default function Home() {
                 completed={progressBar}
               />
               <Box className='body'>
-                Step {currentStep} - Enter your vehicle MPG (or select vehicle information)
+                Step {currentStep} - Enter your vehicle MPG (or select vehicle
+                information)
               </Box>
               <Box>
                 <Box>Enter MPG</Box>
@@ -296,7 +298,7 @@ export default function Home() {
                     )}
                   </select>
                 </Box>
-              </Box >
+              </Box>
             </>
           )}
           {currentStep === 3 && (
@@ -318,9 +320,7 @@ export default function Home() {
                     />
                   </GridItem>
                   <GridItem colStart={4} colEnd={6}>
-                    <Text
-                      className='body'
-                      align='center'>
+                    <Text className='body' align='center'>
                       Weekly Results: ${resultCalculation.result.weekly}
                     </Text>
 
@@ -390,10 +390,9 @@ export default function Home() {
             </Button>
           ) : (
             ''
-          )
-          }
-        </Box >
-      </Flex >
-    </ChakraProvider >
+          )}
+        </Box>
+      </Flex>
+    </ChakraProvider>
   )
 }
