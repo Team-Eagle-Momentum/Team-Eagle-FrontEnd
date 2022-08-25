@@ -7,7 +7,12 @@ import {
   Input,
   Grid,
   GridItem,
-  Button
+  Button,
+  Slider,
+  SliderTrack,
+  SliderFilledTrack,
+  SliderThumb,
+  SliderMark,
 } from '@chakra-ui/react'
 import React, { useState, useEffect, useRef, useContext } from 'react'
 import { Autocomplete } from '@react-google-maps/api'
@@ -32,7 +37,7 @@ export default function Home() {
   const [selectYear, setSelectYear] = useState(0)
   const [carMakes, setCarMakes] = useState([])
   const [carMakeID, setCarMakeID] = useState('1')
-  const [workDay, setWorkDay] = useState(1)
+  const [workDay, setWorkDay] = useState(3)
   const [carModels, setCarModels] = useState([])
   const [carTrimID, setCarTrimID] = useState('')
   const [combinedMPGVal, setCombinedMPGVal] = useState('')
@@ -121,34 +126,21 @@ export default function Home() {
   }
 
   // Slider 
-  const [slideCount, setSlideCount] = useState(0)
+  // const [sliderValue, setSliderValue] = useState(0)
+  // console.log(sliderValue)
 
-  const preVal = resultCalculation.result
-  const slides = { "Daily": preVal.daily, "Weekly": preVal.weekly, "Monthly": preVal.monthly, "Annual": preVal.annual }
-  const slidesLength = Object.keys(slides).length - 1
-
+  // const preVal = resultCalculation.result
+  // const slides = { "Daily": preVal.daily, "Weekly": preVal.weekly, "Monthly": preVal.monthly, "Annual": preVal.annual }
   // console.log(slides)
-  // console.log('object key', Object.keys(slides)[0])
-  // console.log('object value', Object.values(slides)[0])
-  // console.log(slideCount)
+  // console.log(Object.values(slides)[0])
 
-  const handleNext = () => {
-    if (slideCount < slidesLength) {
-      setSlideCount(slideCount + 1)
-    }
-    // if (slideCount === slidesLength) {
-    //   setSlideCount(0)
-    // }
+  const dayLabelStyles = {
+    mt: '3',
+    ml: '-1',
+    fontSize: 'sm',
   }
 
-  const handleBack = () => {
-    if (slideCount > 0) {
-      setSlideCount(slideCount - 1)
-    }
-    // if (slideCount === 0) {
-    //   setSlideCount(slidesLength)
-    // }
-  }
+  // console.log(workDay)  
 
 
   return (
@@ -187,7 +179,7 @@ export default function Home() {
             </div>
             <div style={{ paddingBottom: '50px' }}>
               <label htmlFor='work-days-field'>Days per Week Commuting: </label>
-              <select
+              {/* <select
                 id='work-days-field'
                 defaultValue=''
                 onChange={(e) => setWorkDay(e.target.value)}
@@ -200,7 +192,38 @@ export default function Home() {
                     {day}
                   </option>
                 ))}
-              </select>
+              </select> */}
+
+              <Box pt={6} pb={6}>
+                <Slider aria-label='slider-ex-6' defaultValue={3} min={1} max={5} step={1} onChange={(val) => setWorkDay(val)}>
+                  <SliderMark value={1} {...dayLabelStyles}>
+                    1
+                  </SliderMark>
+                  <SliderMark value={2} {...dayLabelStyles}>
+                    2
+                  </SliderMark>
+                  <SliderMark value={3} {...dayLabelStyles}>
+                    3
+                  </SliderMark>
+                  <SliderMark value={4} {...dayLabelStyles}>
+                    4
+                  </SliderMark>
+                  <SliderMark value={5} {...dayLabelStyles}>
+                    5
+                  </SliderMark>
+                  {/* <SliderMark value={6} {...dayLabelStyles}>
+                    6
+                  </SliderMark>
+                  <SliderMark value={7} {...dayLabelStyles}>
+                    7
+                  </SliderMark> */}
+                  <SliderTrack>
+                    <SliderFilledTrack />
+                  </SliderTrack>
+                  <SliderThumb>
+                  </SliderThumb>
+                </Slider>
+              </Box>
             </div>
           </>
         ) : currentStep === 2 ? (
@@ -316,21 +339,11 @@ export default function Home() {
                 {/* result  */}
                 <GridItem colStart={4} colEnd={6}>
                   {resultCalculation.result.weekly > 0 ? (
-                    <Center w='300px' h='500px'>
+                    <Center w='300px' h='400px'>
                       <div>
                         <Text>
-                          {/* Weekly Results: ${resultCalculation.result.weekly} */}
-                          {Object.keys(slides)[slideCount]} Cost: ${Object.values(slides)[slideCount]}
+                          Weekly Results: ${resultCalculation.result.weekly}
                         </Text>
-                      </div>
-
-                      <div>
-                        <Button onClick={() => handleNext()} disabled={slideCount === slidesLength}>
-                          Next
-                        </Button>
-                        <Button onClick={() => handleBack()} disabled={slideCount === 0}>
-                          Back
-                        </Button>
                       </div>
 
                       <Link
@@ -362,6 +375,7 @@ export default function Home() {
                 result: { weekly: '' },
               })
               setCurrentStep(1)
+              setWorkDay(3)
             }}
           >
             New Calculation

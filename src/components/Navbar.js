@@ -18,6 +18,9 @@ export default function Navbar() {
           </div>
           <ul className='nav-items'>
             <li className='nav-item'>
+              <Link to={'/test'}>Test</Link>
+            </li>
+            <li className='nav-item'>
               <Link to={'/'}>Home</Link>
             </li>
             {!token ? (

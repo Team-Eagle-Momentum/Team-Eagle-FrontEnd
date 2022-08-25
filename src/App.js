@@ -7,6 +7,7 @@ import LoginForm from './components/Login/Login'
 import RegisterForm from './components/Register/Register'
 import Details from './components/Details'
 import { extendTheme, theme, ChakraProvider } from '@chakra-ui/react'
+import TestSlider from './components/TestSlider'
 
 export const AppContext = createContext()
 
@@ -45,6 +46,7 @@ function App() {
       <AppContext.Provider value={{ resultCalculation, setResultCalculation, currentStep, setCurrentStep }}>
         <Navbar></Navbar>
         <Routes>
+          <Route path='/test' element={<TestSlider />} />
           <Route path='/' element={<Home />} />
           <Route path='/login' element={<LoginForm />} />
           <Route path='/register' element={<RegisterForm />} />
