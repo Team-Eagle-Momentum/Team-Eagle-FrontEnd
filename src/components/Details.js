@@ -44,8 +44,6 @@ export default function Details() {
     }
   }, [])
 
-  console.log('data', calcData)
-
   return (
     <>
       <div>
