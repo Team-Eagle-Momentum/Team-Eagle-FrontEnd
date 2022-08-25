@@ -1,4 +1,5 @@
 import {
+  Button,
   Box,
   ChakraProvider,
   Flex,
@@ -6,6 +7,8 @@ import {
   Text,
   Input,
   Grid,
+  Stack,
+  colorScheme,
   GridItem,
   Divider,
   NumberInput,
@@ -133,7 +136,8 @@ export default function Home() {
         direction='column'
         alignItems='center'>
         <Box
-          m='10px'>
+          mt='10px'
+          mb='10px'>
           Welcome to Commutilator! Commutilator helps you calculate your
           commute cost based on the route, your personal vehicle information,
           and local gas prices.
@@ -142,55 +146,56 @@ export default function Home() {
           {currentStep === 1 ? (
             <>
               <Box
-                m='10px'>
+                mb='10px'>
                 Step {currentStep} - Enter the starting and ending location of
                 your commute.
               </Box>
-              <Box>
-                <label htmlFor='starting-location-field'>
-                  Start:{' '}
-                </label>
-                <Autocomplete>
-                  <Input
-                    type='text'
-                    placeholder='Enter a Location'
-                    ref={originRef} />
-                </Autocomplete>
-              </Box>
-              <Box
-                m='5px'>
-                <label htmlFor='ending-location-field'>Ending Location: </label>
-                <Autocomplete>
-                  <Input
-                    type='text'
-                    placeholder='Enter a Location'
-                    ref={destinationRef} />
-                </Autocomplete>
-              </Box>
-              <div>
-                <label htmlFor='work-days-field'>Days per Week Commuting: </label>
-                <NumberInput defaultValue={1} min={1} max={7}>
-                  <NumberInputField />
-                  <NumberInputStepper>
-                    <NumberIncrementStepper />
-                    <NumberDecrementStepper />
-                  </NumberInputStepper>
-                </NumberInput>
-                <select
-                  id='work-days-field'
-                  defaultValue=''
-                  onChange={(e) => setWorkDay(e.target.value)}
-                >
-                  <option value='' disabled hidden>
-                    Select Days
-                  </option>
-                  {WORK_DAYS.map((day, index) => (
-                    <option key={index} value={day}>
-                      {day}
+              <Stack spacing={5}>
+                <Box>
+                  <label htmlFor='starting-location-field'>
+                    Starting Location:{' '}
+                  </label>
+                  <Autocomplete>
+                    <Input
+                      type='text'
+                      placeholder='Enter a Location'
+                      ref={originRef} />
+                  </Autocomplete>
+                </Box>
+                <Box>
+                  <label htmlFor='ending-location-field'>Ending Location: </label>
+                  <Autocomplete>
+                    <Input
+                      type='text'
+                      placeholder='Enter a Location'
+                      ref={destinationRef} />
+                  </Autocomplete>
+                </Box>
+                <div>
+                  <label htmlFor='work-days-field'>Days per Week Commuting: </label>
+                  <NumberInput defaultValue={1} min={1} max={7}>
+                    <NumberInputField />
+                    <NumberInputStepper>
+                      <NumberIncrementStepper />
+                      <NumberDecrementStepper />
+                    </NumberInputStepper>
+                  </NumberInput>
+                  <select
+                    id='work-days-field'
+                    defaultValue=''
+                    onChange={(e) => setWorkDay(e.target.value)}
+                  >
+                    <option value='' disabled hidden>
+                      Select Days
                     </option>
-                  ))}
-                </select>
-              </div>
+                    {WORK_DAYS.map((day, index) => (
+                      <option key={index} value={day}>
+                        {day}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </Stack>
             </>
           ) : currentStep === 2 ? (
             <>
@@ -359,7 +364,9 @@ export default function Home() {
               Commutilate Route
             </button>
           ) : currentStep === 1 ? (
-            <button
+            <Button 
+              className='body'
+              colorScheme='teal'
               onClick={async () => {
                 let [resultDistance] = await Promise.all([calculateRoute()])
                 let [commuteId] = await Promise.all([
@@ -370,7 +377,7 @@ export default function Home() {
               }}
             >
               Next
-            </button>
+            </Button>
           ) : (
             ''
           )}
