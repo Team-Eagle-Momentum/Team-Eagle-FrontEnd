@@ -8,6 +8,17 @@ import {
 import { useState, useContext } from 'react'
 import axios from 'axios'
 
+import {
+  Box,
+  Button,
+  Center,
+  colorScheme,
+  Divider,
+  Flex,
+  Input,
+  Stack,
+} from '@chakra-ui/react'
+
 import './Login.css'
 import { AppContext } from '../../App'
 
@@ -38,33 +49,45 @@ export const LoginForm = () => {
 
   return (
     <>
-      <div className='login-wrap'>
-        <h2>Log In</h2>
-        <form onSubmit={handleSubmit}>
-          <div className='login-field'>
-            <label htmlFor='username-field'>username: </label>
-            <input
-              id='username-field'
-              onChange={(e) => setUsername(e.target.value)}
-              type='text'
-            />
-          </div>
-          <div className='login-field'>
-            <label htmlFor='password-field'>password: </label>
-            <input
-              id='password-field'
-              onChange={(e) => setPassword(e.target.value)}
-              type='password'
-            />
-          </div>
-          <div className='login-submit'>
+      <Flex
+        alignItems='center'
+        direction='column'
+        className='body'>
+        <Divider m='25px' variant='unstyled' />
+        <Stack
+          bg='brand.yellow'
+          align='center'
+          w='500px'
+          h='300px'
+          borderRadius='lg'>
+          <Box mt='10px' className='subtitle'>Login</Box>
+          <form onSubmit={handleSubmit}>
+            <Box className='login-field'>
+              <label htmlFor='username-field'>Username: </label>
+              <Input bg='white'></Input>
+              <input
+                id='username-field'
+                onChange={(e) => setUsername(e.target.value)}
+                type='text'
+              />
+            </Box>
+            <Box className='login-field'>
+              <label htmlFor='password-field'>Password: </label>
+              <Input bg='white'></Input>
+              <input
+                id='password-field'
+                onChange={(e) => setPassword(e.target.value)}
+                type='password'
+              />
+            </Box>
+            <Button colorScheme='whiteAlpha'>Log In</Button>
             <input type='submit' value='Log In' />
-            <Link className='login-new-user' to={'/register'}>
-              New user? Create an Account
-            </Link>
-          </div>
-        </form>
-      </div>
+          </form>
+          <Box>
+            <Link to={'/register'}>New user? Click to create an account</Link>
+          </Box>
+        </Stack>
+      </Flex>
     </>
   )
 }
