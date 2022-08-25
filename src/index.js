@@ -9,14 +9,14 @@ const libraries = ['places']
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <BrowserRouter>
-    <React.StrictMode>
+    {/* <React.StrictMode> */}
       <LoadScript
         libraries={libraries}
         googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}
       >
         <App />
       </LoadScript>
-    </React.StrictMode>
+    {/* </React.StrictMode> */}
   </BrowserRouter>
 )
 
