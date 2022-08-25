@@ -28,7 +28,6 @@
   font-size: small;
 }
 
-
 .map-container {
   display: flex;
   width: 100%;
@@ -57,7 +56,6 @@
 .pg-bar {
   max-width: 1000px;
   margin-bottom: 2rem;
-
 }
 
 .pg-bar-text {
@@ -82,5 +80,44 @@
 .form-title {
   margin-bottom: 4rem;
   font-size: 1.2rem;
+  font-weight: bold;
+}
+
+/* Nav Bar */
+.nav {
+  /* background-color: var(--off-white); */
+  position: static;
+  /* top: 0px; */
+  width: 100%;
+  height: 60px;
+  /* z-index: 500; */
+  margin-bottom: 20px;
+}
+
+.nav .nav-content {
+  max-width: 1000px;
+  padding: 0rem 3rem;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+
+.nav-item {
+  display: inline;
+  margin-left: 2rem;
+}
+
+.nav-items {
+  /* color: blue; */
+  display: flex;
+  align-items: center;
+  margin-right: 2rem;
+}
+
+.nav-item:hover {
+  text-decoration: underline;
+  cursor: pointer;
   font-weight: bold;
 }
