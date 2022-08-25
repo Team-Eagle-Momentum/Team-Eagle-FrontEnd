@@ -30,7 +30,7 @@ import {
   getVehicleSpecs,
 } from '../utils/api'
 import { roundNumber, splitAddress } from '../utils/helpers'
-import { YEARS, WORK_DAYS } from '../utils/constants'
+import { YEARS } from '../utils/constants'
 import { AppContext } from '../App'
 
 import ResultSlider from './ResultSlider'
