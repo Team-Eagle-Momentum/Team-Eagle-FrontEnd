@@ -12,6 +12,7 @@ import {
   Flex,
   Input,
   Stack,
+  Text,
 } from '@chakra-ui/react'
 
 export const RegisterForm = () => {
@@ -43,45 +44,44 @@ export const RegisterForm = () => {
         <Stack
           bg='brand.yellow'
           align='center'
-          w='500px'
-          h='200px'
-          borderRadius='lg'>
-          <Box mt='10px' className='subtitle'>Create an Account</Box>
+          w='400px'
+          h='350px'
+          borderRadius='lg'
+          shadow='base'>
+          <Text mt='15px' className='description' textShadow='0.5px 0.5px #b9b9b9'>Create an Account</Text>
           <form onSubmit={handleSubmit}>
-            <Box className='register-field'>
-              <label htmlFor='email-field' className='user-label'>
-                Email:{' '}
-              </label>
-              <input
-                id='email-field'
-                onChange={(e) => setEmail(e.target.value)}
-                type='text'
-              />
-            </Box>
-            <Box className='register-field'>
-              <label htmlFor='username-field' className='user-label'>
-                Username:{' '}
-              </label>
-              <input
-                id='username-field'
-                onChange={(e) => setUsername(e.target.value)}
-                type='text'
-              />
-            </Box>
-            <Box className='register-field'>
-              <label htmlFor='password-field' className='user-label'>
-                Password:{' '}
-              </label>
-              <input
-                id='password-field'
-                onChange={(e) => setPassword(e.target.value)}
-                type='password'
-              />
-            </Box>
             <Box>
-              <Button variant='outline' colorScheme='black'>Create Account</Button>
-              <input type='submit' value='Create Account' />
+              <Text htmlFor='email-field'>Email:{' '}</Text>
+              <Input
+                id='email-field'
+                type='text'
+                onChange={(e) => setEmail(e.target.value)}
+                shadow='sm'
+                bg='white'>
+              </Input>
             </Box>
+            <Box mt='5px'>
+              <Text htmlFor='username-field'>Username:{' '}</Text>
+              <Input
+                id='username-field'
+                type='text'
+                onChange={(e) => setUsername(e.target.value)}
+                shadow='sm'
+                bg='white'>
+              </Input>
+            </Box>
+            <Box mt='5px'>
+              <Text htmlFor='password-field'>Password:{' '}</Text>
+              <Input
+                id='password-field'
+                type='password'
+                onChange={(e) => setPassword(e.target.value)}
+                shadow='sm'
+                bg='white'>
+              </Input>
+            </Box>
+            <Button className='subtitle' shadow='md' mt='25px' bg='brand.aqua' variant='outline' colorScheme='black'>Create Account</Button>
+            <input type='submit' value='Create Account' />
           </form>
         </Stack>
       </Flex>
