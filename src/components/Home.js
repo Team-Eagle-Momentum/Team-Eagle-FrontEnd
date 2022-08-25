@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   ChakraProvider,
   colorScheme,
   Divider,
@@ -14,8 +13,8 @@ import {
   SliderFilledTrack,
   SliderThumb,
   SliderMark,
- 
- 
+
+
   Input,
   NumberInput,
   NumberInputField,
@@ -194,11 +193,11 @@ export default function Home() {
                     />
                   </Autocomplete>
                 </Box>
-                <div>
+                <Box>
                   <label htmlFor='work-days-field'>
                     Days per Week Commuting:{' '}
                   </label>
-                <Box pt={6} pb={6}>
+                  <Box pt={6} pb={6}>
                     <Slider
                       aria-label='slider-ex-6'
                       defaultValue={3}
@@ -227,7 +226,7 @@ export default function Home() {
                       </SliderTrack>
                       <SliderThumb></SliderThumb>
                     </Slider>
-              </div>
+                  </Box>
                 </Box>
               </Stack>
             </>
@@ -253,7 +252,7 @@ export default function Home() {
                   ) : (
                     ''
                   )}
-                  
+
 
 
                   {combinedMPGVal === 0.0 && (
@@ -339,7 +338,7 @@ export default function Home() {
                 bgcolor={'#6a1b9a'}
                 completed={progressBar}
               />
-             <div className='map-container'>
+              <div className='map-container'>
                 <Map
                   distance={distance}
                   duration={duration}
@@ -357,7 +356,7 @@ export default function Home() {
                     View Details
                   </Link>
                 </div>
-             </div>
+              </div>
             </>
           )}
 
