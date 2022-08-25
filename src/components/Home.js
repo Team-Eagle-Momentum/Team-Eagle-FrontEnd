@@ -7,11 +7,11 @@ import {
   Input,
   Grid,
   GridItem,
-} from "@chakra-ui/react";
-import React, { useState, useEffect, useRef, useContext } from "react";
-import { Autocomplete } from "@react-google-maps/api";
-import { Link } from "react-router-dom";
-import Map from "./Map";
+} from '@chakra-ui/react'
+import React, { useState, useEffect, useRef, useContext } from 'react'
+import { Autocomplete } from '@react-google-maps/api'
+import { Link } from 'react-router-dom'
+import Map from './Map'
 import {
   createCalcData,
   createCommute,
@@ -20,105 +20,106 @@ import {
   getGasPrice,
   getMakes,
   getVehicleSpecs,
-} from "../utils/api";
-import { roundNumber, splitAddress } from "../utils/helpers";
-import { YEARS, WORK_DAYS } from "../utils/constants";
-import { AppContext } from "../App";
+} from '../utils/api'
+import { roundNumber, splitAddress } from '../utils/helpers'
+import { YEARS, WORK_DAYS } from '../utils/constants'
+import { AppContext } from '../App'
 
 export default function Home() {
-  const originRef = useRef();
-  const destinationRef = useRef();
-  const [selectYear, setSelectYear] = useState(0);
-  const [carMakes, setCarMakes] = useState([]);
-  const [carMakeID, setCarMakeID] = useState("1");
-  const [workDay, setWorkDay] = useState(1);
-  const [carModels, setCarModels] = useState([]);
-  const [carTrimID, setCarTrimID] = useState("");
-  const [combinedMPGVal, setCombinedMPGVal] = useState("");
-  const [distance, setDistance] = useState("");
-  const [duration, setDuration] = useState("");
-  const [directionsResponse, setDirectionsResponse] = useState(null);
-  const [currentStep, setCurrentStep] = useState(1);
-  const [commuteId, setCommuteId] = useState(0);
+  const originRef = useRef()
+  const destinationRef = useRef()
+  const [selectYear, setSelectYear] = useState(0)
+  const [carMakes, setCarMakes] = useState([])
+  const [carMakeID, setCarMakeID] = useState('1')
+  const [workDay, setWorkDay] = useState(1)
+  const [carModels, setCarModels] = useState([])
+  const [carTrimID, setCarTrimID] = useState('')
+  const [combinedMPGVal, setCombinedMPGVal] = useState('')
+  const [distance, setDistance] = useState('')
+  const [duration, setDuration] = useState('')
+  const [directionsResponse, setDirectionsResponse] = useState(null)
+  const [currentStep, setCurrentStep] = useState(1)
+  const [commuteId, setCommuteId] = useState(0)
 
-  const { resultCalculation, setResultCalculation } = useContext(AppContext);
+  const { resultCalculation, setResultCalculation } = useContext(AppContext)
 
   useEffect(() => {
     const getMakesAsync = async () => {
-      const makes = await getMakes();
-      setCarMakes(makes);
-    };
-    getMakesAsync();
-  }, []);
+      const makes = await getMakes()
+      setCarMakes(makes)
+    }
+    getMakesAsync()
+  }, [])
 
   useEffect(() => {
     if (selectYear && carMakeID) {
       const getCarModelsAsync = async () => {
-        const result = await getCarModels(selectYear, carMakeID);
+        const result = await getCarModels(selectYear, carMakeID)
         if (result.data.length === 0) {
-          setCombinedMPGVal(0);
+          setCombinedMPGVal(0)
         }
-        setCarModels(result.data);
-      };
-      getCarModelsAsync();
+        setCarModels(result.data)
+      }
+      getCarModelsAsync()
     }
-  }, [selectYear, carMakeID]);
+  }, [selectYear, carMakeID])
 
   useEffect(() => {
     if (selectYear && carTrimID) {
       const getMpg = async () => {
-        const mpgValueData = await getVehicleSpecs(selectYear, carTrimID);
+        const mpgValueData = await getVehicleSpecs(selectYear, carTrimID)
         if (mpgValueData) {
-          const roundedMPGVal = roundNumber(mpgValueData);
-          setCombinedMPGVal(roundedMPGVal);
+          const roundedMPGVal = roundNumber(mpgValueData)
+          setCombinedMPGVal(roundedMPGVal)
         } else {
-          setCombinedMPGVal(0.0);
+          setCombinedMPGVal(0.0)
         }
-      };
-      getMpg();
+      }
+      getMpg()
     }
-  }, [selectYear, carTrimID]);
+  }, [selectYear, carTrimID])
 
   async function calculateRoute() {
-    console.log("calculateRoute", originRef);
-    if (originRef.current.value === "" || destinationRef.current.value === "") {
-      return;
+    if (originRef.current.value === '' || destinationRef.current.value === '') {
+      return
     }
     // eslint-disable-next-line no-undef
-    const directionsService = new google.maps.DirectionsService();
+    const directionsService = new google.maps.DirectionsService()
     const results = await directionsService.route({
       origin: originRef.current.value,
       destination: destinationRef.current.value,
       // eslint-disable-next-line no-undef
       travelMode: google.maps.TravelMode.DRIVING,
-    });
-    const distanceResult = results.routes[0].legs[0].distance.text;
-    setDirectionsResponse(results);
-    setDuration(results.routes[0].legs[0].duration.text);
-    setDistance(distanceResult);
-    return distanceResult;
+    })
+    console.log('directions response', JSON.stringify(results))
+    const distanceResult = results.routes[0].legs[0].distance.text
+    setDirectionsResponse(results)
+    setDuration(results.routes[0].legs[0].duration.text)
+    setDistance(distanceResult)
+    return { distanceResult, results }
   }
 
-  const commutePostData = async (distanceValue) => {
-    let cityStart = splitAddress(originRef.current.value);
-    let cityEnd = splitAddress(destinationRef.current.value);
-    const startAvgGasLocation = await getGasPrice(cityStart);
-    const endAvgGasLocation = await getGasPrice(cityEnd);
-    const startGas = startAvgGasLocation.data.locationAverage;
-    const endGas = endAvgGasLocation.data.locationAverage;
+  const commutePostData = async (distanceValue, directions) => {
+    let cityStart = splitAddress(originRef.current.value)
+    let cityEnd = splitAddress(destinationRef.current.value)
+    const startAvgGasLocation = await getGasPrice(cityStart)
+    const endAvgGasLocation = await getGasPrice(cityEnd)
+    const startGas = startAvgGasLocation.data.locationAverage
+    const endGas = endAvgGasLocation.data.locationAverage
 
-    const avgGasLocation = roundNumber((startGas + endGas) / 2);
+    const avgGasLocation = roundNumber((startGas + endGas) / 2)
     const response = await createCommute(
-      cityStart,
-      cityEnd,
+      originRef.current.value,
+      destinationRef.current.value,
       workDay,
       distanceValue,
       avgGasLocation,
       startGas,
-      endGas
-    );
-    return response.data.id;
-  };
+      endGas,
+      directions
+    )
+    return response.data.id
+  }
 
   return (
     <ChakraProvider>
@@ -127,10 +128,10 @@ export default function Home() {
         cost based on local gas averages and your own vehicle
       </Box>
       <Flex
-        position="relative"
-        flexDirection="column"
-        alignItems="center"
-        w="100vw"
+        position='relative'
+        flexDirection='column'
+        alignItems='center'
+        w='100vw'
       >
         {currentStep === 1 ? (
           <>
@@ -138,30 +139,30 @@ export default function Home() {
               Step {currentStep}/2 - Enter the starting and ending location of
               your commute.
             </p>
-            <div style={{ paddingBottom: "40px" }}>
-              <label htmlFor="starting-location-field">Start: </label>
+            <div style={{ paddingBottom: '40px' }}>
+              <label htmlFor='starting-location-field'>Start: </label>
               <Autocomplete>
-                <Input type="text" placeholder="Origin" ref={originRef} />
+                <Input type='text' placeholder='Origin' ref={originRef} />
               </Autocomplete>
             </div>
-            <div style={{ paddingBottom: "50px" }}>
-              <label htmlFor="ending-location-field">Ending Location: </label>
+            <div style={{ paddingBottom: '50px' }}>
+              <label htmlFor='ending-location-field'>Ending Location: </label>
               <Autocomplete>
                 <Input
-                  type="text"
-                  placeholder="Destination"
+                  type='text'
+                  placeholder='Destination'
                   ref={destinationRef}
                 />
               </Autocomplete>
             </div>
-            <div style={{ paddingBottom: "50px" }}>
-              <label htmlFor="work-days-field">Days per Week Commuting: </label>
+            <div style={{ paddingBottom: '50px' }}>
+              <label htmlFor='work-days-field'>Days per Week Commuting: </label>
               <select
-                id="work-days-field"
-                defaultValue=""
+                id='work-days-field'
+                defaultValue=''
                 onChange={(e) => setWorkDay(e.target.value)}
               >
-                <option value="" disabled hidden>
+                <option value='' disabled hidden>
                   Select Days
                 </option>
                 {WORK_DAYS.map((day, index) => (
@@ -178,25 +179,25 @@ export default function Home() {
               Step {currentStep}/2 - Enter your vehicle MPG (or select vehicle
               information)
             </p>
-            <div style={{ paddingBottom: "20px" }}>
+            <div style={{ paddingBottom: '20px' }}>
               <p>
                 <b>Input MPG Value</b>
               </p>
-              <div style={{ paddingBottom: "40px" }}>
+              <div style={{ paddingBottom: '40px' }}>
                 {carModels.length === 0 ? (
                   <p>No models found, please enter MPG</p>
                 ) : combinedMPGVal === 0.0 ? (
                   <p>No MPG found, please enter MPG</p>
                 ) : (
-                  ""
+                  ''
                 )}
                 {combinedMPGVal === 0.0 && (
                   <p>No MPG found, please enter MPG</p>
                 )}
-                <label htmlFor="mpg-input-field">Combined MPG: </label>
+                <label htmlFor='mpg-input-field'>Combined MPG: </label>
                 <input
-                  id="mpg-input-field"
-                  type="text"
+                  id='mpg-input-field'
+                  type='text'
                   value={combinedMPGVal}
                   onChange={(e) => setCombinedMPGVal(e.target.value)}
                   required
@@ -209,13 +210,13 @@ export default function Home() {
                 <b>Select Vehicle Information to Auto-Populate MPG Value</b>
               </div>
               <div>
-                <label htmlFor="year-field">Year: </label>
+                <label htmlFor='year-field'>Year: </label>
                 <select
-                  id="year-field"
-                  defaultValue=""
+                  id='year-field'
+                  defaultValue=''
                   onChange={(e) => setSelectYear(e.target.value)}
                 >
-                  <option value="" disabled hidden>
+                  <option value='' disabled hidden>
                     Select Year
                   </option>
                   {YEARS.map((year, index) => (
@@ -226,13 +227,13 @@ export default function Home() {
                 </select>
               </div>
               <div>
-                <label htmlFor="car-make-field">Car Make: </label>
+                <label htmlFor='car-make-field'>Car Make: </label>
                 <select
-                  id="car-make-field"
-                  defaultValue=""
+                  id='car-make-field'
+                  defaultValue=''
                   onChange={(e) => setCarMakeID(e.target.value)}
                 >
-                  <option value="" disabled hidden>
+                  <option value='' disabled hidden>
                     Select Car Make
                   </option>
                   {carMakes.map((carMake, index) => (
@@ -243,13 +244,13 @@ export default function Home() {
                 </select>
               </div>
               <div>
-                <label htmlFor="car-model-field">Car Model: </label>
+                <label htmlFor='car-model-field'>Car Model: </label>
                 <select
-                  id="car-model-field"
-                  defaultValue=""
+                  id='car-model-field'
+                  defaultValue=''
                   onChange={(e) => setCarTrimID(e.target.value)}
                 >
-                  <option value="" disabled hidden>
+                  <option value='' disabled hidden>
                     Select Car Model
                   </option>
                   {carModels.length > 0 ? (
@@ -266,56 +267,49 @@ export default function Home() {
             </div>
           </>
         ) : (
-          ""
+          ''
         )}
         <p>
           {currentStep === 3 && (
-              <Grid templateColumns="repeat(5, 1fr)" gap={4}>
-                <GridItem colSpan={2}>
-                  <Map
-                    distance={distance}
-                    duration={duration}
-                    directionsResponse={directionsResponse}
-                    originRef={originRef}
-                    destinationRef={destinationRef}
-                  />
-                </GridItem>
+            <Grid templateColumns='repeat(5, 1fr)' gap={4}>
+              <GridItem colSpan={2}>
+                <Map directionsResponse={directionsResponse} />
+              </GridItem>
 
-                {/* result  */}
-                <GridItem colStart={4} colEnd={6}>
-                  {resultCalculation.result.weekly > 0 ? (
-                    <Center w="300px" h="500px">
-                      <Text>
-                        Weekly Results: ${resultCalculation.result.weekly}
-                      </Text>
-
-                      <Link
-                        style={{ zIndex: 100000 }}
-                        to={`/details/${resultCalculation.id}?fromDetails=true`}
-                      >
-                        View Details
-                      </Link>
-                    </Center>
-                  ) : (
-                    <Center w="300px" h="500px">
-                      <Text>
-                        Please enter your car information to get the weekly
-                        result.
-                      </Text>
-                    </Center>
-                  )}
-                </GridItem>
-              </Grid>
+              {/* result  */}
+              <GridItem colStart={4} colEnd={6}>
+                {resultCalculation.result.weekly > 0 ? (
+                  <Center w='300px' h='500px'>
+                    <Text>
+                      Weekly Results: ${resultCalculation.result.weekly}
+                    </Text>
+                    <Link
+                      style={{ zIndex: 100000 }}
+                      to={`/details/${resultCalculation.id}?fromDetails=true`}
+                    >
+                      View Details
+                    </Link>
+                  </Center>
+                ) : (
+                  <Center w='300px' h='500px'>
+                    <Text>
+                      Please enter your car information to get the weekly
+                      result.
+                    </Text>
+                  </Center>
+                )}
+              </GridItem>
+            </Grid>
           )}
         </p>
         {currentStep === 3 ? (
           <button
             onClick={() => {
-              setCommuteId(0);
+              setCommuteId(0)
               setResultCalculation({
-                result: { weekly: "" },
-              });
-              setCurrentStep(1);
+                result: { weekly: '' },
+              })
+              setCurrentStep(1)
             }}
           >
             New Calculation
@@ -323,15 +317,15 @@ export default function Home() {
         ) : currentStep === 2 ? (
           <button
             onClick={async (e) => {
-              e.preventDefault();
+              e.preventDefault()
               let [vehicleId] = await Promise.all([
                 createVehicle(combinedMPGVal),
-              ]);
+              ])
               let [data] = await Promise.all([
                 createCalcData(commuteId, vehicleId),
-              ]);
-              setResultCalculation(data);
-              setCurrentStep(currentStep + 1);
+              ])
+              setResultCalculation(data)
+              setCurrentStep(currentStep + 1)
             }}
           >
             Commutilate Route
@@ -339,20 +333,21 @@ export default function Home() {
         ) : currentStep === 1 ? (
           <button
             onClick={async () => {
-              let [resultDistance] = await Promise.all([calculateRoute()]);
+              let [resultDistance] = await Promise.all([calculateRoute()])
+              const { distanceResult, results } = resultDistance
               let [commuteId] = await Promise.all([
-                commutePostData(resultDistance),
-              ]);
-              setCommuteId(commuteId);
-              setCurrentStep(currentStep + 1);
+                commutePostData(distanceResult, JSON.stringify(results)),
+              ])
+              setCommuteId(commuteId)
+              setCurrentStep(currentStep + 1)
             }}
           >
             Next
           </button>
         ) : (
-          ""
+          ''
         )}
       </Flex>
     </ChakraProvider>
-  );
+  )
 }

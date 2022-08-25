@@ -40,7 +40,12 @@ function App() {
 
   return (
     <ChakraProvider theme={theme}>
-      <AppContext.Provider value={{ resultCalculation, setResultCalculation }}>
+      <AppContext.Provider
+        value={{
+          resultCalculation,
+          setResultCalculation,
+        }}
+      >
         <Navbar></Navbar>
         <Routes>
           <Route path='/' element={<Home />} />
