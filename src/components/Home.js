@@ -360,7 +360,7 @@ export default function Home() {
               })
               setCombinedMPGVal('')
               setCurrentStep(1)
-              setWorkDay(3)
+              setWorkDay(1)
             }}
           >
             New Calculation
