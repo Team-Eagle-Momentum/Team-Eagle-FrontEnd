@@ -22,6 +22,12 @@
   font-size: medium;
 }
 
+.description {
+  font-family: 'Palanquin';
+  font-weight: 400;
+  font-size: large;
+}
+
 .footer {
   font-family: 'Source Code Pro';
   font-weight: 200;

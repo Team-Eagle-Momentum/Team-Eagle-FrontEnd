@@ -11,12 +11,11 @@ import axios from 'axios'
 import {
   Box,
   Button,
-  Center,
-  colorScheme,
   Divider,
   Flex,
   Input,
   Stack,
+  Text,
 } from '@chakra-ui/react'
 
 import './Login.css'
@@ -58,29 +57,30 @@ export const LoginForm = () => {
           bg='brand.yellow'
           align='center'
           w='500px'
-          h='260px'
-          borderRadius='lg'>
-          <Box mt='10px' className='subtitle'>Login</Box>
+          h='280px'
+          borderRadius='lg'
+          shadow='base'>
+          <Text mt='10px' className='description' textShadow='0.5px 0.5px #b9b9b9'>Login</Text>
           <form onSubmit={handleSubmit}>
-            <Box className='login-field'>
+            <Box>
               <label htmlFor='username-field'>Username: </label>
-              <Input bg='white'></Input>
+              <Input shadow='sm' bg='white'></Input>
               <input
                 id='username-field'
                 onChange={(e) => setUsername(e.target.value)}
                 type='text'
               />
             </Box>
-            <Box className='login-field'>
+            <Box>
               <label htmlFor='password-field'>Password: </label>
-              <Input bg='white'></Input>
+              <Input shadow='sm' bg='white'></Input>
               <input
                 id='password-field'
                 onChange={(e) => setPassword(e.target.value)}
                 type='password'
               />
             </Box>
-            <Button variant='outline' colorScheme='black'>Log In</Button>
+            <Button className='subtitle' shadow='md' mt='5px' bg='brand.aqua' variant='outline' colorScheme='black'>Log In</Button>
             <input type='submit' value='Log In' />
           </form>
           <Box>
