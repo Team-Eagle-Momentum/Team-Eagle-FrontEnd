@@ -1,12 +1,20 @@
 import {
   Box,
+  Button,
   ChakraProvider,
+  colorScheme,
+  Divider,
   Flex,
-  Center,
-  Text,
-  Input,
   Grid,
   GridItem,
+  Slider,
+  SliderTrack,
+  SliderFilledTrack,
+  SliderThumb,
+  SliderMark,
+  Input,
+  Stack,
+  Text,
 } from '@chakra-ui/react'
 import React, { useState, useEffect, useRef, useContext } from 'react'
 import { Autocomplete } from '@react-google-maps/api'
@@ -25,23 +33,37 @@ import { roundNumber, splitAddress } from '../utils/helpers'
 import { YEARS, WORK_DAYS } from '../utils/constants'
 import { AppContext } from '../App'
 
+import ResultSlider from './ResultSlider'
+import ProgressBar from './ProgressBar'
+
 export default function Home() {
   const originRef = useRef()
   const destinationRef = useRef()
   const [selectYear, setSelectYear] = useState(0)
   const [carMakes, setCarMakes] = useState([])
   const [carMakeID, setCarMakeID] = useState('1')
-  const [workDay, setWorkDay] = useState(1)
+  const [workDay, setWorkDay] = useState(3)
   const [carModels, setCarModels] = useState([])
   const [carTrimID, setCarTrimID] = useState('')
   const [combinedMPGVal, setCombinedMPGVal] = useState('')
   const [distance, setDistance] = useState('')
   const [duration, setDuration] = useState('')
   const [directionsResponse, setDirectionsResponse] = useState(null)
-  const [currentStep, setCurrentStep] = useState(1)
   const [commuteId, setCommuteId] = useState(0)
+  const dayLabelStyles = {
+    mt: '3',
+    ml: '-1',
+    fontSize: 'sm',
+  }
 
-  const { resultCalculation, setResultCalculation } = useContext(AppContext)
+  const {
+    resultCalculation,
+    setResultCalculation,
+    currentStep,
+    setCurrentStep,
+  } = useContext(AppContext)
+
+  const [progressBar, setProgressBar] = useState(0)
 
   useEffect(() => {
     const getMakesAsync = async () => {
@@ -79,7 +101,7 @@ export default function Home() {
     }
   }, [selectYear, carTrimID])
 
-  async function calculateRoute() {
+  const calculateRoute = async () => {
     if (originRef.current.value === '' || destinationRef.current.value === '') {
       return
     }
@@ -106,7 +128,6 @@ export default function Home() {
     const endAvgGasLocation = await getGasPrice(cityEnd)
     const startGas = startAvgGasLocation.data.locationAverage
     const endGas = endAvgGasLocation.data.locationAverage
-
     const avgGasLocation = roundNumber((startGas + endGas) / 2)
     const response = await createCommute(
       originRef.current.value,
@@ -123,67 +144,99 @@ export default function Home() {
 
   return (
     <ChakraProvider>
-      <Box>
-        Welcome to Commutilator! Commutilator helps you calculate your commute
-        cost based on local gas averages and your own vehicle
-      </Box>
-      <Flex
-        position='relative'
-        flexDirection='column'
-        alignItems='center'
-        w='100vw'
-      >
-        {currentStep === 1 ? (
+      <Flex className='body' direction='column' alignItems='center'>
+        <Box mt='10px' mb='10px'>
+          Welcome to Commutilator! Commutilator helps you calculate your commute
+          cost based on the route, your personal vehicle information, and local
+          gas prices.
+        </Box>
+        {/* <Box> */}
+        {currentStep === 1 && (
           <>
-            <p>
-              Step {currentStep}/2 - Enter the starting and ending location of
+            <ProgressBar
+              key={'p-bar'}
+              bg='brand.purple'
+              completed={progressBar}
+            />
+            <Box mb='10px'>
+              Step {currentStep} - Enter the starting and ending location of
               your commute.
-            </p>
-            <div style={{ paddingBottom: '40px' }}>
-              <label htmlFor='starting-location-field'>Start: </label>
-              <Autocomplete>
-                <Input type='text' placeholder='Origin' ref={originRef} />
-              </Autocomplete>
-            </div>
-            <div style={{ paddingBottom: '50px' }}>
-              <label htmlFor='ending-location-field'>Ending Location: </label>
-              <Autocomplete>
-                <Input
-                  type='text'
-                  placeholder='Destination'
-                  ref={destinationRef}
-                />
-              </Autocomplete>
-            </div>
-            <div style={{ paddingBottom: '50px' }}>
-              <label htmlFor='work-days-field'>Days per Week Commuting: </label>
-              <select
-                id='work-days-field'
-                defaultValue=''
-                onChange={(e) => setWorkDay(e.target.value)}
-              >
-                <option value='' disabled hidden>
-                  Select Days
-                </option>
-                {WORK_DAYS.map((day, index) => (
-                  <option key={index} value={day}>
-                    {day}
-                  </option>
-                ))}
-              </select>
-            </div>
+            </Box>
+            <Stack spacing={5}>
+              <Box>
+                <label htmlFor='starting-location-field'>
+                  Starting Location:{' '}
+                </label>
+                <Autocomplete>
+                  <Input
+                    type='text'
+                    placeholder='Enter a Location'
+                    ref={originRef}
+                  />
+                </Autocomplete>
+              </Box>
+              <Box>
+                <label htmlFor='ending-location-field'>Ending Location: </label>
+                <Autocomplete>
+                  <Input
+                    type='text'
+                    placeholder='Enter a Location'
+                    ref={destinationRef}
+                  />
+                </Autocomplete>
+              </Box>
+              <div>
+                <label htmlFor='work-days-field'>
+                  Days per Week Commuting:{' '}
+                </label>
+                <Box pt={6} pb={6}>
+                  <Slider
+                    aria-label='slider-ex-6'
+                    defaultValue={3}
+                    min={1}
+                    max={5}
+                    step={1}
+                    onChange={(val) => setWorkDay(val)}
+                  >
+                    <SliderMark value={1} {...dayLabelStyles}>
+                      1
+                    </SliderMark>
+                    <SliderMark value={2} {...dayLabelStyles}>
+                      2
+                    </SliderMark>
+                    <SliderMark value={3} {...dayLabelStyles}>
+                      3
+                    </SliderMark>
+                    <SliderMark value={4} {...dayLabelStyles}>
+                      4
+                    </SliderMark>
+                    <SliderMark value={5} {...dayLabelStyles}>
+                      5
+                    </SliderMark>
+                    <SliderTrack>
+                      <SliderFilledTrack />
+                    </SliderTrack>
+                    <SliderThumb></SliderThumb>
+                  </Slider>
+                </Box>
+              </div>
+            </Stack>
           </>
-        ) : currentStep === 2 ? (
+        )}
+        {currentStep === 2 && (
           <>
-            <p>
-              Step {currentStep}/2 - Enter your vehicle MPG (or select vehicle
+            <ProgressBar
+              key={'p-bar'}
+              bgcolor={'#6a1b9a'}
+              completed={progressBar}
+            />
+            <Box className='body'>
+              Step {currentStep} - Enter your vehicle MPG (or select vehicle
               information)
-            </p>
-            <div style={{ paddingBottom: '20px' }}>
-              <p>
-                <b>Input MPG Value</b>
-              </p>
-              <div style={{ paddingBottom: '40px' }}>
+            </Box>
+            <Box>
+              <Box>Enter MPG</Box>
+              <Box>
                 {carModels.length === 0 ? (
                   <p>No models found, please enter MPG</p>
                 ) : combinedMPGVal === 0.0 ? (
@@ -191,6 +244,7 @@ export default function Home() {
                 ) : (
                   ''
                 )}
+
                 {combinedMPGVal === 0.0 && (
                   <p>No MPG found, please enter MPG</p>
                 )}
@@ -202,14 +256,14 @@ export default function Home() {
                   onChange={(e) => setCombinedMPGVal(e.target.value)}
                   required
                 />
-              </div>
-              <div>
+              </Box>
+              <Box>
                 <b>OR</b>
-              </div>
-              <div>
+              </Box>
+              <Box>
                 <b>Select Vehicle Information to Auto-Populate MPG Value</b>
-              </div>
-              <div>
+              </Box>
+              <Box>
                 <label htmlFor='year-field'>Year: </label>
                 <select
                   id='year-field'
@@ -225,8 +279,8 @@ export default function Home() {
                     </option>
                   ))}
                 </select>
-              </div>
-              <div>
+              </Box>
+              <Box>
                 <label htmlFor='car-make-field'>Car Make: </label>
                 <select
                   id='car-make-field'
@@ -242,8 +296,8 @@ export default function Home() {
                     </option>
                   ))}
                 </select>
-              </div>
-              <div>
+              </Box>
+              <Box>
                 <label htmlFor='car-model-field'>Car Model: </label>
                 <select
                   id='car-model-field'
@@ -263,61 +317,60 @@ export default function Home() {
                     <option>No models found</option>
                   )}
                 </select>
+              </Box>
+            </Box>
+          </>
+        )}
+        {currentStep === 3 && (
+          <>
+            <ProgressBar
+              key={'p-bar'}
+              bgcolor={'#6a1b9a'}
+              completed={progressBar}
+            />
+            <div className='map-container'>
+              <Map
+                directionsResponse={directionsResponse}
+              />
+              <div className='slider-container'>
+                <ResultSlider />
+                <Link
+                  style={{ zIndex: 100000 }}
+                  to={`/details/${resultCalculation.id}?fromDetails=true`}
+                >
+                  View Details
+                </Link>
               </div>
             </div>
           </>
-        ) : (
-          ''
         )}
-        <p>
-          {currentStep === 3 && (
-            <Grid templateColumns='repeat(5, 1fr)' gap={4}>
-              <GridItem colSpan={2}>
-                <Map directionsResponse={directionsResponse} />
-              </GridItem>
 
-              {/* result  */}
-              <GridItem colStart={4} colEnd={6}>
-                {resultCalculation.result.weekly > 0 ? (
-                  <Center w='300px' h='500px'>
-                    <Text>
-                      Weekly Results: ${resultCalculation.result.weekly}
-                    </Text>
-                    <Link
-                      style={{ zIndex: 100000 }}
-                      to={`/details/${resultCalculation.id}?fromDetails=true`}
-                    >
-                      View Details
-                    </Link>
-                  </Center>
-                ) : (
-                  <Center w='300px' h='500px'>
-                    <Text>
-                      Please enter your car information to get the weekly
-                      result.
-                    </Text>
-                  </Center>
-                )}
-              </GridItem>
-            </Grid>
-          )}
-        </p>
+
+        {/*buttons*/}
         {currentStep === 3 ? (
-          <button
+          <Button
+            className='body'
+            colorScheme='teal'
             onClick={() => {
+              setProgressBar(0)
               setCommuteId(0)
               setResultCalculation({
                 result: { weekly: '' },
               })
+              setCombinedMPGVal('')
               setCurrentStep(1)
+              setWorkDay(3)
             }}
           >
             New Calculation
-          </button>
+          </Button>
         ) : currentStep === 2 ? (
-          <button
+          <Button
+            className='body'
+            colorScheme='teal'
             onClick={async (e) => {
               e.preventDefault()
+              setProgressBar(100)
               let [vehicleId] = await Promise.all([
                 createVehicle(combinedMPGVal),
               ])
@@ -329,10 +382,13 @@ export default function Home() {
             }}
           >
             Commutilate Route
-          </button>
+          </Button>
         ) : currentStep === 1 ? (
-          <button
+          <Button
+            className='body'
+            colorScheme='teal'
             onClick={async () => {
+              setProgressBar(50)
               let [resultDistance] = await Promise.all([calculateRoute()])
               const { distanceResult, results } = resultDistance
               let [commuteId] = await Promise.all([
@@ -343,10 +399,11 @@ export default function Home() {
             }}
           >
             Next
-          </button>
+          </Button>
         ) : (
           ''
         )}
+        {/* </Box> */}
       </Flex>
     </ChakraProvider>
   )
