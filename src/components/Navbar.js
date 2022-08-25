@@ -5,11 +5,10 @@ import Logo from '.././CommutilatorLogo.png'
 import { Box, Flex, Image, Square, Spacer } from '@chakra-ui/react'
 import { Link, useNavigate } from 'react-router-dom'
 
-
 export default function Navbar() {
-  const token = localStorage.getItem('auth')
+  const token = localStorage.getItem('token')
   const navigate = useNavigate()
-    const { setResultCalculation, setCurrentStep } = useContext(AppContext)
+  const { setResultCalculation, setCurrentStep } = useContext(AppContext)
 
   return (
     <>
@@ -32,21 +31,26 @@ export default function Navbar() {
           </Box>
         </Box>
         <Spacer />
-        <Box align='right' m='5px' className='subtitle'>
+        {/* <Box align='right' m='5px' className='subtitle'> */}
+        <ul className='nav-items'>
+          <li className='nav-item'>
+            <Link to={'/'}>Home</Link>
+          </li>
           {!token ? (
             <>
-              <Box>
+              <li className='nav-item'>
                 <Link to={'/login'}>Login</Link>
-              </Box>
-              <Box>
+              </li>
+              <li className='nav-item'>
                 <Link to={'/register'}>Register</Link>
-              </Box>
+              </li>
             </>
           ) : (
             <>
-              <Box>
+              <li className='nav-item'>
                 <Link to={'/results'}>My Results</Link>
-              </Box>
+              </li>
+              <li className='nav-item'>
                 <span
                   onClick={() => {
                     localStorage.clear()
@@ -58,11 +62,12 @@ export default function Navbar() {
                     navigate('/')
                   }}
                 >
-                Logout
-              </span>
+                  Logout
+                </span>
+              </li>
             </>
           )}
-        </Box>
+        </ul>
       </Flex>
     </>
   )

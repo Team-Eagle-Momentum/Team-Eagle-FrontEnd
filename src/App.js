@@ -8,11 +8,9 @@ import Home from './components/Home'
 import LoginForm from './components/Login/Login'
 import Navbar from './components/Navbar'
 import RegisterForm from './components/Register/Register'
-import Details from './components/Details'
-import { extendTheme, theme, ChakraProvider } from '@chakra-ui/react'
+import { extendTheme, ChakraProvider } from '@chakra-ui/react'
 import TestSlider from './components/ResultSlider'
 import Results from './components/Results/Results'
-import { extendTheme, ChakraProvider } from '@chakra-ui/react'
 
 const colors = {
   brand: {
@@ -20,7 +18,7 @@ const colors = {
     aqua: '#99F0E0',
     purple: '#CED3F5',
     orange: '#F0B199',
-    yellow: '#ECF3B1'
+    yellow: '#ECF3B1',
   },
 }
 
