@@ -1,11 +1,15 @@
+import { Heading } from '@chakra-ui/react'
+import { AppContext } from '../App'
+import { useContext } from 'react'
 import Logo from '.././CommutilatorLogo.png'
-import { Link } from 'react-router-dom'
 import { Box, Flex, Image, Square, Spacer } from '@chakra-ui/react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+
 
 export default function Navbar() {
   const token = localStorage.getItem('auth')
   const navigate = useNavigate()
+    const { setResultCalculation, setCurrentStep } = useContext(AppContext)
 
   return (
     <>
@@ -43,15 +47,19 @@ export default function Navbar() {
               <Box>
                 <Link to={'/results'}>My Results</Link>
               </Box>
-              <Box
-                onClick={() => {
-                  localStorage.clear()
-                  // todo: need to clear useContext state
-                  navigate('/')
-                }}
-              >
+                <span
+                  onClick={() => {
+                    localStorage.clear()
+                    // todo: need to clear useContext state
+                    setResultCalculation({
+                      result: { weekly: '' },
+                    })
+                    setCurrentStep(1)
+                    navigate('/')
+                  }}
+                >
                 Logout
-              </Box>
+              </span>
             </>
           )}
         </Box>

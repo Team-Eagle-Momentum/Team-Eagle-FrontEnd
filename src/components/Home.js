@@ -7,6 +7,15 @@ import {
   Flex,
   Grid,
   GridItem,
+
+  Button,
+  Slider,
+  SliderTrack,
+  SliderFilledTrack,
+  SliderThumb,
+  SliderMark,
+ 
+ 
   Input,
   NumberInput,
   NumberInputField,
@@ -32,6 +41,8 @@ import {
 import { roundNumber, splitAddress } from '../utils/helpers'
 import { YEARS, WORK_DAYS } from '../utils/constants'
 import { AppContext } from '../App'
+
+import ResultSlider from './ResultSlider'
 import ProgressBar from './ProgressBar'
 
 export default function Home() {
@@ -40,17 +51,26 @@ export default function Home() {
   const [selectYear, setSelectYear] = useState(0)
   const [carMakes, setCarMakes] = useState([])
   const [carMakeID, setCarMakeID] = useState('1')
-  const [workDay, setWorkDay] = useState(1)
+  const [workDay, setWorkDay] = useState(3)
   const [carModels, setCarModels] = useState([])
   const [carTrimID, setCarTrimID] = useState('')
   const [combinedMPGVal, setCombinedMPGVal] = useState('')
   const [distance, setDistance] = useState('')
   const [duration, setDuration] = useState('')
   const [directionsResponse, setDirectionsResponse] = useState(null)
-  const [currentStep, setCurrentStep] = useState(1)
   const [commuteId, setCommuteId] = useState(0)
+  const dayLabelStyles = {
+    mt: '3',
+    ml: '-1',
+    fontSize: 'sm',
+  }
 
-  const { resultCalculation, setResultCalculation } = useContext(AppContext)
+  const {
+    resultCalculation,
+    setResultCalculation,
+    currentStep,
+    setCurrentStep,
+  } = useContext(AppContext)
 
   const [progressBar, setProgressBar] = useState(0)
 
@@ -116,7 +136,6 @@ export default function Home() {
     const endAvgGasLocation = await getGasPrice(cityEnd)
     const startGas = startAvgGasLocation.data.locationAverage
     const endGas = endAvgGasLocation.data.locationAverage
-
     const avgGasLocation = roundNumber((startGas + endGas) / 2)
     const response = await createCommute(
       cityStart,
@@ -175,31 +194,40 @@ export default function Home() {
                     />
                   </Autocomplete>
                 </Box>
-                <Box>
+                <div>
                   <label htmlFor='work-days-field'>
                     Days per Week Commuting:{' '}
                   </label>
-                  <NumberInput defaultValue={1} min={1} max={7}>
-                    <NumberInputField />
-                    <NumberInputStepper>
-                      <NumberIncrementStepper />
-                      <NumberDecrementStepper />
-                    </NumberInputStepper>
-                  </NumberInput>
-                  <select
-                    id='work-days-field'
-                    defaultValue=''
-                    onChange={(e) => setWorkDay(e.target.value)}
-                  >
-                    <option value='' disabled hidden>
-                      Select Days
-                    </option>
-                    {WORK_DAYS.map((day, index) => (
-                      <option key={index} value={day}>
-                        {day}
-                      </option>
-                    ))}
-                  </select>
+                <Box pt={6} pb={6}>
+                    <Slider
+                      aria-label='slider-ex-6'
+                      defaultValue={3}
+                      min={1}
+                      max={5}
+                      step={1}
+                      onChange={(val) => setWorkDay(val)}
+                    >
+                      <SliderMark value={1} {...dayLabelStyles}>
+                        1
+                      </SliderMark>
+                      <SliderMark value={2} {...dayLabelStyles}>
+                        2
+                      </SliderMark>
+                      <SliderMark value={3} {...dayLabelStyles}>
+                        3
+                      </SliderMark>
+                      <SliderMark value={4} {...dayLabelStyles}>
+                        4
+                      </SliderMark>
+                      <SliderMark value={5} {...dayLabelStyles}>
+                        5
+                      </SliderMark>
+                      <SliderTrack>
+                        <SliderFilledTrack />
+                      </SliderTrack>
+                      <SliderThumb></SliderThumb>
+                    </Slider>
+              </div>
                 </Box>
               </Stack>
             </>
@@ -225,6 +253,9 @@ export default function Home() {
                   ) : (
                     ''
                   )}
+                  
+
+
                   {combinedMPGVal === 0.0 && (
                     <p>No MPG found, please enter MPG</p>
                   )}
@@ -308,32 +339,25 @@ export default function Home() {
                 bgcolor={'#6a1b9a'}
                 completed={progressBar}
               />
-              <Flex>
-                <Grid templateColumns='repeat(5, 1fr)' gap={4}>
-                  <GridItem colSpan={2}>
-                    <Map
-                      distance={distance}
-                      duration={duration}
-                      directionsResponse={directionsResponse}
-                      originRef={originRef}
-                      destinationRef={destinationRef}
-                    />
-                  </GridItem>
-                  <GridItem colStart={4} colEnd={6}>
-                    <Text className='body' align='center'>
-                      Weekly Results: ${resultCalculation.result.weekly}
-                    </Text>
+             <div className='map-container'>
+                <Map
+                  distance={distance}
+                  duration={duration}
+                  directionsResponse={directionsResponse}
+                  originRef={originRef}
+                  destinationRef={destinationRef}
+                />
+                <div className='slider-container'>
+                  <ResultSlider />
 
-                    <Link
-                      className='body'
-                      style={{ zIndex: 100000 }}
-                      to={`/details/${resultCalculation.id}?fromDetails=true`}
-                    >
-                      View Details
-                    </Link>
-                  </GridItem>
-                </Grid>
-              </Flex>
+                  <Link
+                    style={{ zIndex: 100000 }}
+                    to={`/details/${resultCalculation.id}?fromDetails=true`}
+                  >
+                    View Details
+                  </Link>
+                </div>
+             </div>
             </>
           )}
 
@@ -348,7 +372,9 @@ export default function Home() {
                 setResultCalculation({
                   result: { weekly: '' },
                 })
+                setCombinedMPGVal('')
                 setCurrentStep(1)
+                setWorkDay(3)
               }}
             >
               New Calculation

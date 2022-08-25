@@ -8,8 +8,10 @@ import Home from './components/Home'
 import LoginForm from './components/Login/Login'
 import Navbar from './components/Navbar'
 import RegisterForm from './components/Register/Register'
+import Details from './components/Details'
+import { extendTheme, theme, ChakraProvider } from '@chakra-ui/react'
+import TestSlider from './components/ResultSlider'
 import Results from './components/Results/Results'
-
 import { extendTheme, ChakraProvider } from '@chakra-ui/react'
 
 const colors = {
@@ -23,7 +25,6 @@ const colors = {
 }
 
 const theme = extendTheme({ colors })
-
 export const AppContext = createContext()
 
 const PrivateRoute = ({ children }) => {
@@ -31,7 +32,7 @@ const PrivateRoute = ({ children }) => {
 
   const token = localStorage.getItem('token')
   if (token) {
-    return children // ---> <Details />
+    return children
   }
   if (urlParams.values()) {
     return <Navigate to='/login?fromDetails=true' />
@@ -44,11 +45,21 @@ function App() {
     result: { weekly: '' },
   })
 
+  const [currentStep, setCurrentStep] = useState(1)
+
   return (
     <ChakraProvider theme={theme}>
-      <AppContext.Provider value={{ resultCalculation, setResultCalculation }}>
+      <AppContext.Provider
+        value={{
+          resultCalculation,
+          setResultCalculation,
+          currentStep,
+          setCurrentStep,
+        }}
+      >
         <Navbar></Navbar>
         <Routes>
+          <Route path='/test' element={<TestSlider />} />
           <Route path='/' element={<Home />} />
           <Route path='/login' element={<LoginForm />} />
           <Route path='/register' element={<RegisterForm />} />
