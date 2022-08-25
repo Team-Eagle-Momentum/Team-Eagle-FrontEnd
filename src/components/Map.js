@@ -53,12 +53,12 @@ function Map({
   // }
 
   return (
-    <Flex
-      position='relative'
-      flexDirection='column'
-      alignItems='left'
-      h='50vh'
-      w='100vw'
+    <
+      // position='relative'
+      // flexDirection='column'
+      // alignItems='left'
+      // h='50vh'
+      // w='100%'
     >
       {/* <ButtonGroup>
         <Button colorScheme='pink' type='submit' onClick={calculateRoute}>
@@ -74,26 +74,26 @@ function Map({
         <Text>Distance: {distance} </Text>
         <Text>Duration: {duration} </Text> */}
       {/* </HStack> */}
-      <Box left={0} top={0} h='100%' w='100%'>
-        <GoogleMap
-          center={center}
-          zoom={15}
-          mapContainerStyle={{ width: '50%', height: '100%' }}
-          options={{
-            zoomControl: false,
-            streetViewControl: false,
-            mapTypeControl: false,
-            fullscreenControl: false,
-          }}
-          onLoad={(map) => setMap(map)}
-        >
-          <Marker position={center} />
-          {directionsResponse && (
-            <DirectionsRenderer directions={directionsResponse} />
-          )}
-        </GoogleMap>
-      </Box>
-    </Flex>
+      {/* <Box left={0} top={0} h='100%' w='100%'> */}
+      <GoogleMap
+        center={center}
+        zoom={15}
+        mapContainerStyle={{ width: '50%', height: '20rem' }}
+        options={{
+          zoomControl: false,
+          streetViewControl: false,
+          mapTypeControl: false,
+          fullscreenControl: false,
+        }}
+        onLoad={(map) => setMap(map)}
+      >
+        <Marker position={center} />
+        {directionsResponse && (
+          <DirectionsRenderer directions={directionsResponse} />
+        )}
+      </GoogleMap>
+      {/* </Box> */}
+    </>
   )
 }
 export default Map
