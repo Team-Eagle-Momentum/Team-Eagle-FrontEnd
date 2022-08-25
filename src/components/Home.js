@@ -174,7 +174,7 @@ export default function Home() {
                 </Autocomplete>
               </Box>
               <Box>
-                <label htmlFor='ending-location-field'>Ending Location:{' '}</label>
+                <label htmlFor='ending-location-field'>Ending Location: </label>
                 <Autocomplete>
                   <Input
                     type='text'
