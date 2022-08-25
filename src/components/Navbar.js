@@ -49,19 +49,19 @@ export default function Navbar() {
             </>
           ) : (
             <>
-            <Box>
-              <Link to={'/results'}>My Results</Link>
-            </Box>
+              <Box>
+                <Link to={'/results'}>My Results</Link>
+              </Box>
+              <Box
+                onClick={() => {
+                  localStorage.clear()
+                  // todo: need to clear useContext state
+                  navigate('/')
+                }}
+              >
+                Logout
+              </Box>
             </>
-            <Box
-              onClick={() => {
-                localStorage.clear()
-                // todo: need to clear useContext state
-                navigate('/')
-              }}
-            >
-              Logout
-            </Box>
           )}
         </Box>
       </Flex>

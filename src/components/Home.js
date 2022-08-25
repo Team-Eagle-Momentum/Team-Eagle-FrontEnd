@@ -149,7 +149,7 @@ export default function Home() {
             <>
               <ProgressBar
                 key={'p-bar'}
-                bgcolor={'#6a1b9a'}
+                bg='brand.purple'
                 completed={progressBar} />
               <Box
                 mb='10px'>
@@ -297,7 +297,7 @@ export default function Home() {
                     )}
                   </select>
                 </div>
-              </div >
+              </Box >
             </>
           )}
           {currentStep === 3 && (
