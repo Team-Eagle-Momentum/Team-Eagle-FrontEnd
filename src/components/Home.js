@@ -42,7 +42,7 @@ export default function Home() {
   const [selectYear, setSelectYear] = useState(0)
   const [carMakes, setCarMakes] = useState([])
   const [carMakeID, setCarMakeID] = useState('1')
-  const [workDay, setWorkDay] = useState(3)
+  const [workDay, setWorkDay] = useState(1)
   const [carModels, setCarModels] = useState([])
   const [carTrimID, setCarTrimID] = useState('')
   const [combinedMPGVal, setCombinedMPGVal] = useState('')
@@ -190,7 +190,7 @@ export default function Home() {
                 <Box pt={6} pb={6}>
                   <Slider
                     aria-label='slider-ex-6'
-                    defaultValue={3}
+                    defaultValue={1}
                     min={1}
                     max={5}
                     step={1}
