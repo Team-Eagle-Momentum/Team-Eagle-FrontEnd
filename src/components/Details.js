@@ -23,7 +23,21 @@ export default function Details() {
   })
   const { id } = useParams()
   const token = localStorage.getItem('token')
+  const [directions, setDirections] = React.useState({ routes: [] })
 
+  const calculateRoute = async () => {
+    // eslint-disable-next-line no-undef
+    const directionsService = new google.maps.DirectionsService()
+    const results = await directionsService.route({
+      origin: calcData.commute.start_location,
+      destination: calcData.commute.end_location,
+      // eslint-disable-next-line no-undef
+      travelMode: google.maps.TravelMode.DRIVING,
+    })
+    setDirections(results)
+  }
+
+  console.log('results', directions)
   React.useEffect(() => {
     if (token) {
       axios
@@ -44,6 +58,10 @@ export default function Details() {
         })
     }
   }, [])
+
+  React.useEffect(() => {
+    calculateRoute()
+  }, [calcData])
 
   return (
     <>
@@ -109,13 +127,9 @@ export default function Details() {
           <Spacer />
           <Spacer />
           <Flex alignItems='center' w='100vw'>
-            <Map
-              directionsResponse={JSON.parse(
-                calcData.commute.directions_response
-              )}
-              originRef={calcData.commute.start_location}
-              destinationRef={calcData.commute.end_location}
-            />
+            {directions.routes.length > 0 && (
+              <Map directionsResponse={directions} />
+            )}
           </Flex>
         </Box>
       </div>

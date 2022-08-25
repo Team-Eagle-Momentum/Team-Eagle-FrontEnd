@@ -71,6 +71,7 @@ export default function Home() {
       setCarMakes(makes)
     }
     getMakesAsync()
+    setCurrentStep(1)
   }, [])
 
   useEffect(() => {
@@ -113,12 +114,12 @@ export default function Home() {
       // eslint-disable-next-line no-undef
       travelMode: google.maps.TravelMode.DRIVING,
     })
-    console.log('directions response', JSON.stringify(results))
+
     const distanceResult = results.routes[0].legs[0].distance.text
     setDirectionsResponse(results)
     setDuration(results.routes[0].legs[0].duration.text)
     setDistance(distanceResult)
-    return { distanceResult, results }
+    return distanceResult
   }
 
   const commutePostData = async (distanceValue, directions) => {
@@ -329,9 +330,7 @@ export default function Home() {
               completed={progressBar}
             />
             <div className='map-container'>
-              <Map
-                directionsResponse={directionsResponse}
-              />
+              <Map directionsResponse={directionsResponse} />
               <div className='slider-container'>
                 <ResultSlider />
                 <Link
@@ -344,7 +343,6 @@ export default function Home() {
             </div>
           </>
         )}
-
 
         {/*buttons*/}
         {currentStep === 3 ? (
@@ -389,10 +387,9 @@ export default function Home() {
             colorScheme='teal'
             onClick={async () => {
               setProgressBar(50)
-              let [resultDistance] = await Promise.all([calculateRoute()])
-              const { distanceResult, results } = resultDistance
+              let [distanceResult] = await Promise.all([calculateRoute()])
               let [commuteId] = await Promise.all([
-                commutePostData(distanceResult, JSON.stringify(results)),
+                commutePostData(distanceResult),
               ])
               setCommuteId(commuteId)
               setCurrentStep(currentStep + 1)

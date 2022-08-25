@@ -7,13 +7,12 @@ function Map({ directionsResponse }) {
 
   return (
     <Flex
-       position='relative'
-       flexDirection='column'
-       alignItems='left'
-       h='50vh'
-       w='100%'
+      position='relative'
+      flexDirection='column'
+      alignItems='left'
+      h='50vh'
+      w='100%'
     >
-
       <Box left={0} top={0} h='100%' w='100%'>
         <GoogleMap
           zoom={15}
@@ -32,7 +31,6 @@ function Map({ directionsResponse }) {
         </GoogleMap>
       </Box>
     </Flex>
-
   )
 }
 export default Map
