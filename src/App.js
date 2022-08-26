@@ -12,6 +12,7 @@ import { extendTheme, ChakraProvider } from '@chakra-ui/react'
 import TestSlider from './components/ResultSlider'
 import Results from './components/Results/Results'
 
+
 const colors = {
   brand: {
     lightBlue: '#C1F1F1',
@@ -19,10 +20,12 @@ const colors = {
     purple: '#CED3F5',
     orange: '#F0B199',
     yellow: '#ECF3B1',
+    gray: '#B9B9B9',
   },
 }
 
 const theme = extendTheme({ colors })
+
 export const AppContext = createContext()
 
 const PrivateRoute = ({ children }) => {

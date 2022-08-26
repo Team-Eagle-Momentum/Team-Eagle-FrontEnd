@@ -2,14 +2,9 @@ import {
   Box,
   Button,
   ChakraProvider,
-  colorScheme,
-  Divider,
   Flex,
-  Grid,
-  GridItem,
   Input,
   Stack,
-  Text,
   NumberInput,
   NumberInputField,
   NumberInputStepper,
@@ -173,7 +168,7 @@ export default function Home() {
                 </Autocomplete>
               </Box>
               <Box>
-                <label htmlFor='ending-location-field'>Ending Location: </label>
+                <label htmlFor='ending-location-field'>Ending Location:{' '}</label>
                 <Autocomplete>
                   <Input
                     type='text'
@@ -184,19 +179,23 @@ export default function Home() {
               </Box>
               <Box>
                 <label htmlFor='work-days-field'>
-                  Days per Week Commuting:
+                  Days per Week Commuting:{' '}
                 </label>
+                <NumberInput
+                  mr='2rem'
+                  min={1}
+                  max={7}
+                  precision={0}
+                  value={workDay}
+                  onChange={(workDay) => setWorkDay(workDay)}
+                >
+                  <NumberInputField />
+                  <NumberInputStepper>
+                    <NumberIncrementStepper />
+                    <NumberDecrementStepper />
+                  </NumberInputStepper>
+                </NumberInput>
               </Box>
-              <NumberInput mr='2rem' min={1} max={7}
-                precision={0}
-                value={workDay}
-                onChange={(workDay) => setWorkDay(workDay)}>
-                <NumberInputField />
-                <NumberInputStepper>
-                  <NumberIncrementStepper />
-                  <NumberDecrementStepper />
-                </NumberInputStepper>
-              </NumberInput>
             </Stack>
           </>
         )}
@@ -309,7 +308,7 @@ export default function Home() {
         )}
 
         {/*buttons*/}
-        {currentStep === 3 ? (
+        {currentStep === 3 && (
           <Button
             className='body'
             colorScheme='teal'
@@ -326,7 +325,8 @@ export default function Home() {
           >
             New Calculation
           </Button>
-        ) : currentStep === 2 ? (
+        )}
+        {currentStep === 2 && (
           <Button
             className='body'
             colorScheme='teal'
@@ -345,7 +345,8 @@ export default function Home() {
           >
             Commutilate Route
           </Button>
-        ) : currentStep === 1 ? (
+        )}
+        {currentStep === 1 && (
           <Button
             className='body'
             colorScheme='teal'
@@ -361,8 +362,6 @@ export default function Home() {
           >
             Next
           </Button>
-        ) : (
-          ''
         )}
       </Flex>
     </ChakraProvider>

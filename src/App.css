@@ -48,7 +48,7 @@
   font-size: medium;
 }
 
-medium .footer {
+.footer {
   font-family: 'Source Code Pro';
   font-weight: 200;
   font-size: small;
@@ -136,6 +136,7 @@ medium .footer {
 }
 
 /* Nav Bar */
+
 .nav-container {
   padding-left: 5rem;
   padding-top: 1rem;
@@ -165,10 +166,10 @@ medium .footer {
 }
 
 .nav-items {
-  /* color: blue; */
   display: flex;
   align-items: center;
   margin-right: 5rem;
+
 }
 
 .nav-item:hover {
