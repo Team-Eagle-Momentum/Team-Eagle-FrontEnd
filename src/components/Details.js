@@ -4,7 +4,12 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import '../App.css'
 import Map from './Map'
-import { Box, Flex, Text, Spacer, Image } from '@chakra-ui/react'
+import { 
+  Box,
+  Flex,
+  Text,
+  Spacer,
+  Image } from '@chakra-ui/react'
 
 export default function Details() {
   const [calcData, setCalcData] = React.useState({
