@@ -21,33 +21,32 @@
 ## Styles
 
 ### Buttons:
-<Button
-    className='subtitle'
-    shadow='md'
-    mt='25px'
-    bg='brand.aqua'
-    variant='outline'
-    colorScheme='black'>
-    Log In
-</Button>
+    <Button
+        className='subtitle'
+        shadow='md'
+        mt='25px'
+        bg='brand.aqua'
+        variant='outline'
+        colorScheme='black'>
+    </Button>
 
 ### Forms:
-<Stack
+    <Stack
+        align='center'
+        bg='brand.yellow'
+        borderRadius='lg'
+        shadow='base'>
+        <Text 
+            className='description' 
+            textShadow='0.5px 0.5px #b9b9b9'
+            mt='15px'>
+            Form Title
+        </Text>
+    </Stack>
 
-              <Input
-                id='username-field'
-                onChange={(e) => setUsername(e.target.value)}
-                type='text'
-                shadow='sm'
-                bg='white'>
-              </Input>
-
-            <Stack
-                        bg='brand.yellow'
-          align='center'
-          w='400px'
-          h='300px'
-          borderRadius='lg'
-          shadow='base'>
-
-           <Text mt='15px' className='description' textShadow='0.5px 0.5px #b9b9b9'>Login</Text>
+### Inputs:
+    <Input
+        bg='white'
+        shadow='sm'
+        type='text'>
+    </Input>
