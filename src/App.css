@@ -20,6 +20,8 @@
   font-family: 'Palanquin';
   font-weight: 300;
   font-size: medium;
+  /* height: 90vh; */
+  margin-top: 4rem;
 }
 
 .description {
@@ -32,11 +34,29 @@
   font-family: 'Source Code Pro';
   font-weight: 200;
   font-size: small;
+  height: 25vh;
+  margin-top: 10rem;
+  background-color: #99f0e0;
+}
+
+.footer-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 14px;
+  color: rgb(71, 71, 71);
+}
+
+.footer-content > div {
+  font-weight: bold;
+  text-align: center;
 }
 
 .map-container {
   display: flex;
   width: 100%;
+  /* margin-top: 228px; */
 }
 
 .slider-container {
@@ -61,7 +81,7 @@
 
 .pg-bar {
   max-width: 1000px;
-  margin-bottom: 2rem;
+  margin-top: 3rem;
 }
 
 .pg-bar-text {
@@ -69,6 +89,7 @@
   font-weight: 300;
   font-size: medium;
   color: #300243;
+  margin-bottom: 2rem;
 }
 
 .container-home {
@@ -80,7 +101,14 @@
   text-align: center;
   margin: 0 auto;
   margin-bottom: 4rem;
-  margin-top: 4rem;
+  margin-top: 12rem;
+  font-size: 18px;
+}
+
+.form-step-title {
+  font-weight: bold;
+  font-size: 18px;
+  padding-bottom: 2rem;
 }
 
 .form-title {
@@ -90,13 +118,15 @@
 }
 
 /* Nav Bar */
+.nav-container {
+  padding-left: 5rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
 .nav {
-  /* background-color: var(--off-white); */
   position: static;
-  /* top: 0px; */
   width: 100%;
   height: 60px;
-  /* z-index: 500; */
   margin-bottom: 20px;
 }
 
@@ -119,7 +149,7 @@
   /* color: blue; */
   display: flex;
   align-items: center;
-  margin-right: 2rem;
+  margin-right: 5rem;
 }
 
 .nav-item:hover {

@@ -8,11 +8,11 @@ const ProgressBar = (props) => {
     width: '80%',
     backgroundColor: '#CED3F5',
     borderRadius: 50,
-    // margin: 50,
+    marginTop: completed === '50' ? '317px' : '0',
   }
 
   const fillerStyles = {
-    height: '100%',
+    height: '6px',
     width: `${completed}%`,
     backgroundColor: bgcolor,
     borderRadius: 'inherit',
@@ -20,18 +20,19 @@ const ProgressBar = (props) => {
     transition: 'width 1s ease-in-out',
   }
 
-  const labelStyles = {
-    padding: 1,
-    color: 'white',
-    fontWeight: 'bold',
-  }
-
   return (
     <>
-      <span className='pg-bar-text'>{`${completed}%`}</span>
-      <div className='pg-bar' style={containerStyles}>
+      <div
+        className='pg-bar'
+        style={{
+          ...containerStyles,
+          marginTop:
+            completed === 50 ? '128px' : completed === 100 ? '128px' : '0',
+        }}
+      >
         <div style={fillerStyles}></div>
       </div>
+      <span className='pg-bar-text'>{`${completed}%`}</span>
     </>
   )
 }

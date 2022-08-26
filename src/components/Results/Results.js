@@ -58,7 +58,8 @@ function Results() {
           <Thead>
             <Tr>
               <Th>Date</Th>
-              <Th>Average Gas Commute</Th>
+              <Th>Starting location</Th>
+              <Th>Ending location</Th>
               <Th>Vehicle MPG</Th>
               <Th>Weekly Cost</Th>
             </Tr>
@@ -72,7 +73,8 @@ function Results() {
                   key={result.id}
                 >
                   <Td>{formatDate(result.result.created_at)}</Td>
-                  <Td>${result.commute.avg_gas_commute}</Td>
+                  <Td>{result.commute.start_location}</Td>
+                  <Td>{result.commute.end_location}</Td>
                   <Td>{result.vehicle.mpg} mpg</Td>
                   <Td>${result.result.weekly}</Td>
                 </Tr>

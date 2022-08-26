@@ -4,6 +4,4 @@ export const YEARS = [
   1994, 1993, 1992, 1991,
 ]
 
-export const WORK_DAYS = [1, 2, 3, 4, 5, 6, 7]
-
 export const BASE_URL = 'https://commutilator-api.herokuapp.com'
