@@ -3,17 +3,17 @@
 ## Branding
 
 ### Colors:
-lightBlue: #C1F1F1\
-aqua: #99F0E0\
-purple: #CED3F5\
-orange: #F0B199\
-yellow: #ECF3B1\
-gray: #B9B9B9\
+**lightBlue**: #C1F1F1\
+**aqua**: #99F0E0\
+**purple**: #CED3F5\
+**orange**: #F0B199\
+**yellow**: #ECF3B1\
+**gray**: #B9B9B9\
 
 ### Fonts and Sizes:
 **title**: Source Code Pro, 700, xxlarge
-subtitle and buttons: Source Code Pro, 500, medium
-description: Palanquin, 400, large
+**subtitle and buttons**: Source Code Pro, 500, medium
+**description**: Palanquin, 400, large
 steps: Palanquin, 500, medium
 form: Palanquin, 300, medium
 footer: Source Code Pro, 200, small
