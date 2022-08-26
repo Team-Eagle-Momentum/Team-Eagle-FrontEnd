@@ -22,6 +22,7 @@ export const RegisterForm = () => {
   const navigateTo = useNavigate()
 
   const handleSubmit = (event) => {
+    console.log(email, password, username)
     event.preventDefault()
     axios
       .post('https://commutilator-api.herokuapp.com/api/auth/users/', {
@@ -36,10 +37,7 @@ export const RegisterForm = () => {
 
   return (
     <>
-      <Flex
-        alignItems='center'
-        direction='column'
-        className='body'>
+      <Flex alignItems='center' direction='column' className='body'>
         <Divider m='25px' variant='unstyled' />
         <Stack
           bg='brand.yellow'
@@ -47,41 +45,60 @@ export const RegisterForm = () => {
           w='400px'
           h='350px'
           borderRadius='lg'
-          shadow='base'>
-          <Text mt='15px' className='description' textShadow='0.5px 0.5px #b9b9b9'>Create an Account</Text>
-          <form onSubmit={handleSubmit}>
+          shadow='base'
+        >
+          <Text
+            mt='15px'
+            className='description'
+            textShadow='0.5px 0.5px #b9b9b9'
+          >
+            Create an Account
+          </Text>
+          <form>
             <Box>
-              <Text htmlFor='email-field'>Email:{' '}</Text>
+              <Text htmlFor='email-field'>Email: </Text>
               <Input
                 id='email-field'
                 type='text'
+                value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 shadow='sm'
-                bg='white'>
-              </Input>
+                bg='white'
+              ></Input>
             </Box>
             <Box mt='5px'>
-              <Text htmlFor='username-field'>Username:{' '}</Text>
+              <Text htmlFor='username-field'>Username: </Text>
               <Input
                 id='username-field'
                 type='text'
+                value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 shadow='sm'
-                bg='white'>
-              </Input>
+                bg='white'
+              ></Input>
             </Box>
             <Box mt='5px'>
-              <Text htmlFor='password-field'>Password:{' '}</Text>
+              <Text htmlFor='password-field'>Password: </Text>
               <Input
                 id='password-field'
                 type='password'
+                value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 shadow='sm'
-                bg='white'>
-              </Input>
+                bg='white'
+              ></Input>
             </Box>
-            <Button className='subtitle' shadow='md' mt='25px' bg='brand.aqua' variant='outline' colorScheme='black'>Create Account</Button>
-            <input type='submit' value='Create Account' />
+            <Button
+              className='subtitle'
+              shadow='md'
+              mt='25px'
+              bg='brand.aqua'
+              variant='outline'
+              colorScheme='black'
+              onClick={(e) => handleSubmit(e)}
+            >
+              Create Account
+            </Button>
           </form>
         </Stack>
       </Flex>
