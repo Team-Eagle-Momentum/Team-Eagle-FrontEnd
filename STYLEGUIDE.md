@@ -3,7 +3,7 @@
 ## Branding
 
 ### Colors:
-lightBlue: #C1F1F1
+lightBlue: #C1F1F1\
 aqua: #99F0E0
 purple: #CED3F5
 orange: #F0B199
