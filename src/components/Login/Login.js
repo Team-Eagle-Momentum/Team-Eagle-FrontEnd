@@ -17,6 +17,7 @@ import {
   Flex,
   Input,
   Stack,
+  Text,
 } from '@chakra-ui/react'
 
 import './Login.css'
@@ -57,31 +58,43 @@ export const LoginForm = () => {
         <Stack
           bg='brand.yellow'
           align='center'
-          w='500px'
+          w='400px'
           h='300px'
-          borderRadius='lg'>
-          <Box mt='10px' className='subtitle'>Login</Box>
+          borderRadius='lg'
+          shadow='base'>
+          <Text mt='15px' className='description' textShadow='0.5px 0.5px #b9b9b9'>Login</Text>
           <form onSubmit={handleSubmit}>
-            <Box className='login-field'>
-              <label htmlFor='username-field'>Username: </label>
-              <Input bg='white'></Input>
-              <input
+            <Box>
+              <Text htmlFor='username-field'>Username: </Text>
+              <Input
                 id='username-field'
                 onChange={(e) => setUsername(e.target.value)}
                 type='text'
-              />
+                shadow='sm'
+                bg='white'>
+              </Input>
             </Box>
-            <Box className='login-field'>
-              <label htmlFor='password-field'>Password: </label>
-              <Input bg='white'></Input>
-              <input
+            <Box mt='5px'>
+              <Text htmlFor='password-field'>Password: </Text>
+              <Input
                 id='password-field'
                 onChange={(e) => setPassword(e.target.value)}
                 type='password'
-              />
+                shadow='sm'
+                bg='white'>
+              </Input>
             </Box>
-            <Button colorScheme='whiteAlpha'>Log In</Button>
-            <input type='submit' value='Log In' />
+            <Button
+              type='submit'
+              value='Log In'
+              className='subtitle'
+              shadow='md'
+              mt='25px'
+              bg='brand.aqua'
+              variant='outline'
+              colorScheme='black'>
+              Log In
+            </Button>
           </form>
           <Box>
             <Link to={'/register'}>New user? Click to create an account</Link>

@@ -2,19 +2,14 @@ import {
   Box,
   Button,
   ChakraProvider,
-  colorScheme,
-  Divider,
   Flex,
-  Grid,
-  GridItem,
-  Slider,
-  SliderTrack,
-  SliderFilledTrack,
-  SliderThumb,
-  SliderMark,
   Input,
   Stack,
-  Text,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  NumberIncrementStepper,
+  NumberDecrementStepper,
 } from '@chakra-ui/react'
 import React, { useState, useEffect, useRef, useContext } from 'react'
 import { Autocomplete } from '@react-google-maps/api'
@@ -30,7 +25,7 @@ import {
   getVehicleSpecs,
 } from '../utils/api'
 import { roundNumber, splitAddress } from '../utils/helpers'
-import { YEARS, WORK_DAYS } from '../utils/constants'
+import { YEARS } from '../utils/constants'
 import { AppContext } from '../App'
 
 import ResultSlider from './ResultSlider'
@@ -42,7 +37,7 @@ export default function Home() {
   const [selectYear, setSelectYear] = useState(0)
   const [carMakes, setCarMakes] = useState([])
   const [carMakeID, setCarMakeID] = useState('1')
-  const [workDay, setWorkDay] = useState(3)
+  const [workDay, setWorkDay] = useState(1)
   const [carModels, setCarModels] = useState([])
   const [carTrimID, setCarTrimID] = useState('')
   const [combinedMPGVal, setCombinedMPGVal] = useState('')
@@ -50,11 +45,6 @@ export default function Home() {
   const [duration, setDuration] = useState('')
   const [directionsResponse, setDirectionsResponse] = useState(null)
   const [commuteId, setCommuteId] = useState(0)
-  const dayLabelStyles = {
-    mt: '3',
-    ml: '-1',
-    fontSize: 'sm',
-  }
 
   const {
     resultCalculation,
@@ -71,6 +61,7 @@ export default function Home() {
       setCarMakes(makes)
     }
     getMakesAsync()
+    setCurrentStep(1)
   }, [])
 
   useEffect(() => {
@@ -113,6 +104,7 @@ export default function Home() {
       // eslint-disable-next-line no-undef
       travelMode: google.maps.TravelMode.DRIVING,
     })
+
     const distanceResult = results.routes[0].legs[0].distance.text
     setDirectionsResponse(results)
     setDuration(results.routes[0].legs[0].duration.text)
@@ -120,7 +112,7 @@ export default function Home() {
     return distanceResult
   }
 
-  const commutePostData = async (distanceValue) => {
+  const commutePostData = async (distanceValue, directions) => {
     let cityStart = splitAddress(originRef.current.value)
     let cityEnd = splitAddress(destinationRef.current.value)
     const startAvgGasLocation = await getGasPrice(cityStart)
@@ -129,13 +121,14 @@ export default function Home() {
     const endGas = endAvgGasLocation.data.locationAverage
     const avgGasLocation = roundNumber((startGas + endGas) / 2)
     const response = await createCommute(
-      cityStart,
-      cityEnd,
+      originRef.current.value,
+      destinationRef.current.value,
       workDay,
       distanceValue,
       avgGasLocation,
       startGas,
-      endGas
+      endGas,
+      directions
     )
     return response.data.id
   }
@@ -143,24 +136,25 @@ export default function Home() {
   return (
     <ChakraProvider>
       <Flex className='body' direction='column' alignItems='center'>
-        <Box mt='10px' mb='10px'>
-          Welcome to Commutilator! Commutilator helps you calculate your commute
-          cost based on the route, your personal vehicle information, and local
-          gas prices.
-        </Box>
-        {/* <Box> */}
+        {currentStep === 1 && (
+          <Box className='hero-text' mt='10px'>
+            Welcome to Commutilator! Commutilator helps you calculate your
+            commute cost based on the route, your personal vehicle information,
+            and local gas prices.
+          </Box>
+        )}
+        <ProgressBar
+          key={'p-bar'}
+          bgcolor={'#F0B199'}
+          completed={progressBar}
+        />
         {currentStep === 1 && (
           <>
-            <ProgressBar
-              key={'p-bar'}
-              bg='brand.purple'
-              completed={progressBar}
-            />
-            <Box mb='10px'>
+            <Box className='form-step-title' mb='10px'>
               Step {currentStep} - Enter the starting and ending location of
               your commute.
             </Box>
-            <Stack spacing={5}>
+            <Stack spacing={5} mb={3}>
               <Box>
                 <label htmlFor='starting-location-field'>
                   Starting Location:{' '}
@@ -187,48 +181,27 @@ export default function Home() {
                 <label htmlFor='work-days-field'>
                   Days per Week Commuting:{' '}
                 </label>
-                <Box pt={6} pb={6}>
-                  <Slider
-                    aria-label='slider-ex-6'
-                    defaultValue={3}
-                    min={1}
-                    max={5}
-                    step={1}
-                    onChange={(val) => setWorkDay(val)}
-                  >
-                    <SliderMark value={1} {...dayLabelStyles}>
-                      1
-                    </SliderMark>
-                    <SliderMark value={2} {...dayLabelStyles}>
-                      2
-                    </SliderMark>
-                    <SliderMark value={3} {...dayLabelStyles}>
-                      3
-                    </SliderMark>
-                    <SliderMark value={4} {...dayLabelStyles}>
-                      4
-                    </SliderMark>
-                    <SliderMark value={5} {...dayLabelStyles}>
-                      5
-                    </SliderMark>
-                    <SliderTrack>
-                      <SliderFilledTrack />
-                    </SliderTrack>
-                    <SliderThumb></SliderThumb>
-                  </Slider>
-                </Box>
+                <NumberInput
+                  mr='2rem'
+                  min={1}
+                  max={7}
+                  precision={0}
+                  value={workDay}
+                  onChange={(workDay) => setWorkDay(workDay)}
+                >
+                  <NumberInputField />
+                  <NumberInputStepper>
+                    <NumberIncrementStepper />
+                    <NumberDecrementStepper />
+                  </NumberInputStepper>
+                </NumberInput>
               </Box>
             </Stack>
           </>
         )}
         {currentStep === 2 && (
           <>
-            <ProgressBar
-              key={'p-bar'}
-              bgcolor={'#6a1b9a'}
-              completed={progressBar}
-            />
-            <Box className='body'>
+            <Box className='form-step-title' mb='10px'>
               Step {currentStep} - Enter your vehicle MPG (or select vehicle
               information)
             </Box>
@@ -320,35 +293,22 @@ export default function Home() {
           </>
         )}
         {currentStep === 3 && (
-          <>
-            <ProgressBar
-              key={'p-bar'}
-              bgcolor={'#6a1b9a'}
-              completed={progressBar}
-            />
-            <div className='map-container'>
-              <Map
-                distance={distance}
-                duration={duration}
-                directionsResponse={directionsResponse}
-                originRef={originRef}
-                destinationRef={destinationRef}
-              />
-              <div className='slider-container'>
-                <ResultSlider />
-                <Link
-                  style={{ zIndex: 100000 }}
-                  to={`/details/${resultCalculation.id}?fromDetails=true`}
-                >
-                  View Details
-                </Link>
-              </div>
+          <div className='map-container'>
+            <Map directionsResponse={directionsResponse} />
+            <div className='slider-container'>
+              <ResultSlider />
+              <Link
+                style={{ zIndex: 100000 }}
+                to={`/details/${resultCalculation.id}?fromDetails=true`}
+              >
+                View Details
+              </Link>
             </div>
-          </>
+          </div>
         )}
 
         {/*buttons*/}
-        {currentStep === 3 ? (
+        {currentStep === 3 && (
           <Button
             className='body'
             colorScheme='teal'
@@ -360,12 +320,13 @@ export default function Home() {
               })
               setCombinedMPGVal('')
               setCurrentStep(1)
-              setWorkDay(3)
+              setWorkDay(1)
             }}
           >
             New Calculation
           </Button>
-        ) : currentStep === 2 ? (
+        )}
+        {currentStep === 2 && (
           <Button
             className='body'
             colorScheme='teal'
@@ -384,27 +345,25 @@ export default function Home() {
           >
             Commutilate Route
           </Button>
-        ) : currentStep === 1 ? (
+        )}
+        {currentStep === 1 && (
           <Button
             className='body'
             colorScheme='teal'
             onClick={async () => {
-              setProgressBar(50)
-              let [resultDistance] = await Promise.all([calculateRoute()])
+              let [distanceResult] = await Promise.all([calculateRoute()])
               let [commuteId] = await Promise.all([
-                commutePostData(resultDistance),
+                commutePostData(distanceResult),
               ])
+              setProgressBar(50)
               setCommuteId(commuteId)
               setCurrentStep(currentStep + 1)
             }}
           >
             Next
           </Button>
-        ) : (
-          ''
         )}
-        {/* </Box> */}
-      </Flex >
-    </ChakraProvider >
+      </Flex>
+    </ChakraProvider>
   )
 }
