@@ -2,22 +2,9 @@ import {
   Box,
   Button,
   ChakraProvider,
-  colorScheme,
-  Divider,
   Flex,
-  Grid,
-  GridItem,
-  Slider,
-  SliderTrack,
-  SliderFilledTrack,
-  SliderThumb,
-  SliderMark,
   Input,
   Stack,
-  Text,
-  Input,
-  Stack,
-  Text,
   NumberInput,
   NumberInputField,
   NumberInputStepper,
@@ -181,7 +168,7 @@ export default function Home() {
                 </Autocomplete>
               </Box>
               <Box>
-                <label htmlFor='ending-location-field'>Ending Location:{' '}</label>
+                <label htmlFor='ending-location-field'>Ending Location: </label>
                 <Autocomplete>
                   <Input
                     type='text'
@@ -194,78 +181,21 @@ export default function Home() {
                 <label htmlFor='work-days-field'>
                   Days per Week Commuting:{' '}
                 </label>
-                <Box pt={6} pb={6}>
-                  <Slider
-                    aria-label='slider-ex-6'
-                    defaultValue={3}
-                    min={1}
-                    max={5}
-                    step={1}
-                    onChange={(val) => setWorkDay(val)}
-                  >
-                    <SliderMark value={1} {...dayLabelStyles}>
-                      1
-                    </SliderMark>
-                    <SliderMark value={2} {...dayLabelStyles}>
-                      2
-                    </SliderMark>
-                    <SliderMark value={3} {...dayLabelStyles}>
-                      3
-                    </SliderMark>
-                    <SliderMark value={4} {...dayLabelStyles}>
-                      4
-                    </SliderMark>
-                    <SliderMark value={5} {...dayLabelStyles}>
-                      5
-                    </SliderMark>
-                    <SliderTrack>
-                      <SliderFilledTrack />
-                    </SliderTrack>
-                    <SliderThumb></SliderThumb>
-                  </Slider>
-                </Box>
+                <NumberInput
+                  mr='2rem'
+                  min={1}
+                  max={7}
+                  precision={0}
+                  value={workDay}
+                  onChange={(workDay) => setWorkDay(workDay)}
+                >
+                  <NumberInputField />
+                  <NumberInputStepper>
+                    <NumberIncrementStepper />
+                    <NumberDecrementStepper />
+                  </NumberInputStepper>
+                </NumberInput>
               </Box>
-            </Stack>
-          </>
-        )}
-        {currentStep === 2 && (
-          <>
-            <ProgressBar
-              key={'p-bar'}
-              bgcolor={'#6a1b9a'}
-              completed={progressBar}
-            />
-            <Box className='body'>
-              Step {currentStep} - Enter your vehicle MPG (or select vehicle
-              information)
-            </Box>
-            <Box>
-              <Box>Enter MPG</Box>
-              <Box>
-                <label htmlFor='ending-location-field'>Ending Location: </label>
-                <Autocomplete>
-                  <Input
-                    type='text'
-                    placeholder='Enter a Location'
-                    ref={destinationRef}
-                  />
-                </Autocomplete>
-              </Box>
-              <Box>
-                <label htmlFor='work-days-field'>
-                  Days per Week Commuting:
-                </label>
-              </Box>
-              <NumberInput mr='2rem' min={1} max={7}
-                precision={0}
-                value={workDay}
-                onChange={(workDay) => setWorkDay(workDay)}>
-                <NumberInputField />
-                <NumberInputStepper>
-                  <NumberIncrementStepper />
-                  <NumberDecrementStepper />
-                </NumberInputStepper>
-              </NumberInput>
             </Stack>
           </>
         )}
@@ -378,7 +308,7 @@ export default function Home() {
         )}
 
         {/*buttons*/}
-        {currentStep === 3 ? (
+        {currentStep === 3 && (
           <Button
             className='body'
             colorScheme='teal'
@@ -395,7 +325,8 @@ export default function Home() {
           >
             New Calculation
           </Button>
-        ) : currentStep === 2 ? (
+        )}
+        {currentStep === 2 && (
           <Button
             className='body'
             colorScheme='teal'
@@ -414,7 +345,8 @@ export default function Home() {
           >
             Commutilate Route
           </Button>
-        ) : currentStep === 1 ? (
+        )}
+        {currentStep === 1 && (
           <Button
             className='body'
             colorScheme='teal'
@@ -430,8 +362,6 @@ export default function Home() {
           >
             Next
           </Button>
-        ) : (
-          ''
         )}
       </Flex>
     </ChakraProvider>
