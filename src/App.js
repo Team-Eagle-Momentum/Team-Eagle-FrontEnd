@@ -2,8 +2,7 @@ import './App.css'
 import React, { useState, createContext } from 'react'
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 
-import '@fontsource/palanquin/400.css'
-import '@fontsource/source-code-pro/700.css'
+import '@fontsource/palanquin'
 
 import Details from './components/Details'
 import Footer from './components/Footer'
@@ -14,6 +13,7 @@ import RegisterForm from './components/Register/Register'
 import { extendTheme, ChakraProvider } from '@chakra-ui/react'
 import TestSlider from './components/ResultSlider'
 import Results from './components/Results/Results'
+
 
 const colors = {
   brand: {
@@ -27,35 +27,38 @@ const colors = {
 
 const text = {
   textStyles: {
-    title: {
-      fontFamily: `'Source Code Pro', monospace`,
-      fontSize: '6xl',
-      fontWeight: 'bold',
-    },
-    subtitle: {
-      fontFamily: `'Source Code Pro'`,
-      fontSize: '',
-      fontWeight: 'semibold',
-    },
-    description: {
+    h1: {
       fontFamily: 'Palanquin',
-      fontSize: '',
-      fontWeight: '',
-    },
-    steps: {
-      fontFamily: 'Palanquin',
-      fontSize: '',
-      fontWeight: '',
-    },
-    form: {
-      fontFamily: 'Palanquin',
-      fontSize: '',
-      fontWeight: '',
+      fontWeight: 'bold'
     },
   },
 }
+//     },
+//     subtitle: {
+//       fontFamily: `'Source Code Pro'`,
+//       fontSize: '',
+//       fontWeight: 'semibold',
+//     },
+//     description: {
+//       fontFamily: 'Palanquin',
+//       fontSize: '',
+//       fontWeight: '',
+//     },
+//     steps: {
+//       fontFamily: 'Palanquin',
+//       fontSize: '',
+//       fontWeight: '',
+//     },
+//     form: {
+//       fontFamily: 'Palanquin',
+//       fontSize: '',
+//       fontWeight: '',
+//     },
+//   },
+// }
 
 const theme = extendTheme({ colors, text })
+
 export const AppContext = createContext()
 
 const PrivateRoute = ({ children }) => {

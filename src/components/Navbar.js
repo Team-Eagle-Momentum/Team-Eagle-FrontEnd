@@ -1,4 +1,4 @@
-import { Heading } from '@chakra-ui/react'
+import { Heading, Text } from '@chakra-ui/react'
 import { AppContext } from '../App'
 import { useContext } from 'react'
 import Logo from '.././CommutilatorLogo.png'
@@ -13,6 +13,7 @@ export default function Navbar() {
   return (
     <>
       <Flex bg='brand.aqua'>
+        <Text textStyle='h1'> Welcome to Commutilator! </Text>
         <Square>
           <Image
             m='5px'
@@ -23,7 +24,7 @@ export default function Navbar() {
           />
         </Square>
         <Box flexDirection='column' alignItems='left' w='50vw' m='5px'>
-          <Box textStyle='title'>
+          <Box className='title'>
             <Link to={'/'}>Commutilator</Link>
           </Box>
           <Box className='subtitle'>
