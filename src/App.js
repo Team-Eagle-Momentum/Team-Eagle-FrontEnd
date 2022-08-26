@@ -2,6 +2,9 @@ import './App.css'
 import React, { useState, createContext } from 'react'
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 
+import '@fontsource/palanquin/400.css'
+import '@fontsource/source-code-pro/700.css'
+
 import Details from './components/Details'
 import Footer from './components/Footer'
 import Home from './components/Home'
@@ -22,7 +25,37 @@ const colors = {
   },
 }
 
-const theme = extendTheme({ colors })
+const text = {
+  textStyles: {
+    title: {
+      fontFamily: `'Source Code Pro', monospace`,
+      fontSize: '6xl',
+      fontWeight: 'bold',
+    },
+    subtitle: {
+      fontFamily: `'Source Code Pro'`,
+      fontSize: '',
+      fontWeight: 'semibold',
+    },
+    description: {
+      fontFamily: 'Palanquin',
+      fontSize: '',
+      fontWeight: '',
+    },
+    steps: {
+      fontFamily: 'Palanquin',
+      fontSize: '',
+      fontWeight: '',
+    },
+    form: {
+      fontFamily: 'Palanquin',
+      fontSize: '',
+      fontWeight: '',
+    },
+  },
+}
+
+const theme = extendTheme({ colors, text })
 export const AppContext = createContext()
 
 const PrivateRoute = ({ children }) => {

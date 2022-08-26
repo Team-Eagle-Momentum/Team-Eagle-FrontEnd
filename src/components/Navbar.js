@@ -23,7 +23,7 @@ export default function Navbar() {
           />
         </Square>
         <Box flexDirection='column' alignItems='left' w='50vw' m='5px'>
-          <Box className='title'>
+          <Box textStyle='title'>
             <Link to={'/'}>Commutilator</Link>
           </Box>
           <Box className='subtitle'>
