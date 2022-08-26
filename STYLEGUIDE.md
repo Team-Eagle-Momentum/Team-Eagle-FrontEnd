@@ -1,4 +1,4 @@
-# COMMUTILATOR STYLE GUIDE AND BRANDING
+# COMMUTILATOR BRANDING AND STYLE GUIDE
 
 ## Branding
 
@@ -11,27 +11,25 @@
 **gray**: #B9B9B9\
 
 ### Fonts and Sizes:
-**title**: Source Code Pro, 700, xxlarge
-**subtitle and buttons**: Source Code Pro, 500, medium
-**description**: Palanquin, 400, large
-steps: Palanquin, 500, medium
-form: Palanquin, 300, medium
-footer: Source Code Pro, 200, small
+**title**: Source Code Pro, 700, xxlarge\
+**subtitle and buttons**: Source Code Pro, 500, medium\
+**description**: Palanquin, 400, large\
+**steps**: Palanquin, 500, medium\
+**form**: Palanquin, 300, medium\
+**footer**: Source Code Pro, 200, small\
 
 ## Styles
 
 ### Buttons:
-            <Button
-              type='submit'
-              value='Log In'
-              className='subtitle'
-              shadow='md'
-              mt='25px'
-              bg='brand.aqua'
-              variant='outline'
-              colorScheme='black'>
-              Log In
-            </Button>
+<Button
+    className='subtitle'
+    shadow='md'
+    mt='25px'
+    bg='brand.aqua'
+    variant='outline'
+    colorScheme='black'>
+    Log In
+</Button>
 
 ### Forms:
 <Stack
