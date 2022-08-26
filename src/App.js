@@ -2,8 +2,6 @@ import './App.css'
 import React, { useState, createContext } from 'react'
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 
-import '@fontsource/palanquin'
-
 import Details from './components/Details'
 import Footer from './components/Footer'
 import Home from './components/Home'
@@ -22,42 +20,11 @@ const colors = {
     purple: '#CED3F5',
     orange: '#F0B199',
     yellow: '#ECF3B1',
+    gray: '#B9B9B9',
   },
 }
 
-const text = {
-  textStyles: {
-    h1: {
-      fontFamily: 'Palanquin',
-      fontWeight: 'bold'
-    },
-  },
-}
-//     },
-//     subtitle: {
-//       fontFamily: `'Source Code Pro'`,
-//       fontSize: '',
-//       fontWeight: 'semibold',
-//     },
-//     description: {
-//       fontFamily: 'Palanquin',
-//       fontSize: '',
-//       fontWeight: '',
-//     },
-//     steps: {
-//       fontFamily: 'Palanquin',
-//       fontSize: '',
-//       fontWeight: '',
-//     },
-//     form: {
-//       fontFamily: 'Palanquin',
-//       fontSize: '',
-//       fontWeight: '',
-//     },
-//   },
-// }
-
-const theme = extendTheme({ colors, text })
+const theme = extendTheme({ colors })
 
 export const AppContext = createContext()
 

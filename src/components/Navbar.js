@@ -13,7 +13,6 @@ export default function Navbar() {
   return (
     <>
       <Flex bg='brand.aqua'>
-        <Text textStyle='h1'> Welcome to Commutilator! </Text>
         <Square>
           <Image
             m='5px'
