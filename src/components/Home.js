@@ -146,20 +146,21 @@ export default function Home() {
   return (
     <ChakraProvider>
       <Flex className='body' direction='column' alignItems='center'>
-        <Box mt='10px' mb='10px'>
-          Welcome to Commutilator! Commutilator helps you calculate your commute
-          cost based on the route, your personal vehicle information, and local
-          gas prices.
-        </Box>
-        {/* <Box> */}
+        {currentStep === 1 && (
+          <Box className='hero-text' mt='10px'>
+            Welcome to Commutilator! Commutilator helps you calculate your
+            commute cost based on the route, your personal vehicle information,
+            and local gas prices.
+          </Box>
+        )}
+        <ProgressBar
+          key={'p-bar'}
+          bgcolor={'#F0B199'}
+          completed={progressBar}
+        />
         {currentStep === 1 && (
           <>
-            <ProgressBar
-              key={'p-bar'}
-              bg='brand.purple'
-              completed={progressBar}
-            />
-            <Box mb='10px'>
+            <Box className='form-step-title' mb='10px'>
               Step {currentStep} - Enter the starting and ending location of
               your commute.
             </Box>
@@ -226,12 +227,7 @@ export default function Home() {
         )}
         {currentStep === 2 && (
           <>
-            <ProgressBar
-              key={'p-bar'}
-              bgcolor={'#6a1b9a'}
-              completed={progressBar}
-            />
-            <Box className='body'>
+            <Box className='form-step-title' mb='10px'>
               Step {currentStep} - Enter your vehicle MPG (or select vehicle
               information)
             </Box>
@@ -323,25 +319,18 @@ export default function Home() {
           </>
         )}
         {currentStep === 3 && (
-          <>
-            <ProgressBar
-              key={'p-bar'}
-              bgcolor={'#6a1b9a'}
-              completed={progressBar}
-            />
-            <div className='map-container'>
-              <Map directionsResponse={directionsResponse} />
-              <div className='slider-container'>
-                <ResultSlider />
-                <Link
-                  style={{ zIndex: 100000 }}
-                  to={`/details/${resultCalculation.id}?fromDetails=true`}
-                >
-                  View Details
-                </Link>
-              </div>
+          <div className='map-container'>
+            <Map directionsResponse={directionsResponse} />
+            <div className='slider-container'>
+              <ResultSlider />
+              <Link
+                style={{ zIndex: 100000 }}
+                to={`/details/${resultCalculation.id}?fromDetails=true`}
+              >
+                View Details
+              </Link>
             </div>
-          </>
+          </div>
         )}
 
         {/*buttons*/}
@@ -386,11 +375,11 @@ export default function Home() {
             className='body'
             colorScheme='teal'
             onClick={async () => {
-              setProgressBar(50)
               let [distanceResult] = await Promise.all([calculateRoute()])
               let [commuteId] = await Promise.all([
                 commutePostData(distanceResult),
               ])
+              setProgressBar(50)
               setCommuteId(commuteId)
               setCurrentStep(currentStep + 1)
             }}
@@ -400,7 +389,6 @@ export default function Home() {
         ) : (
           ''
         )}
-        {/* </Box> */}
       </Flex>
     </ChakraProvider>
   )
