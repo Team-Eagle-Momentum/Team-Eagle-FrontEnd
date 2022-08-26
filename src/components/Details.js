@@ -4,7 +4,7 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import '../App.css'
 import Map from './Map'
-import { Box, Flex, Text, Spacer, Image, Stack } from '@chakra-ui/react'
+import { Box, Flex, Text, Spacer, Image, Stack, SimpleGrid } from '@chakra-ui/react'
 import Logo from '.././CommutilatorLogo.png'
 
 export default function Details() {
@@ -66,72 +66,64 @@ export default function Details() {
 
   return (
     <>
-        <Stack align='center'>
-          <Image
-            mt='10px'
-            boxSize='150px'
-            src={Logo}
-            alt='CommutilatorLogo'
-          />
-          <Text className='subtitle' color='brand.purple' textShadow='0.5px 0.5px #B9B9B9'>COMMUTILATOR DETAILS</Text>
-          <Flex space-evenly alignItems={'center'} justifyContent='space-between'>
-            <Spacer />
-            <Box>
-              <Text className='title'>
-                Result Details:
-              </Text>
-              <Text fontSize={20}>
-                <br />
-                <Box>
-                  <Flex>
-                  <Text className='description'>Daily: </Text><Text className='steps'> ${calcData.result.daily}</Text>
-                  </Flex>
-                  <Text>Weekly: ${calcData.result.weekly}</Text>
-                  <Text>Monthly: ${calcData.result.monthly}</Text>
-                  <Text>Annualy: ${calcData.result.annual}</Text>
-                </Box>
-              </Text>
-            </Box>
-            <Spacer />
-            <Box borderColor='black' p='3'>
-              <Text fontSize={60} as='b'>
-                Calculation Factors:
-              </Text>
-              <div>
-                <br />
-                <br />
-                <Text fontSize={20}>
-                  <p>
-                    - Starting Location Gas Average:💲
-                    {calcData.commute.start_avg_gas}
-                  </p>
-                  <p>
-                    - Ending Location Gas Average:💲
-                    {calcData.commute.end_avg_gas}
-                  </p>
-                  <p>
-                    - The Commute Average:💲
-                    {calcData.commute.avg_gas_commute}
-                  </p>
-                  <p>
-                    - The Commute Distance:
-                    {calcData.commute.distance} miles
-                  </p>
-                </Text>
-              </div>
-            </Box>
-            <Spacer />
-          </Flex>
-          <Box>
-            <Spacer />
-            <Spacer />
-            <Flex alignItems='center' w='100vw'>
-              {directions.routes.length > 0 && (
-                <Map directionsResponse={directions} />
-              )}
-            </Flex>
+      <Stack align='center'>
+        <Image
+          mt='10px'
+          boxSize='150px'
+          src={Logo}
+          alt='CommutilatorLogo'
+        />
+        <Text className='subtitle' color='brand.purple' textShadow='0.5px 0.5px #B9B9B9'>COMMUTILATOR DETAILS</Text>
+
+        <Flex bg='yellow'>
+          <Box bg='purple'>
+            <Text className='title'>
+              Result Details
+            </Text>
+            <SimpleGrid columns={2}>
+              <Box ml='20px' className='description'>
+                <Text bg='pink'>Daily:</Text>
+                <Text>Weekly:</Text>
+                <Text>Monthly:</Text>
+                <Text>Annualy:</Text>
+              </Box>
+              <Box className='costs'>
+                <Text>${calcData.result.daily}</Text>
+                <Text>${calcData.result.weekly}</Text>
+                <Text>${calcData.result.monthly}</Text>
+                <Text>${calcData.result.annual}</Text>
+              </Box>
+            </SimpleGrid>
           </Box>
-        </Stack>
+          <Box bg='blue'>
+            <Text className='title'>
+              Calculation Factors
+            </Text>
+            <SimpleGrid columns={2}>
+              <Box>
+              <Text>Starting Location Gas Price:</Text>
+              <Text>Ending Location Gas Price</Text>
+              <Text>Overall Gas Average:</Text>
+              <Text>Commute Distance:</Text>
+              </Box>
+              <Box>
+              <Text>${calcData.commute.start_avg_gas}</Text>
+              <Text>${calcData.commute.end_avg_gas}</Text>
+              <Text>${calcData.commute.avg_gas_commute}</Text>
+              <Text>${calcData.commute.distance} miles</Text>
+              </Box>
+            </SimpleGrid>
+          </Box>
+        </Flex>
+
+        <Box>
+          <Flex alignItems='center' w='100vw'>
+            {directions.routes.length > 0 && (
+              <Map directionsResponse={directions} />
+            )}
+          </Flex>
+        </Box>
+      </Stack>
     </>
   )
 }
