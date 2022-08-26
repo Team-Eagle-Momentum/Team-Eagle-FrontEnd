@@ -7,14 +7,14 @@ import {
   Flex,
   Grid,
   GridItem,
-  Slider,
-  SliderTrack,
-  SliderFilledTrack,
-  SliderThumb,
-  SliderMark,
   Input,
   Stack,
   Text,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  NumberIncrementStepper,
+  NumberDecrementStepper,
 } from '@chakra-ui/react'
 import React, { useState, useEffect, useRef, useContext } from 'react'
 import { Autocomplete } from '@react-google-maps/api'
@@ -30,7 +30,7 @@ import {
   getVehicleSpecs,
 } from '../utils/api'
 import { roundNumber, splitAddress } from '../utils/helpers'
-import { YEARS, WORK_DAYS } from '../utils/constants'
+import { YEARS } from '../utils/constants'
 import { AppContext } from '../App'
 
 import ResultSlider from './ResultSlider'
@@ -42,7 +42,7 @@ export default function Home() {
   const [selectYear, setSelectYear] = useState(0)
   const [carMakes, setCarMakes] = useState([])
   const [carMakeID, setCarMakeID] = useState('1')
-  const [workDay, setWorkDay] = useState(3)
+  const [workDay, setWorkDay] = useState(1)
   const [carModels, setCarModels] = useState([])
   const [carTrimID, setCarTrimID] = useState('')
   const [combinedMPGVal, setCombinedMPGVal] = useState('')
@@ -50,11 +50,6 @@ export default function Home() {
   const [duration, setDuration] = useState('')
   const [directionsResponse, setDirectionsResponse] = useState(null)
   const [commuteId, setCommuteId] = useState(0)
-  const dayLabelStyles = {
-    mt: '3',
-    ml: '-1',
-    fontSize: 'sm',
-  }
 
   const {
     resultCalculation,
@@ -164,7 +159,7 @@ export default function Home() {
               Step {currentStep} - Enter the starting and ending location of
               your commute.
             </Box>
-            <Stack spacing={5}>
+            <Stack spacing={5} mb={3}>
               <Box>
                 <label htmlFor='starting-location-field'>
                   Starting Location:{' '}
@@ -187,41 +182,21 @@ export default function Home() {
                   />
                 </Autocomplete>
               </Box>
-              <div>
+              <Box>
                 <label htmlFor='work-days-field'>
-                  Days per Week Commuting:{' '}
+                  Days per Week Commuting:
                 </label>
-                <Box pt={6} pb={6}>
-                  <Slider
-                    aria-label='slider-ex-6'
-                    defaultValue={3}
-                    min={1}
-                    max={5}
-                    step={1}
-                    onChange={(val) => setWorkDay(val)}
-                  >
-                    <SliderMark value={1} {...dayLabelStyles}>
-                      1
-                    </SliderMark>
-                    <SliderMark value={2} {...dayLabelStyles}>
-                      2
-                    </SliderMark>
-                    <SliderMark value={3} {...dayLabelStyles}>
-                      3
-                    </SliderMark>
-                    <SliderMark value={4} {...dayLabelStyles}>
-                      4
-                    </SliderMark>
-                    <SliderMark value={5} {...dayLabelStyles}>
-                      5
-                    </SliderMark>
-                    <SliderTrack>
-                      <SliderFilledTrack />
-                    </SliderTrack>
-                    <SliderThumb></SliderThumb>
-                  </Slider>
-                </Box>
-              </div>
+              </Box>
+              <NumberInput mr='2rem' min={1} max={7}
+                precision={0}
+                value={workDay}
+                onChange={(workDay) => setWorkDay(workDay)}>
+                <NumberInputField />
+                <NumberInputStepper>
+                  <NumberIncrementStepper />
+                  <NumberDecrementStepper />
+                </NumberInputStepper>
+              </NumberInput>
             </Stack>
           </>
         )}
@@ -346,7 +321,7 @@ export default function Home() {
               })
               setCombinedMPGVal('')
               setCurrentStep(1)
-              setWorkDay(3)
+              setWorkDay(1)
             }}
           >
             New Calculation
