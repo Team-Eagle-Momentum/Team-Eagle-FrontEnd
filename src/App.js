@@ -42,7 +42,6 @@ function App() {
   const [resultCalculation, setResultCalculation] = useState({
     result: { weekly: '' },
   })
-
   const [currentStep, setCurrentStep] = useState(1)
 
   return (
