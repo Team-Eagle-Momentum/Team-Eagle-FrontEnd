@@ -1,4 +1,3 @@
-import { Heading, Text } from '@chakra-ui/react'
 import { AppContext } from '../App'
 import { useContext } from 'react'
 import Logo from '.././CommutilatorLogo.png'
