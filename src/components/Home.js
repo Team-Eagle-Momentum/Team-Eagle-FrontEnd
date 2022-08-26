@@ -7,6 +7,14 @@ import {
   Flex,
   Grid,
   GridItem,
+  Slider,
+  SliderTrack,
+  SliderFilledTrack,
+  SliderThumb,
+  SliderMark,
+  Input,
+  Stack,
+  Text,
   Input,
   Stack,
   Text,
@@ -172,6 +180,67 @@ export default function Home() {
                   />
                 </Autocomplete>
               </Box>
+              <Box>
+                <label htmlFor='ending-location-field'>Ending Location:{' '}</label>
+                <Autocomplete>
+                  <Input
+                    type='text'
+                    placeholder='Enter a Location'
+                    ref={destinationRef}
+                  />
+                </Autocomplete>
+              </Box>
+              <Box>
+                <label htmlFor='work-days-field'>
+                  Days per Week Commuting:{' '}
+                </label>
+                <Box pt={6} pb={6}>
+                  <Slider
+                    aria-label='slider-ex-6'
+                    defaultValue={3}
+                    min={1}
+                    max={5}
+                    step={1}
+                    onChange={(val) => setWorkDay(val)}
+                  >
+                    <SliderMark value={1} {...dayLabelStyles}>
+                      1
+                    </SliderMark>
+                    <SliderMark value={2} {...dayLabelStyles}>
+                      2
+                    </SliderMark>
+                    <SliderMark value={3} {...dayLabelStyles}>
+                      3
+                    </SliderMark>
+                    <SliderMark value={4} {...dayLabelStyles}>
+                      4
+                    </SliderMark>
+                    <SliderMark value={5} {...dayLabelStyles}>
+                      5
+                    </SliderMark>
+                    <SliderTrack>
+                      <SliderFilledTrack />
+                    </SliderTrack>
+                    <SliderThumb></SliderThumb>
+                  </Slider>
+                </Box>
+              </Box>
+            </Stack>
+          </>
+        )}
+        {currentStep === 2 && (
+          <>
+            <ProgressBar
+              key={'p-bar'}
+              bgcolor={'#6a1b9a'}
+              completed={progressBar}
+            />
+            <Box className='body'>
+              Step {currentStep} - Enter your vehicle MPG (or select vehicle
+              information)
+            </Box>
+            <Box>
+              <Box>Enter MPG</Box>
               <Box>
                 <label htmlFor='ending-location-field'>Ending Location: </label>
                 <Autocomplete>

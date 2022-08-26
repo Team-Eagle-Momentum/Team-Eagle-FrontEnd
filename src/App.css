@@ -24,6 +24,12 @@
   margin-top: 4rem;
 }
 
+.description {
+  font-family: 'Palanquin';
+  font-weight: 400;
+  font-size: large;
+}
+
 .footer {
   font-family: 'Source Code Pro';
   font-weight: 200;
@@ -112,11 +118,13 @@
 }
 
 /* Nav Bar */
+
 .nav-container {
   padding-left: 5rem;
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
+
 .nav {
   position: static;
   width: 100%;
@@ -140,10 +148,10 @@
 }
 
 .nav-items {
-  /* color: blue; */
   display: flex;
   align-items: center;
   margin-right: 5rem;
+
 }
 
 .nav-item:hover {

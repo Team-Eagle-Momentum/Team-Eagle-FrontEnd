@@ -8,6 +8,16 @@ import {
 import { useState, useContext } from 'react'
 import axios from 'axios'
 
+import {
+  Box,
+  Button,
+  Divider,
+  Flex,
+  Input,
+  Stack,
+  Text,
+} from '@chakra-ui/react'
+
 import './Login.css'
 import { AppContext } from '../../App'
 
@@ -38,33 +48,57 @@ export const LoginForm = () => {
 
   return (
     <>
-      <div className='login-wrap'>
-        <h2>Log In</h2>
-        <form onSubmit={handleSubmit}>
-          <div className='login-field'>
-            <label htmlFor='username-field'>username: </label>
-            <input
-              id='username-field'
-              onChange={(e) => setUsername(e.target.value)}
-              type='text'
-            />
-          </div>
-          <div className='login-field'>
-            <label htmlFor='password-field'>password: </label>
-            <input
-              id='password-field'
-              onChange={(e) => setPassword(e.target.value)}
-              type='password'
-            />
-          </div>
-          <div className='login-submit'>
-            <input type='submit' value='Log In' />
-            <Link className='login-new-user' to={'/register'}>
-              New user? Create an Account
-            </Link>
-          </div>
-        </form>
-      </div>
+      <Flex
+        alignItems='center'
+        direction='column'
+        className='body'>
+        <Divider m='25px' variant='unstyled' />
+        <Stack
+          bg='brand.yellow'
+          align='center'
+          w='400px'
+          h='300px'
+          borderRadius='lg'
+          shadow='base'>
+          <Text mt='15px' className='description' textShadow='0.5px 0.5px #b9b9b9'>Login</Text>
+          <form onSubmit={handleSubmit}>
+            <Box>
+              <Text htmlFor='username-field'>Username: </Text>
+              <Input
+                id='username-field'
+                onChange={(e) => setUsername(e.target.value)}
+                type='text'
+                shadow='sm'
+                bg='white'>
+              </Input>
+            </Box>
+            <Box mt='5px'>
+              <Text htmlFor='password-field'>Password: </Text>
+              <Input
+                id='password-field'
+                onChange={(e) => setPassword(e.target.value)}
+                type='password'
+                shadow='sm'
+                bg='white'>
+              </Input>
+            </Box>
+            <Button
+              type='submit'
+              value='Log In'
+              className='subtitle'
+              shadow='md'
+              mt='25px'
+              bg='brand.aqua'
+              variant='outline'
+              colorScheme='black'>
+              Log In
+            </Button>
+          </form>
+          <Box>
+            <Link to={'/register'}>New user? Click to create an account</Link>
+          </Box>
+        </Stack>
+      </Flex>
     </>
   )
 }
