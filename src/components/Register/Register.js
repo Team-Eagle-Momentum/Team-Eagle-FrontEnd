@@ -3,6 +3,18 @@ import { useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
+import {
+  Box,
+  Button,
+  Center,
+  colorScheme,
+  Divider,
+  Flex,
+  Input,
+  Stack,
+  Text,
+} from '@chakra-ui/react'
+
 export const RegisterForm = () => {
   const [email, setEmail] = useState('')
   const [username, setUsername] = useState('')
@@ -10,6 +22,7 @@ export const RegisterForm = () => {
   const navigateTo = useNavigate()
 
   const handleSubmit = (event) => {
+    console.log(email, password, username)
     event.preventDefault()
     axios
       .post('https://commutilator-api.herokuapp.com/api/auth/users/', {
@@ -24,44 +37,71 @@ export const RegisterForm = () => {
 
   return (
     <>
-      <div className='register-wrap'>
-        <h2>Create an Account</h2>
-        <form onSubmit={handleSubmit}>
-          <div className='register-field'>
-            <label htmlFor='email-field' className='user-label'>
-              email:{' '}
-            </label>
-            <input
-              id='email-field'
-              onChange={(e) => setEmail(e.target.value)}
-              type='text'
-            />
-          </div>
-          <div className='register-field'>
-            <label htmlFor='username-field' className='user-label'>
-              username:{' '}
-            </label>
-            <input
-              id='username-field'
-              onChange={(e) => setUsername(e.target.value)}
-              type='text'
-            />
-          </div>
-          <div className='register-field'>
-            <label htmlFor='password-field' className='user-label'>
-              password:{' '}
-            </label>
-            <input
-              id='password-field'
-              onChange={(e) => setPassword(e.target.value)}
-              type='password'
-            />
-          </div>
-          <div className='register-submit'>
-            <input type='submit' value='Create Account' />
-          </div>
-        </form>
-      </div>
+      <Flex alignItems='center' direction='column' className='body'>
+        <Divider m='25px' variant='unstyled' />
+        <Stack
+          bg='brand.yellow'
+          align='center'
+          w='400px'
+          h='350px'
+          borderRadius='lg'
+          shadow='base'
+        >
+          <Text
+            mt='15px'
+            className='description'
+            textShadow='0.5px 0.5px #b9b9b9'
+          >
+            Create an Account
+          </Text>
+          <form>
+            <Box>
+              <Text htmlFor='email-field'>Email: </Text>
+              <Input
+                id='email-field'
+                type='text'
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                shadow='sm'
+                bg='white'
+              ></Input>
+            </Box>
+            <Box mt='5px'>
+              <Text htmlFor='username-field'>Username: </Text>
+              <Input
+                id='username-field'
+                type='text'
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                shadow='sm'
+                bg='white'
+              ></Input>
+            </Box>
+            <Box mt='5px'>
+              <Text htmlFor='password-field'>Password: </Text>
+              <Input
+                id='password-field'
+                type='password'
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                shadow='sm'
+                bg='white'
+              ></Input>
+            </Box>
+            <Button
+              className='subtitle'
+              shadow='md'
+              mt='25px'
+              bg='brand.aqua'
+              variant='outline'
+              colorScheme='black'
+              onClick={(e) => handleSubmit(e)}
+            >
+              Create Account
+            </Button>
+          </form>
+        </Stack>
+      </Flex>
     </>
   )
 }
