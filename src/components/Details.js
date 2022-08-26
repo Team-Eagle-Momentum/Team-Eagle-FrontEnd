@@ -4,12 +4,8 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import '../App.css'
 import Map from './Map'
-import { 
-  Box,
-  Flex,
-  Text,
-  Spacer,
-  Image } from '@chakra-ui/react'
+import { Box, Flex, Text, Spacer, Image, Stack } from '@chakra-ui/react'
+import Logo from '.././CommutilatorLogo.png'
 
 export default function Details() {
   const [calcData, setCalcData] = React.useState({
@@ -70,74 +66,72 @@ export default function Details() {
 
   return (
     <>
-      <div className='detail-container'>
-        <Box>
-          <Flex>
-            <Box w='70px' h='10' />
+        <Stack align='center'>
+          <Image
+            mt='10px'
+            boxSize='150px'
+            src={Logo}
+            alt='CommutilatorLogo'
+          />
+          <Text className='subtitle' color='brand.purple' textShadow='0.5px 0.5px #B9B9B9'>COMMUTILATOR DETAILS</Text>
+          <Flex space-evenly alignItems={'center'} justifyContent='space-between'>
             <Spacer />
-            <Box w='170px' align='center' boxSize='lg'>
-              <Image src='/comm-logo.jpeg' alt='logo' />
+            <Box>
+              <Text className='title'>
+                Result Details:
+              </Text>
+              <Text fontSize={20}>
+                <br />
+                <Box>
+                  <Flex>
+                  <Text className='description'>Daily: </Text><Text className='steps'> ${calcData.result.daily}</Text>
+                  </Flex>
+                  <Text>Weekly: ${calcData.result.weekly}</Text>
+                  <Text>Monthly: ${calcData.result.monthly}</Text>
+                  <Text>Annualy: ${calcData.result.annual}</Text>
+                </Box>
+              </Text>
             </Box>
             <Spacer />
-            <Box w='180px' h='10' />
-          </Flex>
-        </Box>
-        <Flex space-evenly alignItems={'center'} justifyContent='space-between'>
-          <Spacer />
-          <Box borderColor='black' p='3'>
-            <Text fontSize={60} as='b'>
-              Result Details:
-            </Text>
-            <Text fontSize={20}>
-              <br />
-              <div>
-                <p> - Daily: 💲{calcData.result.daily} </p>
-                <p> - Weekly: 💲{calcData.result.weekly} </p>
-                <p> - Monthly: 💲{calcData.result.monthly}</p>
-                <p> - Annualy: 💲{calcData.result.annual}</p>
-              </div>
-            </Text>
-          </Box>
-          <Spacer />
-          <Box borderColor='black' p='3'>
-            <Text fontSize={60} as='b'>
-              Calculation Factors:
-            </Text>
-            <div>
-              <br />
-              <br />
-              <Text fontSize={20}>
-                <p>
-                  - Starting Location Gas Average:💲
-                  {calcData.commute.start_avg_gas}
-                </p>
-                <p>
-                  - Ending Location Gas Average:💲
-                  {calcData.commute.end_avg_gas}
-                </p>
-                <p>
-                  - The Commute Average:💲
-                  {calcData.commute.avg_gas_commute}
-                </p>
-                <p>
-                  - The Commute Distance:
-                  {calcData.commute.distance} miles
-                </p>
+            <Box borderColor='black' p='3'>
+              <Text fontSize={60} as='b'>
+                Calculation Factors:
               </Text>
-            </div>
-          </Box>
-          <Spacer />
-        </Flex>
-        <Box>
-          <Spacer />
-          <Spacer />
-          <Flex alignItems='center' w='100vw'>
-            {directions.routes.length > 0 && (
-              <Map directionsResponse={directions} />
-            )}
+              <div>
+                <br />
+                <br />
+                <Text fontSize={20}>
+                  <p>
+                    - Starting Location Gas Average:💲
+                    {calcData.commute.start_avg_gas}
+                  </p>
+                  <p>
+                    - Ending Location Gas Average:💲
+                    {calcData.commute.end_avg_gas}
+                  </p>
+                  <p>
+                    - The Commute Average:💲
+                    {calcData.commute.avg_gas_commute}
+                  </p>
+                  <p>
+                    - The Commute Distance:
+                    {calcData.commute.distance} miles
+                  </p>
+                </Text>
+              </div>
+            </Box>
+            <Spacer />
           </Flex>
-        </Box>
-      </div>
+          <Box>
+            <Spacer />
+            <Spacer />
+            <Flex alignItems='center' w='100vw'>
+              {directions.routes.length > 0 && (
+                <Map directionsResponse={directions} />
+              )}
+            </Flex>
+          </Box>
+        </Stack>
     </>
   )
 }
