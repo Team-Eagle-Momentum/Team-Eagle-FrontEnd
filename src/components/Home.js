@@ -10,6 +10,7 @@ import {
   NumberInputStepper,
   NumberIncrementStepper,
   NumberDecrementStepper,
+  Center,
 } from "@chakra-ui/react";
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { Autocomplete } from "@react-google-maps/api";
@@ -231,8 +232,10 @@ export default function Home() {
                   required
                 />
               </Box>
-              <Box>
-                <b>OR</b>
+              <Box m={5}>
+                <Center>
+                  <b>OR</b>
+                </Center>
               </Box>
               <Box>
                 <b>Select Vehicle Information to Auto-Populate MPG Value</b>
