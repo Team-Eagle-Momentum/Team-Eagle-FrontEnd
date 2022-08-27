@@ -9,7 +9,6 @@ import LoginForm from './components/Login/Login'
 import Navbar from './components/Navbar'
 import RegisterForm from './components/Register/Register'
 import { extendTheme, ChakraProvider } from '@chakra-ui/react'
-import TestSlider from './components/ResultSlider'
 import Results from './components/Results/Results'
 import NotFound from './components/NotFound'
 
@@ -59,7 +58,6 @@ function App() {
       >
         <Navbar></Navbar>
         <Routes>
-          <Route path='/test' element={<TestSlider />} />
           <Route path='/' element={<Home />} />
           <Route path='/login' element={<LoginForm />} />
           <Route path='/register' element={<RegisterForm />} />
