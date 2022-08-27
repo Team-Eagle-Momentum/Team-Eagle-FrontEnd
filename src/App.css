@@ -42,7 +42,7 @@
   font-size: medium;
 }
 
-.fields: {
+.fields {
   font-family: 'Palanquin';
   font-weight: 300;
   font-size: medium;
@@ -176,9 +176,6 @@
   text-decoration: underline;
   cursor: pointer;
   font-weight: bold;
-<<<<<<< HEAD
-}
-=======
 }
 
 .not-found {
@@ -191,4 +188,3 @@
 .not-found > p {
   padding-top: 10rem;
 }
->>>>>>> 22a27521b191ca41696a17e0e565b6c303b1e3d2
