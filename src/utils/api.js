@@ -75,3 +75,19 @@ export const getCalculationList = async () => {
   })
   return response.data.results
 }
+
+export const saveCalculationToUser = async (calcId) => {
+  const token = localStorage.getItem('token')
+  if (token) {
+    const res = await axios.put(
+      `${BASE_URL}/detail/${calcId}`,
+      {},
+      {
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      }
+    )
+    return res.data
+  }
+}
