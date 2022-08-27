@@ -44,13 +44,57 @@ export default function Details() {
   const generatePdf = () => {
     const centerWith = doc.internal.pageSize.getWidth() / 2 - 28
     const titleWidth = doc.internal.pageSize.getWidth()
+    // logo
     doc.addImage(Logo, 'PNG', centerWith, 5, 55, 55, null, 'center')
     doc.text('COMMUTILATOR DETAILS', 105, 60, null, null, 'center')
     doc.line(60, 65, 150, 65)
 
-    doc.text('FACTORS', titleWidth - 40, 90, null, null, 'right')
+    doc.text('FACTORS', titleWidth - 50, 90, null, null, 'right')
+    // costs rectangle
+    doc.roundedRect(titleWidth - 100, 95, 75, 40, 1, 1)
+    // factors rectangle
+    doc.roundedRect(40 - 10, 95, 50, 40, 1, 1)
 
-    doc.text('COSTS', 40, 90, null, null, 'left')
+    doc.text('COSTS', 45, 90, null, null, 'left')
+    doc.setLineWidth(0.05)
+
+    // text below will have font size 12px
+    doc.setFontSize(12)
+    let txtWidth = titleWidth - 98
+    // factors data
+    doc.text(
+      `Starting location gas average: $${calcData.commute.start_avg_gas}`,
+      txtWidth,
+      102,
+      null,
+      null,
+      'left'
+    )
+    doc.text(
+      `Ending location gas average: $${calcData.commute.end_avg_gas}`,
+      txtWidth,
+      110,
+      null,
+      null,
+      'left'
+    )
+    doc.text(
+      `Commute average: $${calcData.commute.avg_gas_commute}`,
+      txtWidth,
+      118,
+      null,
+      null,
+      'left'
+    )
+    doc.text(
+      `Commute distance: ${calcData.commute.distance} mi`,
+      txtWidth,
+      126,
+      null,
+      null,
+      'left'
+    )
+    // costs data
     doc.text(
       `Daily: $${calcData.result.daily}`,
       40 - 8,
@@ -59,8 +103,32 @@ export default function Details() {
       null,
       'left'
     )
-    doc.setLineWidth(0.05)
-    doc.roundedRect(40 - 10, 95, 50, 50, 1, 1)
+    doc.text(
+      `Weekly: $${calcData.result.weekly}`,
+      40 - 8,
+      110,
+      null,
+      null,
+      'left'
+    )
+    doc.text(
+      `Monthly: $${calcData.result.monthly}`,
+      40 - 8,
+      118,
+      null,
+      null,
+      'left'
+    )
+    doc.text(
+      `Annual: $${calcData.result.annual}`,
+      40 - 8,
+      126,
+      null,
+      null,
+      'left'
+    )
+    // will automatically open pdf file once page is loaded
+    // only using it to preview pdf file
     doc.output('dataurlnewwindow')
   }
 
