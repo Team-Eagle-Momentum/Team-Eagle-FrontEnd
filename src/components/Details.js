@@ -1,11 +1,10 @@
-import { BASE_URL } from '../utils/constants'
-import axios from 'axios'
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import '../App.css'
 import Map from './Map'
 import { Box, Flex, Text, Spacer, Image, Stack, SimpleGrid } from '@chakra-ui/react'
 import Logo from '.././CommutilatorLogo.png'
+import { saveCalculationToUser } from '../utils/api'
 
 export default function Details() {
   const [calcData, setCalcData] = React.useState({
@@ -23,7 +22,6 @@ export default function Details() {
     },
   })
   const { id } = useParams()
-  const token = localStorage.getItem('token')
   const [directions, setDirections] = React.useState({ routes: [] })
 
   const calculateRoute = async () => {
@@ -38,26 +36,12 @@ export default function Details() {
     setDirections(results)
   }
 
-  console.log('results', directions)
   React.useEffect(() => {
-    if (token) {
-      axios
-        .put(
-          `${BASE_URL}/detail/${id}`,
-          {},
-          {
-            headers: {
-              Authorization: `Token ${token}`,
-            },
-          }
-        )
-        .then((res) => {
-          setCalcData(res.data)
-        })
-        .catch((err) => {
-          console.log('ERROR', err)
-        })
+    const saveCalc = async () => {
+      const data = await saveCalculationToUser(id)
+      setCalcData(data)
     }
+    saveCalc()
   }, [])
 
   React.useEffect(() => {

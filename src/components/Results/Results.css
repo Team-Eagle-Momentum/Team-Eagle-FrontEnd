@@ -13,3 +13,12 @@
   margin-bottom: 4rem;
   /* font-weight: bold; */
 }
+
+.results-header-no-data {
+  text-align: center;
+  font-size: 1.4rem;
+  margin-bottom: 4rem;
+  margin: 0 auto;
+  height: 50vh;
+  /* font-weight: bold; */
+}

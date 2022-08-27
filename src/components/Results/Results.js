@@ -50,39 +50,47 @@ function Results() {
 
   return (
     <div className='table-container'>
-      <h1 className='results-header'>
-        Welcome {user}! <br /> Here are your calculation results:
-      </h1>
-      <TableContainer>
-        <Table variant='striped' colorScheme={'teal'}>
-          <Thead>
-            <Tr>
-              <Th>Date</Th>
-              <Th>Starting location</Th>
-              <Th>Ending location</Th>
-              <Th>Vehicle MPG</Th>
-              <Th>Weekly Cost</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {results.map((result) => {
-              return (
-                <Tr
-                  onClick={() => navigateToDetails(result.id)}
-                  className='results-item'
-                  key={result.id}
-                >
-                  <Td>{formatDate(result.result.created_at)}</Td>
-                  <Td>{result.commute.start_location}</Td>
-                  <Td>{result.commute.end_location}</Td>
-                  <Td>{result.vehicle.mpg} mpg</Td>
-                  <Td>${result.result.weekly}</Td>
+      {results.length > 0 ? (
+        <>
+          <h1 className='results-header'>
+            Welcome {user}! <br /> Here are your calculation results:
+          </h1>
+          <TableContainer>
+            <Table variant='striped' colorScheme={'teal'}>
+              <Thead>
+                <Tr>
+                  <Th>Date</Th>
+                  <Th>Starting location</Th>
+                  <Th>Ending location</Th>
+                  <Th>Vehicle MPG</Th>
+                  <Th>Weekly Cost</Th>
                 </Tr>
-              )
-            })}
-          </Tbody>
-        </Table>
-      </TableContainer>
+              </Thead>
+              <Tbody>
+                {results.map((result) => {
+                  return (
+                    <Tr
+                      onClick={() => navigateToDetails(result.id)}
+                      className='results-item'
+                      key={result.id}
+                    >
+                      <Td>{formatDate(result.result.created_at)}</Td>
+                      <Td>{result.commute.start_location}</Td>
+                      <Td>{result.commute.end_location}</Td>
+                      <Td>{result.vehicle.mpg} mpg</Td>
+                      <Td>${result.result.weekly}</Td>
+                    </Tr>
+                  )
+                })}
+              </Tbody>
+            </Table>
+          </TableContainer>
+        </>
+      ) : (
+        <h1 className='results-header-no-data'>
+          <br /> You have no calculations, start using the app!
+        </h1>
+      )}
     </div>
   )
 }
