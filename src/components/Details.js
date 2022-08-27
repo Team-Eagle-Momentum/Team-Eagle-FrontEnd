@@ -5,8 +5,12 @@ import { useParams } from 'react-router-dom'
 import '../App.css'
 import Map from './Map'
 import { Box, Flex, Text, Spacer, Image } from '@chakra-ui/react'
+import { jsPDF } from 'jspdf'
+import Logo from '../CommutilatorLogo.png'
 
 export default function Details() {
+  const doc = new jsPDF()
+
   const [calcData, setCalcData] = React.useState({
     result: {
       weekly: '',
@@ -37,7 +41,29 @@ export default function Details() {
     setDirections(results)
   }
 
-  console.log('results', directions)
+  const generatePdf = () => {
+    const centerWith = doc.internal.pageSize.getWidth() / 2 - 28
+    const titleWidth = doc.internal.pageSize.getWidth()
+    doc.addImage(Logo, 'PNG', centerWith, 5, 55, 55, null, 'center')
+    doc.text('COMMUTILATOR DETAILS', 105, 60, null, null, 'center')
+    doc.line(60, 65, 150, 65)
+
+    doc.text('FACTORS', titleWidth - 40, 90, null, null, 'right')
+
+    doc.text('COSTS', 40, 90, null, null, 'left')
+    doc.text(
+      `Daily: $${calcData.result.daily}`,
+      40 - 8,
+      102,
+      null,
+      null,
+      'left'
+    )
+    doc.setLineWidth(0.05)
+    doc.roundedRect(40 - 10, 95, 50, 50, 1, 1)
+    doc.output('dataurlnewwindow')
+  }
+
   React.useEffect(() => {
     if (token) {
       axios
@@ -61,6 +87,7 @@ export default function Details() {
 
   React.useEffect(() => {
     calculateRoute()
+    generatePdf()
   }, [calcData])
 
   return (
