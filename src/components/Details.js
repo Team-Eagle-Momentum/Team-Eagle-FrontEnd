@@ -21,7 +21,6 @@ export default function Details() {
     },
   })
   const { id } = useParams()
-  const token = localStorage.getItem('token')
   const [directions, setDirections] = React.useState({ routes: [] })
 
   const calculateRoute = async () => {
