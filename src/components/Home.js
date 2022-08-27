@@ -23,10 +23,12 @@ import {
   getGasPrice,
   getMakes,
   getVehicleSpecs,
+  saveCalculationToUser,
 } from '../utils/api'
 import { roundNumber, splitAddress } from '../utils/helpers'
 import { YEARS } from '../utils/constants'
 import { AppContext } from '../App'
+import axios from 'axios'
 
 import ResultSlider from './ResultSlider'
 import ProgressBar from './ProgressBar'
@@ -168,7 +170,7 @@ export default function Home() {
                 </Autocomplete>
               </Box>
               <Box>
-                <label htmlFor='ending-location-field'>Ending Location:{' '}</label>
+                <label htmlFor='ending-location-field'>Ending Location: </label>
                 <Autocomplete>
                   <Input
                     type='text'
@@ -340,6 +342,7 @@ export default function Home() {
                 createCalcData(commuteId, vehicleId),
               ])
               setResultCalculation(data)
+              saveCalculationToUser(data.id)
               setCurrentStep(currentStep + 1)
             }}
           >
