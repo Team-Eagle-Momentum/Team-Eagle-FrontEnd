@@ -16,7 +16,7 @@ function Map({ directionsResponse }) {
       <Box left={0} top={0} h='100%' w='100%'>
         <GoogleMap
           zoom={15}
-          mapContainerStyle={{ width: '50%', height: '100%' }}
+          mapContainerStyle={{ height: '100%' }}
           options={{
             zoomControl: false,
             streetViewControl: false,
