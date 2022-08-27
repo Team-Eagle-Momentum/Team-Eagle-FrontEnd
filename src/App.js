@@ -11,7 +11,7 @@ import RegisterForm from './components/Register/Register'
 import { extendTheme, ChakraProvider } from '@chakra-ui/react'
 import TestSlider from './components/ResultSlider'
 import Results from './components/Results/Results'
-
+import NotFound from './components/NotFound'
 
 const colors = {
   brand: {
@@ -79,6 +79,7 @@ function App() {
               </PrivateRoute>
             }
           />
+          <Route path='*' element={<NotFound />} />
         </Routes>
         <Footer></Footer>
       </AppContext.Provider>
