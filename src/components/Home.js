@@ -139,7 +139,6 @@ export default function Home() {
   };
 
   return (
-    <ChakraProvider>
       <Flex className='description' direction='column' alignItems='center'>
         {currentStep === 1 && (
           <>
@@ -330,7 +329,8 @@ export default function Home() {
             >
               Start
             </Button>
-            <Divider />
+            <Divider h='5vh' variant='unstyled' />
+            <Box w='80%' h='1.5' bg='brand.purple' borderRadius='full'/>
           </>
         )}
         {currentStep === 2 && (
@@ -426,6 +426,5 @@ export default function Home() {
           </>
         )}
       </Flex>
-    </ChakraProvider>
   );
 }
