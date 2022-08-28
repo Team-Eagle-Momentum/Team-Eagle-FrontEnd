@@ -2,7 +2,8 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import '../App.css'
 import Map from './Map'
-import { Box, Flex, Text, Spacer, Image } from '@chakra-ui/react'
+import { Box, Flex, Divider, Text, Spacer, Image, Stack, SimpleGrid, HStack, Center } from '@chakra-ui/react'
+import Logo from '.././CommutilatorLogo.png'
 import { saveCalculationToUser } from '../utils/api'
 
 export default function Details() {
@@ -49,74 +50,57 @@ export default function Details() {
 
   return (
     <>
-      <div className='detail-container'>
-        <Box>
-          <Flex>
-            <Box w='70px' h='10' />
-            <Spacer />
-            <Box w='170px' align='center' boxSize='lg'>
-              <Image src='/comm-logo.jpeg' alt='logo' />
-            </Box>
-            <Spacer />
-            <Box w='180px' h='10' />
-          </Flex>
-        </Box>
-        <Flex space-evenly alignItems={'center'} justifyContent='space-between'>
-          <Spacer />
-          <Box borderColor='black' p='3'>
-            <Text fontSize={60} as='b'>
-              Result Details:
+      <Stack align='center'>
+        <Image mt='10px' boxSize='150px' src={Logo} alt='CommutilatorLogo'/>
+        <Text className='subtitle' color='brand.purple' textShadow='0.5px 0.5px #B9B9B9'>COMMUTILATOR DETAILS</Text>
+        <Divider variant='unstyled' h='5vh' />
+        <SimpleGrid columns={2}>
+          <Box ml='20px' alignItems='center'>
+            <Text align='center' className='title'>
+              Result Details
             </Text>
-            <Text fontSize={20}>
-              <br />
-              <div>
-                <p> - Daily: 💲{calcData.result.daily} </p>
-                <p> - Weekly: 💲{calcData.result.weekly} </p>
-                <p> - Monthly: 💲{calcData.result.monthly}</p>
-                <p> - Annualy: 💲{calcData.result.annual}</p>
-              </div>
-            </Text>
+            <Center>
+              <Box className='description'>
+                <Text>Daily:</Text>
+                <Text>Weekly:</Text>
+                <Text>Monthly:</Text>
+                <Text>Annualy:</Text>
+              </Box>
+              <Box ml='20px' className='costs'>
+                <Text>${calcData.result.daily}</Text>
+                <Text>${calcData.result.weekly}</Text>
+                <Text>${calcData.result.monthly}</Text>
+                <Text>${calcData.result.annual}</Text>
+              </Box>
+            </Center>
           </Box>
-          <Spacer />
-          <Box borderColor='black' p='3'>
-            <Text fontSize={60} as='b'>
-              Calculation Factors:
+          <Box ml='20px' alignItems='center'>
+            <Text align='center' className='title'>
+              Calculation Factors
             </Text>
-            <div>
-              <br />
-              <br />
-              <Text fontSize={20}>
-                <p>
-                  - Starting Location Gas Average:💲
-                  {calcData.commute.start_avg_gas}
-                </p>
-                <p>
-                  - Ending Location Gas Average:💲
-                  {calcData.commute.end_avg_gas}
-                </p>
-                <p>
-                  - The Commute Average:💲
-                  {calcData.commute.avg_gas_commute}
-                </p>
-                <p>
-                  - The Commute Distance:
-                  {calcData.commute.distance} miles
-                </p>
-              </Text>
-            </div>
+            <Center>
+              <Box className='description'>
+                <Text>Starting Location Gas Price:</Text>
+                <Text>Ending Location Gas Price</Text>
+                <Text>Overall Gas Average:</Text>
+                <Text>Commute Distance:</Text>
+              </Box>
+              <Box ml='20px' className='costs'>
+                <Text>${calcData.commute.start_avg_gas}</Text>
+                <Text>${calcData.commute.end_avg_gas}</Text>
+                <Text>${calcData.commute.avg_gas_commute}</Text>
+                <Text>{calcData.commute.distance} miles</Text>
+              </Box>
+            </Center>
           </Box>
-          <Spacer />
-        </Flex>
-        <Box>
-          <Spacer />
-          <Spacer />
-          <Flex alignItems='center' w='100vw'>
-            {directions.routes.length > 0 && (
-              <Map directionsResponse={directions} />
-            )}
-          </Flex>
+        </SimpleGrid>
+        <Divider variant='unstyled' h='5vh' />
+        <Box shadow='base' mt='25px' alignItems='center' w='500px' borderRadius='lg'>
+          {directions.routes.length > 0 && (
+            <Map directionsResponse={directions} />
+          )}
         </Box>
-      </div>
+      </Stack>
     </>
   )
 }
