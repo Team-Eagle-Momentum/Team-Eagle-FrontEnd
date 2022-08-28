@@ -60,7 +60,7 @@ export default function Details() {
         <Text className='subtitle' color='brand.purple' textShadow='0.5px 0.5px #B9B9B9'>COMMUTILATOR DETAILS</Text>
         <Divider variant='unstyled' h='5vh' />
 
-        <SimpleGrid columns={2} bg='yellow'>
+        <SimpleGrid w='600px' columns={2} bg='yellow'>
 
           <Box w='max-content' bg='purple'>
 
@@ -86,13 +86,13 @@ export default function Details() {
 
           </Box>
 
-          <Box w='max-content' bg='blue'>
+          <Box w='max-content' alignItems='center' bg='blue'>
 
             <Text align='center' className='title'>
               Calculation Factors
             </Text>
 
-            <SimpleGrid alignItems='center' columns={2}>
+            <SimpleGrid bg='red' alignItems='center' columns={2}>
               <Box ml='20px' className='description'>
                 <Text bg='pink'>Starting Location Gas Price:</Text>
                 <Text>Ending Location Gas Price</Text>
@@ -100,7 +100,7 @@ export default function Details() {
                 <Text>Commute Distance:</Text>
               </Box>
 
-              <Box ml='20px' className='costs'>
+              <Box ml='20px' w='max-content' className='costs'>
                 <Text bg='green'>${calcData.commute.start_avg_gas}</Text>
                 <Text>${calcData.commute.end_avg_gas}</Text>
                 <Text>${calcData.commute.avg_gas_commute}</Text>
