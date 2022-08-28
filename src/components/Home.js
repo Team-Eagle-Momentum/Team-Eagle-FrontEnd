@@ -139,292 +139,281 @@ export default function Home() {
   };
 
   return (
-      <Flex className='description' direction='column' alignItems='center'>
-        {currentStep === 1 && (
-          <>
-            <Box m='10px'>Welcome to Commutilator!</Box>
-            <Box m='10px'>
-              Commutilator helps you calculate the cost of your commute, whether to work, school, or even the grocery store, using your route, your personal vehicle information,
-              and local gas prices. We hope you are able to use our app to make informed decisions about your drive!
-            </Box>
-            <Box>Please click "Start" to begin.</Box>
-          </>
-        )}
-        {currentStep === 2 && (
-          <>
-            <Box className='form-step-title' mb='10px'>
-              Step {currentStep} - Enter the starting and ending location of
-              your commute.
-            </Box>
-            <Stack spacing={5} mb={3}>
-              <Box>
-                <label htmlFor='starting-location-field'>
-                  Starting Location:{' '}
-                </label>
-                <Autocomplete>
-                  <Input
-                    type='text'
-                    placeholder='Enter a Location'
-                    ref={originRef}
-                  />
-                </Autocomplete>
-              </Box>
-              <Box>
-                <label htmlFor='ending-location-field'>Ending Location: </label>
-                <Autocomplete>
-                  <Input
-                    type='text'
-                    placeholder='Enter a Location'
-                    ref={destinationRef}
-                  />
-                </Autocomplete>
-              </Box>
-              <Box>
-                <label htmlFor='work-days-field'>
-                  Days per Week Commuting:{' '}
-                </label>
-                <NumberInput
-                  mr='2rem'
-                  min={1}
-                  max={7}
-                  precision={0}
-                  value={workDay}
-                  onChange={(workDay) => setWorkDay(workDay)}
-                >
-                  <NumberInputField />
-                  <NumberInputStepper>
-                    <NumberIncrementStepper />
-                    <NumberDecrementStepper />
-                  </NumberInputStepper>
-                </NumberInput>
-              </Box>
-            </Stack>
-          </>
-        )}
-        {currentStep === 3 && (
-          <>
-            <Box className='steps'>
-              Step {currentStep} - Enter your vehicle MPG (or select vehicle
-              information)
+    <Flex className='description' direction='column' alignItems='center'>
+      {currentStep === 1 && (
+        <>
+          <Box m='10px'>Welcome to Commutilator!</Box>
+          <Box m='10px'>
+            Commutilator helps you calculate the cost of your commute, whether to work, school, or even the grocery store, using your route, your personal vehicle information, and local gas prices. We hope you are able to use our app to make informed decisions about your drive!
+          </Box>
+          <Box>Please click "Start" to begin.</Box>
+        </>
+      )}
+      {currentStep === 2 && (
+        <>
+          <Box className='steps' m='10px'>
+            Step 1 - Enter your route information.
+          </Box>
+          <Stack className='fields'>
+            <Box>
+              <Text htmlFor='starting-location-field'>
+                Start:{' '}
+              </Text>
+              <Autocomplete>
+                <Input
+                  shadow='sm'
+                  bg='white'
+                  type='text'
+                  placeholder='Enter a Location'
+                  ref={originRef}
+                />
+              </Autocomplete>
             </Box>
             <Box>
-              <Box>Enter MPG</Box>
-              <Box>
-                {carModels.length === 0 ? (
-                  <p>No models found, please enter MPG</p>
-                ) : combinedMPGVal === 0.0 ? (
-                  <p>No MPG found, please enter MPG</p>
-                ) : (
-                  ''
-                )}
-
-                {combinedMPGVal === 0.0 && (
-                  <p>No MPG found, please enter MPG</p>
-                )}
-                <label htmlFor='mpg-input-field'>MPG: </label>
-                <input
-                  placeholder='Enter Miles Per Gallon'
-                  id='mpg-input-field'
+              <Text htmlFor='ending-location-field'>End: </Text>
+              <Autocomplete>
+                <Input
+                  shadow='sm'
+                  bg='white'
                   type='text'
-                  value={combinedMPGVal}
-                  onChange={(e) => setCombinedMPGVal(e.target.value)}
-                  required
+                  placeholder='Enter a Location'
+                  ref={destinationRef}
                 />
-              </Box>
-              <Box m={5}>
-                <Center>
-                  <b>OR</b>
-                </Center>
-              </Box>
-              <Box>
-                <b>Select Vehicle Information to Auto-Populate MPG Value</b>
-              </Box>
-              <Box>
-                <label htmlFor='year-field'>Year: </label>
-                <select
-                  id='year-field'
-                  defaultValue=''
-                  onChange={(e) => setSelectYear(e.target.value)}
-                >
-                  <option value='' disabled hidden>
-                    Select Year
-                  </option>
-                  {YEARS.map((year, index) => (
-                    <option key={index} value={year}>
-                      {year}
-                    </option>
-                  ))}
-                </select>
-              </Box>
-              <Box>
-                <label htmlFor='car-make-field'>Car Make: </label>
-                <select
-                  id='car-make-field'
-                  defaultValue=''
-                  onChange={(e) => setCarMakeID(e.target.value)}
-                >
-                  <option value='' disabled hidden>
-                    Select Car Make
-                  </option>
-                  {carMakes.map((carMake, index) => (
-                    <option key={index} value={carMake.Id}>
-                      {carMake.Name}
-                    </option>
-                  ))}
-                </select>
-              </Box>
-              <Box>
-                <label htmlFor='car-model-field'>Car Model: </label>
-                <select
-                  id='car-model-field'
-                  defaultValue=''
-                  onChange={(e) => setCarTrimID(e.target.value)}
-                >
-                  <option value='' disabled hidden>
-                    Select Car Model
-                  </option>
-                  {carModels.length > 0 ? (
-                    carModels.map((carModel, index) => (
-                      <option key={index} value={carModel.TrimId}>
-                        {carModel.ModelName} {carModel.TrimName}
-                      </option>
-                    ))
-                  ) : (
-                    <option>No models found</option>
-                  )}
-                </select>
-              </Box>
+              </Autocomplete>
             </Box>
-          </>
-        )}
-        {currentStep === 4 && (
-          <div className='map-container'>
-            <Map directionsResponse={directionsResponse} />
-            <div className='slider-container'>
-              <ResultSlider />
-              <Link
-                style={{ zIndex: 100000 }}
-                to={`/details/${resultCalculation.id}?fromDetails=true`}
+            <Box>
+              <Text htmlFor='work-days-field'>Days per Week Commuting:</Text>
+              <NumberInput
+                shadow='sm'
+                bg='white'
+                min={1}
+                max={7}
+                precision={0}
+                value={workDay}
+                onChange={(workDay) => setWorkDay(workDay)}
               >
-                View Details
-              </Link>
-            </div>
+                <NumberInputField />
+                <NumberInputStepper>
+                  <NumberIncrementStepper />
+                  <NumberDecrementStepper />
+                </NumberInputStepper>
+              </NumberInput>
+            </Box>
+          </Stack>
+        </>
+      )}
+      {currentStep === 3 && (
+        <>
+          <Box className='steps'>
+            Step 2 - Enter your vehicle information.
+          </Box>
+          <Stack>
+            <Box className='fields'>
+              {carModels.length === 0 ? (
+                <Box>No models found, please enter MPG</Box>
+              ) : combinedMPGVal === 0.0 ? (
+                <Box>No MPG found, please enter MPG</Box>
+              ) : (
+                ''
+              )}
+              {/* {combinedMPGVal === 0.0 && (
+                <Box>No MPG found, please enter MPG</Box>
+              )} */}
+              <Text htmlFor='mpg-input-field'>MPG:</Text>
+              <Input
+                shadow='sm'
+                bg='white'
+                placeholder='Enter Miles Per Gallon'
+                id='mpg-input-field'
+                type='text'
+                value={combinedMPGVal}
+                onChange={(e) => setCombinedMPGVal(e.target.value)}
+                required
+              />
+            </Box>
+            <Center className='steps'>OR</Center>
+            <Box className='fields'>
+              <Text htmlFor='year-field'>Year:</Text>
+              <select
+                id='year-field'
+                defaultValue=''
+                onChange={(e) => setSelectYear(e.target.value)}
+              >
+                <option value='' disabled hidden>
+                  Select Year
+                </option>
+                {YEARS.map((year, index) => (
+                  <option key={index} value={year}>
+                    {year}
+                  </option>
+                ))}
+              </select>
+              <Text htmlFor='car-make-field'>Car Make:</Text>
+              <select
+                id='car-make-field'
+                defaultValue=''
+                onChange={(e) => setCarMakeID(e.target.value)}
+              >
+                <option value='' disabled hidden>
+                  Select Car Make
+                </option>
+                {carMakes.map((carMake, index) => (
+                  <option key={index} value={carMake.Id}>
+                    {carMake.Name}
+                  </option>
+                ))}
+              </select>
+              <Text htmlFor='car-model-field'>Car Model:</Text>
+              <select
+                id='car-model-field'
+                defaultValue=''
+                onChange={(e) => setCarTrimID(e.target.value)}
+              >
+                <option value='' disabled hidden>
+                  Select Car Model
+                </option>
+                {carModels.length > 0 ? (
+                  carModels.map((carModel, index) => (
+                    <option key={index} value={carModel.TrimId}>
+                      {carModel.ModelName} {carModel.TrimName}
+                    </option>
+                  ))
+                ) : (
+                  <option>No models found</option>
+                )}
+              </select>
+            </Box>
+          </Stack>
+        </>
+      )}
+      {currentStep === 4 && (
+        <div className='map-container'>
+          <Map directionsResponse={directionsResponse} />
+          <div className='slider-container'>
+            <ResultSlider />
+            <Link
+              style={{ zIndex: 100000 }}
+              to={`/details/${resultCalculation.id}?fromDetails=true`}
+            >
+              View Details
+            </Link>
           </div>
-        )}
+        </div>
+      )}
 
-        {/*buttons*/}
-        {currentStep === 1 && (
-          <>
-            <Button
-              className='subtitle'
-              shadow='md'
-              mt='20px'
-              variant='outline'
-              bg='brand.aqua'
-              colorScheme='black'
-              onClick={async () => {
-                setProgressBar(0);
-                setCurrentStep(currentStep + 1);
-              }}
-            >
-              Start
-            </Button>
-            <Divider h='5vh' variant='unstyled' />
-            <Box w='80%' h='1.5' bg='brand.purple' borderRadius='full'/>
-          </>
-        )}
-        {currentStep === 2 && (
-          <>
-            <Button
-              className='subtitle'
-              shadow='md'
-              mt='20px'
-              bg='brand.aqua'
-              variant='outline'
-              colorScheme='black'
-              onClick={async () => {
-                let [distanceResult] = await Promise.all([calculateRoute()]);
-                let [commuteId] = await Promise.all([
-                  commutePostData(distanceResult),
-                ]);
-                setProgressBar(0);
-                setCommuteId(commuteId);
-                setCurrentStep(currentStep + 1);
-              }}
-            >
-              Next
-            </Button>
-            <Divider h='5vh' variant='unstyled' />
-            <ProgressBar
-              key={'p-bar'}
-              bgcolor={'#F0B199'}
-              completed={progressBar}
-            />
-          </>
-        )}
-        {currentStep === 3 && (
-          <>
-            <Button
-              className='subtitle'
-              shadow='md'
-              mt='20px'
-              bg='brand.aqua'
-              variant='outline'
-              colorScheme='black'
-              onClick={async (e) => {
-                e.preventDefault();
-                setProgressBar(50);
-                let [vehicleId] = await Promise.all([
-                  createVehicle(combinedMPGVal),
-                ]);
-                let [data] = await Promise.all([
-                  createCalcData(commuteId, vehicleId),
-                ]);
-                setResultCalculation(data);
-                saveCalculationToUser(data.id);
-                setCurrentStep(currentStep + 1);
-              }}
-            >
-              Commutilate Route
-            </Button>
-            <Divider h='5vh' variant='unstyled' />
-            <ProgressBar
-              key={'p-bar'}
-              bgcolor={'#F0B199'}
-              completed={progressBar}
-            />
-          </>
-        )}
-        {currentStep === 4 && (
-          <>
-            <Button
-              className='subtitle'
-              shadow='md'
-              mt='20px'
-              bg='brand.aqua'
-              variant='outline'
-              colorScheme='black'
-              onClick={() => {
-                setProgressBar(100);
-                setCommuteId(0);
-                setResultCalculation({
-                  result: { weekly: '' },
-                });
-                setCombinedMPGVal('');
-                setCurrentStep(1);
-                setWorkDay(1);
-              }}
-            >
-              New Calculation
-            </Button>
-            <Divider h='5vh' variant='unstyled' />
-            <ProgressBar
-              key={'p-bar'}
-              bgcolor={'#F0B199'}
-              completed={progressBar}
-            />
-          </>
-        )}
-      </Flex>
+      {/*buttons*/}
+      {currentStep === 1 && (
+        <>
+          <Button
+            className='subtitle'
+            shadow='md'
+            mt='20px'
+            variant='outline'
+            bg='brand.aqua'
+            colorScheme='black'
+            onClick={async () => {
+              setProgressBar(0);
+              setCurrentStep(currentStep + 1);
+            }}
+          >
+            Start
+          </Button>
+          <Divider h='5vh' variant='unstyled' />
+          <Box w='80%' h='1.5' bg='brand.purple' borderRadius='full' />
+        </>
+      )}
+      {currentStep === 2 && (
+        <>
+          <Button
+            className='subtitle'
+            shadow='md'
+            mt='20px'
+            bg='brand.aqua'
+            variant='outline'
+            colorScheme='black'
+            onClick={async () => {
+              let [distanceResult] = await Promise.all([calculateRoute()]);
+              let [commuteId] = await Promise.all([
+                commutePostData(distanceResult),
+              ]);
+              setProgressBar(0);
+              setCommuteId(commuteId);
+              setCurrentStep(currentStep + 1);
+            }}
+          >
+            Next
+          </Button>
+          <Divider h='5vh' variant='unstyled' />
+          <ProgressBar
+            key={'p-bar'}
+            bgcolor={'#F0B199'}
+            completed={progressBar}
+          />
+        </>
+      )}
+      {currentStep === 3 && (
+        <>
+          <Button
+            className='subtitle'
+            shadow='md'
+            mt='20px'
+            bg='brand.aqua'
+            variant='outline'
+            colorScheme='black'
+            onClick={async (e) => {
+              e.preventDefault();
+              setProgressBar(50);
+              let [vehicleId] = await Promise.all([
+                createVehicle(combinedMPGVal),
+              ]);
+              let [data] = await Promise.all([
+                createCalcData(commuteId, vehicleId),
+              ]);
+              setResultCalculation(data);
+              saveCalculationToUser(data.id);
+              setCurrentStep(currentStep + 1);
+            }}
+          >
+            Commutilate Route
+          </Button>
+          <Divider h='5vh' variant='unstyled' />
+          <ProgressBar
+            key={'p-bar'}
+            bgcolor={'#F0B199'}
+            completed={progressBar}
+          />
+        </>
+      )}
+      {currentStep === 4 && (
+        <>
+          <Button
+            className='subtitle'
+            shadow='md'
+            mt='20px'
+            bg='brand.aqua'
+            variant='outline'
+            colorScheme='black'
+            onClick={() => {
+              setProgressBar(100);
+              setCommuteId(0);
+              setResultCalculation({
+                result: { weekly: '' },
+              });
+              setCombinedMPGVal('');
+              setCurrentStep(1);
+              setWorkDay(1);
+            }}
+          >
+            New Calculation
+          </Button>
+          <Divider h='5vh' variant='unstyled' />
+          <ProgressBar
+            key={'p-bar'}
+            bgcolor={'#F0B199'}
+            completed={progressBar}
+          />
+        </>
+      )}
+    </Flex>
   );
 }
