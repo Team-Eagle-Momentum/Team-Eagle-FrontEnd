@@ -19,10 +19,12 @@ export const RegisterForm = () => {
   const [email, setEmail] = useState('')
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [passwordError, setPasswordError] = useState(null)
+  const [blankError, setBlankError] = useState(null)
   const navigateTo = useNavigate()
 
   const handleSubmit = (event) => {
-    console.log(email, password, username)
+    // console.log(email, password, username)
     event.preventDefault()
     axios
       .post('https://commutilator-api.herokuapp.com/api/auth/users/', {
@@ -32,6 +34,37 @@ export const RegisterForm = () => {
       })
       .then(() => {
         navigateTo('/login')
+      })
+      .catch(function (error) {
+
+        if (error.response.data.username) {
+          if (error.response.data.username[0] === 'This field may not be blank.') {
+            setBlankError(error)
+            // console.log('blank error', error.response.data);
+            setPasswordError(null)
+          }
+        }
+
+        if (error.response.data.password) {
+          if (error.response.data.password[0] === 'The password is too similar to the username.') {
+            setPasswordError(error)
+            // console.log('password error', error.response.data);
+            setBlankError(null)
+          }
+          if (error.response.data.password[0] === 'This field may not be blank.') {
+            setBlankError(error)
+            // console.log('blank error', error.response.data);
+            setPasswordError(null)
+          }
+        }
+
+        if (error.response) {
+          // console.log('response', error.response);
+        }
+        if (error.request) {
+          // console.log('request', error.request);
+        }
+        // console.log('Error', error.message);
       })
   }
 
@@ -43,7 +76,7 @@ export const RegisterForm = () => {
           bg='brand.yellow'
           align='center'
           w='400px'
-          h='350px'
+          h='360px'
           borderRadius='lg'
           shadow='base'
         >
@@ -54,16 +87,17 @@ export const RegisterForm = () => {
           >
             Create an Account
           </Text>
-          <form>
+          <form onSubmit={handleSubmit}>
             <Box>
               <Text htmlFor='email-field'>Email: </Text>
               <Input
                 id='email-field'
-                type='text'
+                type='email'
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
                 shadow='sm'
                 bg='white'
+                onChange={(e) => setEmail(e.target.value)}
+                required
               ></Input>
             </Box>
             <Box mt='5px'>
@@ -72,9 +106,11 @@ export const RegisterForm = () => {
                 id='username-field'
                 type='text'
                 value={username}
-                onChange={(e) => setUsername(e.target.value)}
                 shadow='sm'
                 bg='white'
+                onChange={(e) => setUsername(e.target.value)}
+                minLength='8'
+                required
               ></Input>
             </Box>
             <Box mt='5px'>
@@ -83,19 +119,32 @@ export const RegisterForm = () => {
                 id='password-field'
                 type='password'
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
                 shadow='sm'
                 bg='white'
+                onChange={(e) => setPassword(e.target.value)}
+                minLength='8'
+                required
               ></Input>
             </Box>
+            {passwordError &&
+              <Box mt='10px' color='red'>
+                <Text>Password is too similar to the username</Text>
+              </Box>
+            }
+            {blankError &&
+              <Box mt='10px' color='red'>
+                <Text>Input may not be blank</Text>
+              </Box>
+            }
             <Button
+              type='submit'
+              value='Create Account'
               className='subtitle'
               shadow='md'
-              mt='25px'
+              mt='20px'
               bg='brand.aqua'
               variant='outline'
               colorScheme='black'
-              onClick={(e) => handleSubmit(e)}
             >
               Create Account
             </Button>
