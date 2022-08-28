@@ -242,26 +242,14 @@ export default function Home() {
             </Box>
             <Text className='steps' m='10px'>OR</Text>
             <Box className='fields'>
-              <Text htmlFor='year-field'>Year:</Text>
-              <Menu>
-                <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-                Select Year
-                </MenuButton>
-                  <MenuList>
-                  {YEARS.map((year, index) => (
-                  <option key={index} value={year}>
-                    {year}
-                  </option>
-                ))}
-                  </MenuList>
-              </Menu>
+              <Text htmlFor='year-field'>Car Year:</Text>
               <select
                 id='year-field'
                 defaultValue=''
                 onChange={(e) => setSelectYear(e.target.value)}
               >
                 <option value='' disabled hidden>
-                  Select Year
+                  Select Car Year
                 </option>
                 {YEARS.map((year, index) => (
                   <option key={index} value={year}>
@@ -308,18 +296,24 @@ export default function Home() {
         </>
       )}
       {currentStep === 4 && (
-        <div className='map-container'>
-          <Map directionsResponse={directionsResponse} />
-          <div className='slider-container'>
+        <>
+          <Box className='steps' m='10px'>
+            Commute Results
+          </Box>
+          <Flex>
+          <Map w='50vw' directionsResponse={directionsResponse} />
+          <Box className='slider-container'>
             <ResultSlider />
             <Link
+              className='steps'
               style={{ zIndex: 100000 }}
               to={`/details/${resultCalculation.id}?fromDetails=true`}
             >
               View Details
             </Link>
-          </div>
-        </div>
+          </Box>
+          </Flex>
+        </>
       )}
 
       {/*buttons*/}
