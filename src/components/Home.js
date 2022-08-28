@@ -13,7 +13,16 @@ import {
   Center,
   Text,
   Divider,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuItemOption,
+  MenuGroup,
+  MenuOptionGroup,
+  MenuDivider,
 } from '@chakra-ui/react';
+import { ChevronDownIcon } from '@chakra-ui/icons'
 import React, { useState, useEffect, useRef, useContext } from 'react';
 import { Autocomplete } from '@react-google-maps/api';
 import { Link } from 'react-router-dom';
@@ -204,7 +213,7 @@ export default function Home() {
       )}
       {currentStep === 3 && (
         <>
-          <Box className='steps'>
+          <Box className='steps' m='10px'>
             Step 2 - Enter your vehicle information.
           </Box>
           <Stack>
@@ -231,9 +240,21 @@ export default function Home() {
                 required
               />
             </Box>
-            <Center className='steps'>OR</Center>
+            <Text className='steps' m='10px'>OR</Text>
             <Box className='fields'>
               <Text htmlFor='year-field'>Year:</Text>
+              <Menu>
+                <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+                Select Year
+                </MenuButton>
+                  <MenuList>
+                  {YEARS.map((year, index) => (
+                  <option key={index} value={year}>
+                    {year}
+                  </option>
+                ))}
+                  </MenuList>
+              </Menu>
               <select
                 id='year-field'
                 defaultValue=''
