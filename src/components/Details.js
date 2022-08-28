@@ -2,7 +2,7 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import '../App.css'
 import Map from './Map'
-import { Box, Flex, Divider, Text, Spacer, Image, Stack, SimpleGrid } from '@chakra-ui/react'
+import { Box, Flex, Divider, Text, Spacer, Image, Stack, SimpleGrid, HStack, Center } from '@chakra-ui/react'
 import Logo from '.././CommutilatorLogo.png'
 import { saveCalculationToUser } from '../utils/api'
 
@@ -51,66 +51,49 @@ export default function Details() {
   return (
     <>
       <Stack align='center'>
-        <Image
-          mt='10px'
-          boxSize='150px'
-          src={Logo}
-          alt='CommutilatorLogo'
-        />
+        <Image mt='10px' boxSize='150px' src={Logo} alt='CommutilatorLogo'/>
         <Text className='subtitle' color='brand.purple' textShadow='0.5px 0.5px #B9B9B9'>COMMUTILATOR DETAILS</Text>
         <Divider variant='unstyled' h='5vh' />
-
-        <SimpleGrid columns={2} bg='yellow'>
-
-          <Box ml='20px' alignItems='center' bg='purple'>
-
+        <SimpleGrid columns={2}>
+          <Box ml='20px' alignItems='center'>
             <Text align='center' className='title'>
               Result Details
             </Text>
-
-            <Flex>
-              <Box ml='20px' className='description'>
+            <Center>
+              <Box className='description'>
                 <Text>Daily:</Text>
                 <Text>Weekly:</Text>
                 <Text>Monthly:</Text>
                 <Text>Annualy:</Text>
               </Box>
-
               <Box ml='20px' className='costs'>
                 <Text>${calcData.result.daily}</Text>
                 <Text>${calcData.result.weekly}</Text>
                 <Text>${calcData.result.monthly}</Text>
                 <Text>${calcData.result.annual}</Text>
               </Box>
-            </Flex>
-
+            </Center>
           </Box>
-          <Box ml='20px' alignItems='center' bg='blue'>
-
+          <Box ml='20px' alignItems='center'>
             <Text align='center' className='title'>
               Calculation Factors
             </Text>
-
-            <Flex>
-              <Box ml='20px' className='description'>
+            <Center>
+              <Box className='description'>
                 <Text>Starting Location Gas Price:</Text>
                 <Text>Ending Location Gas Price</Text>
                 <Text>Overall Gas Average:</Text>
                 <Text>Commute Distance:</Text>
               </Box>
-
               <Box ml='20px' className='costs'>
                 <Text>${calcData.commute.start_avg_gas}</Text>
                 <Text>${calcData.commute.end_avg_gas}</Text>
                 <Text>${calcData.commute.avg_gas_commute}</Text>
                 <Text>{calcData.commute.distance} miles</Text>
               </Box>
-            </Flex>
-
+            </Center>
           </Box>
-
         </SimpleGrid>
-
         <Divider variant='unstyled' h='5vh' />
         <Box shadow='base' mt='25px' alignItems='center' w='500px' borderRadius='lg'>
           {directions.routes.length > 0 && (
