@@ -7,7 +7,6 @@ import {
 } from 'react-router-dom'
 import { useState, useContext } from 'react'
 import axios from 'axios'
-
 import {
   Box,
   Button,
@@ -18,6 +17,7 @@ import {
   Input,
   Stack,
   Text,
+  useColorModeValue
 } from '@chakra-ui/react'
 
 import './Login.css'
@@ -80,7 +80,7 @@ export const LoginForm = () => {
         className='body'>
         <Divider m='25px' variant='unstyled' />
         <Stack
-          bg='brand.yellow'
+          bg={useColorModeValue('#ECF3B1', '#4a4a4a')}
           align='center'
           w='400px'
           h='320px'
@@ -94,7 +94,7 @@ export const LoginForm = () => {
                 id='username-field'
                 type='text'
                 shadow='sm'
-                bg='white'
+                bg={useColorModeValue('#ffffff', '#7d7d7d')}
                 onChange={(e) => setUsername(e.target.value)}
                 required
               >
@@ -106,7 +106,7 @@ export const LoginForm = () => {
                 id='password-field'
                 type='password'
                 shadow='sm'
-                bg='white'
+                bg={useColorModeValue('#ffffff', '#7d7d7d')}
                 onChange={(e) => setPassword(e.target.value)}
                 required
               >
@@ -128,7 +128,7 @@ export const LoginForm = () => {
               className='subtitle'
               shadow='md'
               mt='20px'
-              bg='brand.aqua'
+              bg={useColorModeValue('#99F0E0', '#a456f0')}
               variant='outline'
               colorScheme='black'>
               Log In

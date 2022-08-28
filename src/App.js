@@ -23,7 +23,7 @@ const colors = {
   },
 }
 
-const theme = extendTheme({ colors })
+// const theme = extendTheme({ colors })
 
 export const AppContext = createContext()
 
@@ -47,7 +47,8 @@ function App() {
   const [currentStep, setCurrentStep] = useState(1)
 
   return (
-    <ChakraProvider theme={theme}>
+    <ChakraProvider>
+      {/* <ChakraProvider theme={theme}> */}
       <AppContext.Provider
         value={{
           resultCalculation,

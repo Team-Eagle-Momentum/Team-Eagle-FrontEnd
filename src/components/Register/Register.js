@@ -13,6 +13,7 @@ import {
   Input,
   Stack,
   Text,
+  useColorModeValue
 } from '@chakra-ui/react'
 
 export const RegisterForm = () => {
@@ -73,7 +74,7 @@ export const RegisterForm = () => {
       <Flex alignItems='center' direction='column' className='body'>
         <Divider m='25px' variant='unstyled' />
         <Stack
-          bg='brand.yellow'
+          bg={useColorModeValue('#ECF3B1', '#4a4a4a')}
           align='center'
           w='400px'
           h='360px'
@@ -95,7 +96,7 @@ export const RegisterForm = () => {
                 type='email'
                 value={email}
                 shadow='sm'
-                bg='white'
+                bg={useColorModeValue('#ffffff', '#7d7d7d')}
                 onChange={(e) => setEmail(e.target.value)}
                 required
               ></Input>
@@ -107,7 +108,7 @@ export const RegisterForm = () => {
                 type='text'
                 value={username}
                 shadow='sm'
-                bg='white'
+                bg={useColorModeValue('#ffffff', '#7d7d7d')}
                 onChange={(e) => setUsername(e.target.value)}
                 minLength='8'
                 required
@@ -120,7 +121,7 @@ export const RegisterForm = () => {
                 type='password'
                 value={password}
                 shadow='sm'
-                bg='white'
+                bg={useColorModeValue('#ffffff', '#7d7d7d')}
                 onChange={(e) => setPassword(e.target.value)}
                 minLength='8'
                 required
@@ -142,7 +143,7 @@ export const RegisterForm = () => {
               className='subtitle'
               shadow='md'
               mt='20px'
-              bg='brand.aqua'
+              bg={useColorModeValue('#99F0E0', '#a456f0')}
               variant='outline'
               colorScheme='black'
             >
