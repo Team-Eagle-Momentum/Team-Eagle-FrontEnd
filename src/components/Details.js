@@ -60,53 +60,52 @@ export default function Details() {
         <Text className='subtitle' color='brand.purple' textShadow='0.5px 0.5px #B9B9B9'>COMMUTILATOR DETAILS</Text>
         <Divider variant='unstyled' h='5vh' />
 
-        <SimpleGrid w='600px' columns={2} bg='yellow'>
+        <SimpleGrid columns={2} bg='yellow'>
 
-          <Box w='max-content' bg='purple'>
+          <Box ml='20px' alignItems='center' bg='purple'>
 
             <Text align='center' className='title'>
               Result Details
             </Text>
 
-            <SimpleGrid alignItems='center' columns={2}>
+            <Flex>
               <Box ml='20px' className='description'>
-                <Text bg='pink'>Daily:</Text>
+                <Text>Daily:</Text>
                 <Text>Weekly:</Text>
                 <Text>Monthly:</Text>
                 <Text>Annualy:</Text>
               </Box>
 
               <Box ml='20px' className='costs'>
-                <Text bg='green'>${calcData.result.daily}</Text>
+                <Text>${calcData.result.daily}</Text>
                 <Text>${calcData.result.weekly}</Text>
                 <Text>${calcData.result.monthly}</Text>
                 <Text>${calcData.result.annual}</Text>
               </Box>
-            </SimpleGrid>
+            </Flex>
 
           </Box>
-
-          <Box w='max-content' alignItems='center' bg='blue'>
+          <Box ml='20px' alignItems='center' bg='blue'>
 
             <Text align='center' className='title'>
               Calculation Factors
             </Text>
 
-            <SimpleGrid bg='red' alignItems='center' columns={2}>
+            <Flex>
               <Box ml='20px' className='description'>
-                <Text bg='pink'>Starting Location Gas Price:</Text>
+                <Text>Starting Location Gas Price:</Text>
                 <Text>Ending Location Gas Price</Text>
                 <Text>Overall Gas Average:</Text>
                 <Text>Commute Distance:</Text>
               </Box>
 
-              <Box ml='20px' w='max-content' className='costs'>
-                <Text bg='green'>${calcData.commute.start_avg_gas}</Text>
+              <Box ml='20px' className='costs'>
+                <Text>${calcData.commute.start_avg_gas}</Text>
                 <Text>${calcData.commute.end_avg_gas}</Text>
                 <Text>${calcData.commute.avg_gas_commute}</Text>
                 <Text>{calcData.commute.distance} miles</Text>
               </Box>
-            </SimpleGrid>
+            </Flex>
 
           </Box>
 
