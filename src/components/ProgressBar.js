@@ -14,7 +14,7 @@ const ProgressBar = (props) => {
   const fillerStyles = {
     height: '6px',
     width: `${completed}%`,
-    backgroundColor: bgcolor,
+    backgroundColor: '#ab9bbf',
     borderRadius: 'inherit',
     textAlign: 'right',
     transition: 'width 1s ease-in-out',
@@ -32,7 +32,7 @@ const ProgressBar = (props) => {
       >
         <div style={fillerStyles}></div>
       </div>
-      <span className='pg-bar-text'>{`${completed}%`}</span>
+      <span className='steps'>{`${completed}%`}</span>
     </>
   )
 }

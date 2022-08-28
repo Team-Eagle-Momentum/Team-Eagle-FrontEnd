@@ -148,7 +148,6 @@ export default function Home() {
           <Box m='10px'>
             Commutilator helps you calculate the cost of your commute, whether to work, school, or even the grocery store, using your route, your personal vehicle information, and local gas prices. We hope you are able to use our app to make informed decisions about your drive!
           </Box>
-          <Box>Please click "Start" to begin.</Box>
         </>
       )}
       {currentStep === 2 && (
@@ -324,7 +323,7 @@ export default function Home() {
               setCurrentStep(currentStep + 1);
             }}
           >
-            Start
+            Click to Begin
           </Button>
           <Divider h='5vh' variant='unstyled' />
           <Box w='80%' h='1.5' bg='brand.purple' borderRadius='full' />
