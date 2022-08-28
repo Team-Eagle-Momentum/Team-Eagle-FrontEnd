@@ -19,6 +19,8 @@ export const RegisterForm = () => {
   const [email, setEmail] = useState('')
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [passwordError, setPasswordError] = useState(null)
+  const [blankError, setBlankError] = useState(null)
   const navigateTo = useNavigate()
 
   const handleSubmit = (event) => {
@@ -34,15 +36,35 @@ export const RegisterForm = () => {
         navigateTo('/login')
       })
       .catch(function (error) {
-        if (error.response) {
-          console.log('response', error.response);
-          // console.log('response data', error.response.data);
-          // console.log(error.response.data.non_field_errors[0]);
-        } else if (error.request) {
-          console.log('request', error.request);
-        } else {
-          console.log('Error', error.message);
+
+        if (error.response.data.username) {
+          if (error.response.data.username[0] === 'This field may not be blank.') {
+            setBlankError(error)
+            // console.log('blank error', error.response.data);
+            setPasswordError(null)
+          }
         }
+
+        if (error.response.data.password) {
+          if (error.response.data.password[0] === 'The password is too similar to the username.') {
+            setPasswordError(error)
+            // console.log('password error', error.response.data);
+            setBlankError(null)
+          }
+          if (error.response.data.password[0] === 'This field may not be blank.') {
+            setBlankError(error)
+            // console.log('blank error', error.response.data);
+            setPasswordError(null)
+          }
+        }
+
+        if (error.response) {
+          // console.log('response', error.response);
+        }
+        if (error.request) {
+          // console.log('request', error.request);
+        }
+        // console.log('Error', error.message);
       })
   }
 
@@ -54,7 +76,7 @@ export const RegisterForm = () => {
           bg='brand.yellow'
           align='center'
           w='400px'
-          h='350px'
+          h='360px'
           borderRadius='lg'
           shadow='base'
         >
@@ -104,12 +126,22 @@ export const RegisterForm = () => {
                 required
               ></Input>
             </Box>
+            {passwordError &&
+              <Box mt='10px' color='red'>
+                <Text>Password is too similar to the username</Text>
+              </Box>
+            }
+            {blankError &&
+              <Box mt='10px' color='red'>
+                <Text>Input may not be blank</Text>
+              </Box>
+            }
             <Button
               type='submit'
               value='Create Account'
               className='subtitle'
               shadow='md'
-              mt='25px'
+              mt='20px'
               bg='brand.aqua'
               variant='outline'
               colorScheme='black'
