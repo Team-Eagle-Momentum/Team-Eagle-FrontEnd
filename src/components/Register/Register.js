@@ -22,7 +22,7 @@ export const RegisterForm = () => {
   const navigateTo = useNavigate()
 
   const handleSubmit = (event) => {
-    console.log(email, password, username)
+    // console.log(email, password, username)
     event.preventDefault()
     axios
       .post('https://commutilator-api.herokuapp.com/api/auth/users/', {
@@ -32,6 +32,17 @@ export const RegisterForm = () => {
       })
       .then(() => {
         navigateTo('/login')
+      })
+      .catch(function (error) {
+        if (error.response) {
+          console.log('response', error.response);
+          // console.log('response data', error.response.data);
+          // console.log(error.response.data.non_field_errors[0]);
+        } else if (error.request) {
+          console.log('request', error.request);
+        } else {
+          console.log('Error', error.message);
+        }
       })
   }
 
@@ -54,16 +65,17 @@ export const RegisterForm = () => {
           >
             Create an Account
           </Text>
-          <form>
+          <form onSubmit={handleSubmit}>
             <Box>
               <Text htmlFor='email-field'>Email: </Text>
               <Input
                 id='email-field'
-                type='text'
+                type='email'
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
                 shadow='sm'
                 bg='white'
+                onChange={(e) => setEmail(e.target.value)}
+                required
               ></Input>
             </Box>
             <Box mt='5px'>
@@ -72,9 +84,11 @@ export const RegisterForm = () => {
                 id='username-field'
                 type='text'
                 value={username}
-                onChange={(e) => setUsername(e.target.value)}
                 shadow='sm'
                 bg='white'
+                onChange={(e) => setUsername(e.target.value)}
+                minLength='8'
+                required
               ></Input>
             </Box>
             <Box mt='5px'>
@@ -83,19 +97,22 @@ export const RegisterForm = () => {
                 id='password-field'
                 type='password'
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
                 shadow='sm'
                 bg='white'
+                onChange={(e) => setPassword(e.target.value)}
+                minLength='8'
+                required
               ></Input>
             </Box>
             <Button
+              type='submit'
+              value='Create Account'
               className='subtitle'
               shadow='md'
               mt='25px'
               bg='brand.aqua'
               variant='outline'
               colorScheme='black'
-              onClick={(e) => handleSubmit(e)}
             >
               Create Account
             </Button>

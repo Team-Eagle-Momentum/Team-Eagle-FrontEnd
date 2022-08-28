@@ -50,8 +50,8 @@ export const LoginForm = () => {
       .catch(function (error) {
         if (error.response) {
           console.log('response', error.response);
-          console.log('response data', error.response.data);
-          console.log(error.response.data.non_field_errors[0]);
+          // console.log('response data', error.response.data);
+          // console.log(error.response.data.non_field_errors[0]);
           setErrorState(error)
         } else if (error.request) {
           console.log('request', error.request);
