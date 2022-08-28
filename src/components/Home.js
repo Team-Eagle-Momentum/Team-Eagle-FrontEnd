@@ -12,6 +12,7 @@ import {
   NumberDecrementStepper,
   Center,
   Text,
+  Divider,
 } from '@chakra-ui/react';
 import React, { useState, useEffect, useRef, useContext } from 'react';
 import { Autocomplete } from '@react-google-maps/api';
@@ -315,15 +316,14 @@ export default function Home() {
         {/*buttons*/}
         {currentStep === 1 && (
           <Button
-            className='body'
-            colorScheme='teal'
+            className='subtitle'
+            shadow='md'
+            mt='20px'
+            variant='outline'
+            bg='brand.aqua'
+            colorScheme='black'
             onClick={async () => {
-              let [distanceResult] = await Promise.all([calculateRoute()]);
-              let [commuteId] = await Promise.all([
-                commutePostData(distanceResult),
-              ]);
-              setProgressBar(50);
-              setCommuteId(commuteId);
+              setProgressBar(0);
               setCurrentStep(currentStep + 1);
             }}
           >
@@ -332,8 +332,12 @@ export default function Home() {
         )}
         {currentStep === 2 && (
           <Button
-            className='body'
-            colorScheme='teal'
+            className='subtitle'
+            shadow='md'
+            mt='20px'
+            bg='brand.aqua'
+            variant='outline'
+            colorScheme='black'
             onClick={async () => {
               let [distanceResult] = await Promise.all([calculateRoute()]);
               let [commuteId] = await Promise.all([
@@ -349,8 +353,12 @@ export default function Home() {
         )}
         {currentStep === 3 && (
           <Button
-            className='body'
-            colorScheme='teal'
+            className='subtitle'
+            shadow='md'
+            mt='20px'
+            bg='brand.aqua'
+            variant='outline'
+            colorScheme='black'
             onClick={async (e) => {
               e.preventDefault();
               setProgressBar(100);
@@ -370,8 +378,12 @@ export default function Home() {
         )}
         {currentStep === 4 && (
           <Button
-            className='body'
-            colorScheme='teal'
+            className='subtitle'
+            shadow='md'
+            mt='20px'
+            bg='brand.aqua'
+            variant='outline'
+            colorScheme='black'
             onClick={() => {
               setProgressBar(0);
               setCommuteId(0);
@@ -386,6 +398,7 @@ export default function Home() {
             New Calculation
           </Button>
         )}
+        <Divider h='5vh' variant='unstyled' />
         <ProgressBar
           key={'p-bar'}
           bgcolor={'#F0B199'}
