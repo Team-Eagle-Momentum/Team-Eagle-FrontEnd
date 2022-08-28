@@ -28,6 +28,7 @@ export const LoginForm = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [errorState, setErrorState] = useState(null)
+  const [blankError, setBlankError] = useState(null)
   let [searchParams, setSearchParams] = useSearchParams()
 
   let navigate = useNavigate()
@@ -50,9 +51,16 @@ export const LoginForm = () => {
       .catch(function (error) {
         if (error.response) {
           console.log('response', error.response);
-          // console.log('response data', error.response.data);
-          // console.log(error.response.data.non_field_errors[0]);
-          setErrorState(error)
+          if (error.response.data.non_field_errors) {
+            setErrorState(error)
+            // console.log('invalid input', error.response.data.non_field_errors);
+            setBlankError(null)
+          }
+          if (error.response.data.username || error.response.data.password) {
+            setBlankError(error)
+            // console.log('blank error', error.response.data);
+            setErrorState(null)
+          }
         } else if (error.request) {
           console.log('request', error.request);
         } else {
@@ -60,6 +68,9 @@ export const LoginForm = () => {
         }
       })
   }
+
+  // === 'Unable to log in with provided credentials.'
+  // error.response.data.password[0] === 'This field may not be blank.'
 
   return (
     <>
@@ -104,6 +115,11 @@ export const LoginForm = () => {
             {errorState &&
               <Box mt='10px' color='red'>
                 <Text>Invalid username or password</Text>
+              </Box>
+            }
+            {blankError &&
+              <Box mt='10px' color='red'>
+                <Text>Input may not be blank</Text>
               </Box>
             }
             <Button
