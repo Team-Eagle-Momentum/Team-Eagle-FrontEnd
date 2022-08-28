@@ -13,14 +13,7 @@ import {
   Center,
   Text,
   Divider,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  MenuItemOption,
-  MenuGroup,
-  MenuOptionGroup,
-  MenuDivider,
+  SimpleGrid,
 } from '@chakra-ui/react';
 import { ChevronDownIcon } from '@chakra-ui/icons'
 import React, { useState, useEffect, useRef, useContext } from 'react';
@@ -300,19 +293,19 @@ export default function Home() {
           <Box className='steps' m='10px'>
             Commute Results
           </Box>
-          <Flex>
-          <Map w='50vw' directionsResponse={directionsResponse} />
-          <Box className='slider-container'>
-            <ResultSlider />
-            <Link
-              className='steps'
-              style={{ zIndex: 100000 }}
-              to={`/details/${resultCalculation.id}?fromDetails=true`}
-            >
-              View Details
-            </Link>
-          </Box>
-          </Flex>
+          <SimpleGrid w='80%' columns={2}>
+            <Map directionsResponse={directionsResponse} />
+            <Stack alignItems='center' className='description'>
+              <ResultSlider />
+              <Divider m='20px' variant='unstyled' />
+              <Link
+                style={{ color: '#F0B199'}}
+                to={`/details/${resultCalculation.id}?fromDetails=true`}
+              >
+                View More Details
+              </Link>
+            </Stack>
+          </SimpleGrid>
         </>
       )}
 
