@@ -48,7 +48,7 @@
   color: rgb(71, 71, 71);
 }
 
-.footer-content > div {
+.footer-content>div {
   font-weight: bold;
   text-align: center;
 }
@@ -67,7 +67,7 @@
   justify-content: center;
 }
 
-.slider-container > a {
+.slider-container>a {
   margin: 0 auto;
   margin-top: 4rem;
 }
@@ -151,7 +151,7 @@
 .nav-items {
   display: flex;
   align-items: center;
-  margin-right: 5rem;
+  margin-right: 2rem;
 }
 
 .nav-item:hover {
@@ -167,6 +167,10 @@
   height: 50vh;
 }
 
-.not-found > p {
+.not-found>p {
   padding-top: 10rem;
+}
+
+.switch-item {
+  margin-right: 5rem;
 }

@@ -5,6 +5,8 @@ import App from './App'
 import reportWebVitals from './reportWebVitals'
 import { BrowserRouter } from 'react-router-dom'
 import { LoadScript } from '@react-google-maps/api'
+import { ColorModeScript } from '@chakra-ui/react'
+import theme from './theme'
 const libraries = ['places']
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
@@ -13,6 +15,7 @@ root.render(
       libraries={libraries}
       googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}
     >
+      <ColorModeScript initialColorMode={theme.config.initialColorMode} />
       <App />
     </LoadScript>
   </BrowserRouter>
