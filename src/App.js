@@ -11,24 +11,7 @@ import { extendTheme, ChakraProvider } from '@chakra-ui/react'
 import Results from './components/Results/Results'
 // import NotFound from './components/NotFound'
 
-const colors = {
-  light: {
-    aqua: '#99F0E0',
-    purple: '#CED3F5',
-    blue: '#93C7F5',
-    orange: '#F0B199',
-    yellow: '#ECF3B1',
-    gray: '#B9B9B9',
-  },
-  dark: {
-    aqua: '#101A18',
-    purple: '#818499',
-    blue: '#5C7C99',
-    orange: '#997262',
-    yellow: '#959970',
-    gray: '#7B7B7B'
-  },
-}
+
 
 const theme = extendTheme({ colors })
 

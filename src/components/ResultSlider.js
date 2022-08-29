@@ -8,6 +8,7 @@ import {
   Flex,
   Spacer,
   Text,
+  useColorModeValue,
 } from '@chakra-ui/react'
 
 import { AiTwotoneCar } from 'react-icons/ai'
@@ -34,11 +35,6 @@ export default function ResultSlider() {
     ml: '-6',
     fontSize: 'sm',
   }
-
-  // before thumb
-  // useColorModeValue('#99F0E0', '#a456f0')
-  // after thumb
-  // useColorModeValue('#E2E8F0', '##1A202C')
 
   return (
     <Flex direction='column' align='center' w='100%'>
@@ -67,11 +63,11 @@ export default function ResultSlider() {
           <SliderMark value={3} {...labelStyles2}>
             Annually
           </SliderMark>
-          <SliderTrack bg='black'>
-            <SliderFilledTrack bg='black'/>
+          <SliderTrack bg={'#E2E8F0'}>
+            <SliderFilledTrack bg={useColorModeValue('#99F0E0', '#a456f0')} />
           </SliderTrack>
           <SliderThumb boxSize={5}>
-            <Box color='black' as={AiTwotoneCar}/>
+            <Box color='black' as={AiTwotoneCar} />
           </SliderThumb>
         </Slider>
       </Box>

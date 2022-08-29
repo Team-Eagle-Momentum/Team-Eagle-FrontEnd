@@ -16,14 +16,6 @@
   font-size: medium;
 }
 
-/* .body {
-  font-family: 'Palanquin';
-  font-weight: 300;
-  font-size: medium;
-  /* height: 90vh;
-  margin-top: 4rem;
-} */
-
 .description {
   font-family: 'Palanquin';
   font-weight: 400;
@@ -66,7 +58,7 @@
   /* color: rgb(71, 71, 71); */
 }
 
-.footer-content>div {
+.footer-content > div {
   font-weight: bold;
   text-align: center;
 }
@@ -89,7 +81,6 @@
   margin: 0 auto;
   margin-top: 4rem;
 } */
-
 
 /* Result Slider Thumb */
 /* .chakra-slider__thumb.css-1beztny {
@@ -188,7 +179,7 @@
   height: 50vh;
 }
 
-.not-found>p {
+.not-found > p {
   padding-top: 10rem;
 }
 

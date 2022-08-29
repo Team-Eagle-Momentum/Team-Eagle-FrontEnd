@@ -2,9 +2,21 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import '../App.css'
 import Map from './Map'
-import { Box, Flex, Divider, Text, Spacer, Image, Stack, SimpleGrid, HStack, Center } from '@chakra-ui/react'
+import {
+  Box,
+  Flex,
+  Divider,
+  Text,
+  Spacer,
+  Image,
+  Stack,
+  SimpleGrid,
+  HStack,
+  Center,
+} from '@chakra-ui/react'
 import Logo from '.././CommutilatorLogo.png'
 import { saveCalculationToUser } from '../utils/api'
+import { splitAddress } from '../utils/helpers'
 
 export default function Details() {
   const [calcData, setCalcData] = React.useState({
@@ -19,6 +31,8 @@ export default function Details() {
       end_avg_gas: '',
       start_avg_gas: '',
       directions_response: '{ "routes": [] }',
+      start_location: '',
+      end_location: '',
     },
   })
   const { id } = useParams()
@@ -51,8 +65,14 @@ export default function Details() {
   return (
     <>
       <Stack align='center'>
-        <Image mt='10px' boxSize='150px' src={Logo} alt='CommutilatorLogo'/>
-        <Text className='subtitle' color='brand.purple' textShadow='0.5px 0.5px #B9B9B9'>COMMUTILATOR DETAILS</Text>
+        <Image mt='10px' boxSize='150px' src={Logo} alt='CommutilatorLogo' />
+        <Text
+          className='subtitle'
+          color='brand.purple'
+          textShadow='0.5px 0.5px #B9B9B9'
+        >
+          COMMUTILATOR DETAILS
+        </Text>
         <Divider variant='unstyled' h='5vh' />
         <SimpleGrid columns={2}>
           <Box ml='20px' alignItems='center'>
@@ -80,8 +100,12 @@ export default function Details() {
             </Text>
             <Center>
               <Box className='description'>
-                <Text>Starting Location Gas Price:</Text>
-                <Text>Ending Location Gas Price</Text>
+                <Text>
+                  Gas price in {splitAddress(calcData.commute.start_location)}:
+                </Text>
+                <Text>
+                  Gas price in {splitAddress(calcData.commute.end_location)}:
+                </Text>
                 <Text>Overall Gas Average:</Text>
                 <Text>Commute Distance:</Text>
               </Box>
@@ -95,7 +119,13 @@ export default function Details() {
           </Box>
         </SimpleGrid>
         <Divider variant='unstyled' h='5vh' />
-        <Box shadow='base' mt='25px' alignItems='center' w='500px' borderRadius='lg'>
+        <Box
+          shadow='base'
+          mt='25px'
+          alignItems='center'
+          w='500px'
+          borderRadius='lg'
+        >
           {directions.routes.length > 0 && (
             <Map directionsResponse={directions} />
           )}
