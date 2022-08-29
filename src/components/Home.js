@@ -51,6 +51,7 @@ export default function Home() {
   const [commuteId, setCommuteId] = useState(0);
 
   const buttonColor = useColorModeValue('#99F0E0', '#a456f0')
+  const [loadingButton, setLoadingButton] = useState(false)
 
   const {
     resultCalculation,
@@ -360,11 +361,14 @@ export default function Home() {
           <Button
             className="body"
             bg={buttonColor}
+            isLoading={loadingButton}
             onClick={async () => {
+              setLoadingButton(true)
               let [distanceResult] = await Promise.all([calculateRoute()]);
               let [commuteId] = await Promise.all([
                 commutePostData(distanceResult),
               ]);
+              setLoadingButton(false)
               setProgressBar(50);
               setCommuteId(commuteId);
               setCurrentStep(currentStep + 1);

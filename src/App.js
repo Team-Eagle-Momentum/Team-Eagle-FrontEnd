@@ -1,7 +1,6 @@
 import './App.css'
 import React, { useState, createContext } from 'react'
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
-
 import Details from './components/Details'
 import Footer from './components/Footer'
 import Home from './components/Home'
