@@ -13,9 +13,6 @@ import Results from './components/Results/Results'
 // import NotFound from './components/NotFound'
 
 
-
-// const theme = extendTheme({ colors })
-
 export const AppContext = createContext()
 
 const PrivateRoute = ({ children }) => {
@@ -38,7 +35,6 @@ function App() {
   const [currentStep, setCurrentStep] = useState(1)
 
   return (
-    // <ChakraProvider>
     <ChakraProvider theme={theme}>
       <AppContext.Provider
         value={{

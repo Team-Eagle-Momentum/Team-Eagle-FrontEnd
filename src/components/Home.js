@@ -22,6 +22,7 @@ import React, { useState, useEffect, useRef, useContext } from 'react'
 import { Autocomplete } from '@react-google-maps/api'
 import { Link } from 'react-router-dom'
 import Map from './Map'
+import theme from '../theme'
 
 import {
   createCalcData,
@@ -59,10 +60,7 @@ export default function Home() {
   const [mpgError, setMpgError] = useState(false)
   const [avgGasError, setAvgGasError] = useState(false)
   // colo theme modes
-  const buttonColor = useColorModeValue('#99F0E0', '#a456f0')
-  const progressBarColor = useColorModeValue('#F0B199', '#a456f0')
-  const inputColor = useColorModeValue('#ffffff', '#1A202C')
-  const selectOptionColor = useColorModeValue('#b8b8b8', '#3B3B3B')
+
 
   const {
     resultCalculation,
@@ -178,7 +176,7 @@ export default function Home() {
 
   return (
     <Flex
-      height={'50vh'}
+      height='100%'
       className='description'
       direction='column'
       alignItems='center'
@@ -193,12 +191,12 @@ export default function Home() {
       )}
       {currentStep === 1 && (
         <>
-          <Box m='10px'>Welcome to Commutilator!</Box>
+          <Box m='25px'>Welcome to Commutilator!</Box>
           <Divider h='2vh' variant='unstyled' />
           <Box
+            bg={useColorModeValue('brand.lilac', 'dark.dark')}
             w='80%'
             h='1.5'
-            // bg={useColorModeValue('#F0B199', '#a456f0')}
             borderRadius='full'
           />
           <Divider h='2vh' variant='unstyled' />
