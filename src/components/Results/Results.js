@@ -7,6 +7,11 @@ import {
   Th,
   Tbody,
   Td,
+  Stack,
+  Text,
+  Flex,
+  Center,
+  Divider,
 } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
 
@@ -49,14 +54,15 @@ function Results() {
   }
 
   return (
-    <div className='table-container'>
+    <Stack className='table-container'>
       {results.length > 0 ? (
         <>
-          <h1 className='results-header'>
-            Welcome {user}! <br /> Here are your calculation results:
-          </h1>
+          <Text className='steps'>
+            Welcome {user}!
+          </Text>
+          <Divider h='5vh' variant='unstyled' />
           <TableContainer>
-            <Table variant='striped' colorScheme={'teal'}>
+            <Table variant='striped' colorScheme={'brand'}>
               <Thead>
                 <Tr>
                   <Th>Date</Th>
@@ -87,11 +93,11 @@ function Results() {
           </TableContainer>
         </>
       ) : (
-        <h1 className='results-header-no-data'>
-          <br /> You have no calculations, start using the app!
-        </h1>
+        <Text className='steps'>
+          You have no calculations, start using the app!
+        </Text>
       )}
-    </div>
+    </Stack>
   )
 }
 
