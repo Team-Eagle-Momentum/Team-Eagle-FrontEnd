@@ -22,7 +22,6 @@ import React, { useState, useEffect, useRef, useContext } from 'react'
 import { Autocomplete } from '@react-google-maps/api'
 import { Link } from 'react-router-dom'
 import Map from './Map'
-import theme from '../theme'
 
 import {
   createCalcData,
@@ -40,6 +39,7 @@ import { AppContext } from '../App'
 
 import ResultSlider from './ResultSlider'
 import ProgressBar from './ProgressBar'
+import Theme from '../theme'
 
 export default function Home() {
   const originRef = useRef()
@@ -59,7 +59,13 @@ export default function Home() {
   const [locationError, setLocationError] = useState(false)
   const [mpgError, setMpgError] = useState(false)
   const [avgGasError, setAvgGasError] = useState(false)
-  // colo theme modes
+
+  // theme colors
+  const buttonColor = useColorModeValue('brand.aqua', 'dark.darkest')
+  const barColor = useColorModeValue('brand.lilac', 'dark.dark')
+  const inputColor = useColorModeValue('white', 'dark.background')
+  const selectColor = useColorModeValue('white', 'dark.background')
+  const detailsLink = useColorModeValue('brand.orange', 'dark.dark')
 
 
   const {
@@ -185,7 +191,7 @@ export default function Home() {
       {currentStep !== 1 && currentStep !== 4 && (
         <ProgressBar
           key={'p-bar'}
-          bgcolor={progressBarColor}
+          bg={barColor}
           completed={progressBar}
         />
       )}
@@ -194,7 +200,7 @@ export default function Home() {
           <Box m='25px'>Welcome to Commutilator!</Box>
           <Divider h='2vh' variant='unstyled' />
           <Box
-            bg={useColorModeValue('brand.lilac', 'dark.dark')}
+            bg={barColor}
             w='80%'
             h='1.5'
             borderRadius='full'
@@ -226,7 +232,7 @@ export default function Home() {
           )}
           <Stack className='fields'>
             <Box>
-              <Text htmlFor='starting-location-field'>Start: </Text>
+              <Text htmlFor='starting-location-field'>Start:</Text>
               <Autocomplete>
                 <Input
                   shadow='sm'
@@ -303,7 +309,7 @@ export default function Home() {
               <select
                 id='year-field'
                 defaultValue=''
-                style={{ backgroundColor: selectOptionColor }}
+                style={{ backgroundColor: selectColor }}
                 onChange={(e) => setSelectYear(e.target.value)}
               >
                 <option value='' disabled hidden>
@@ -318,7 +324,7 @@ export default function Home() {
               <Text htmlFor='car-make-field'>Car Make:</Text>
               <select
                 id='car-make-field'
-                style={{ backgroundColor: selectOptionColor }}
+                style={{ backgroundColor: selectColor }}
                 defaultValue=''
                 onChange={(e) => setCarMakeID(e.target.value)}
               >
@@ -335,7 +341,7 @@ export default function Home() {
               <select
                 id='car-model-field'
                 defaultValue=''
-                style={{ backgroundColor: selectOptionColor }}
+                style={{ backgroundColor: selectColor }}
                 onChange={(e) => setCarTrimID(e.target.value)}
               >
                 <option value='' disabled hidden>

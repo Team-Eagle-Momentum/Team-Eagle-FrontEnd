@@ -27,12 +27,9 @@ const colors = {
   },
 }
 
-const buttonColor = useColorModeValue('brand.aqua', 'dark.darkest')
-const progressBarColor = useColorModeValue('brand.lilac', 'dark.dark')
-const inputColor = useColorModeValue('white', 'dark.background')
-const selectOptionColor = useColorModeValue('white', 'dark.dark')
+
 
 // 3. extend the theme
-const theme = extendTheme({ config, colors, buttonColor, progressBarColor, inputColor, selectOptionColor })
+const theme = extendTheme({ config, colors })
 
 export default theme
