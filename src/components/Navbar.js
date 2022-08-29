@@ -1,7 +1,17 @@
 import { AppContext } from '../App'
 import { useContext } from 'react'
 import Logo from '.././CommutilatorLogo.png'
-import { Box, Flex, Image, Square, Spacer, Button, useColorMode, Center, useColorModeValue } from '@chakra-ui/react'
+import {
+  Box,
+  Flex,
+  Image,
+  Square,
+  Spacer,
+  Button,
+  useColorMode,
+  Center,
+  useColorModeValue,
+} from '@chakra-ui/react'
 import { MoonIcon, SunIcon } from '@chakra-ui/icons'
 import { Link, useNavigate } from 'react-router-dom'
 
@@ -13,7 +23,10 @@ export default function Navbar() {
   const { colorMode, toggleColorMode } = useColorMode()
 
   return (
-    <Flex bg={useColorModeValue('#99F0E0', '#2c2c2c')} className='nav-container'>
+    <Flex
+      bg={useColorModeValue('#99F0E0', '#2c2c2c')}
+      className='nav-container'
+    >
       <Square>
         <Image
           m='5px'
@@ -30,10 +43,14 @@ export default function Navbar() {
         <Box className='subtitle'>A Commute Calculator for Today's Driver</Box>
       </Box>
       <Spacer />
-      {/* <Box align='right' m='5px' className='subtitle'> */}
       <ul className='nav-items'>
-        <li className='nav-item'>
-          <Link to={'/'}>Home</Link>
+        <li
+          onClick={() => {
+            setCurrentStep(1)
+          }}
+          className='nav-item'
+        >
+          <Link to={'/'}>New Calculation</Link>
         </li>
         {!token ? (
           <>
@@ -53,7 +70,6 @@ export default function Navbar() {
               <span
                 onClick={() => {
                   localStorage.clear()
-                  // todo: need to clear useContext state
                   setResultCalculation({
                     result: { weekly: '' },
                   })
