@@ -54,25 +54,71 @@ function Results() {
   }
 
   return (
-    <Stack className='table-container'>
+    <Stack>
       {results.length > 0 ? (
         <>
-          <Text className='steps'>
-            Welcome {user}!
+          <Text m='10px' className='steps'>
+            Welcome, {user}!
           </Text>
-          <Divider h='5vh' variant='unstyled' />
-          <TableContainer>
-            <Table variant='striped' colorScheme={'brand'}>
+          <Text m='10px' className='steps'>
+            Here is a list of all your commute calculations. Please click the calculation to view more details.
+          </Text>
+          <Center>
+          <TableContainer m='10px' whiteSpace='wrap'>
+            <Table variant='striped' colorScheme={'teal'}>
               <Thead>
                 <Tr>
-                  <Th>Date</Th>
-                  <Th>Starting location</Th>
-                  <Th>Ending location</Th>
-                  <Th>Vehicle MPG</Th>
-                  <Th>Weekly Cost</Th>
+                  <Th
+                  fontFamily='Source Code Pro'
+                  fontWeight='700'
+                  fontSize='sm'
+                  color='black'
+                  textAlign='center'>
+                    Created At
+                  </Th>
+                  <Th
+                  fontFamily='Source Code Pro'
+                  fontWeight='700'
+                  fontSize='sm'
+                  color='black'
+                  textAlign='center'>
+                    Starting location
+                  </Th>
+                  <Th
+                  fontFamily='Source Code Pro'
+                  fontWeight='700'
+                  fontSize='sm'
+                  color='black'
+                  textAlign='center'>
+                    Ending location
+                  </Th>
+                  <Th
+                  fontFamily='Source Code Pro'
+                  fontWeight='700'
+                  fontSize='sm'
+                  color='black'
+                  textAlign='center'>
+                    Days Commuting
+                  </Th>
+                  <Th
+                  fontFamily='Source Code Pro'
+                  fontWeight='700'
+                  fontSize='sm'
+                  color='black'
+                  textAlign='center'>
+                    Vehicle MPG
+                  </Th>
+                  <Th
+                  fontFamily='Source Code Pro'
+                  fontWeight='700'
+                  fontSize='sm'
+                  color='black'
+                  textAlign='center'>
+                    Weekly Cost
+                  </Th>
                 </Tr>
               </Thead>
-              <Tbody>
+              <Tbody className='description'>
                 {results.map((result) => {
                   return (
                     <Tr
@@ -83,14 +129,16 @@ function Results() {
                       <Td>{formatDate(result.result.created_at)}</Td>
                       <Td>{result.commute.start_location}</Td>
                       <Td>{result.commute.end_location}</Td>
+                      <Td>{result.commute.days_per_week_commuting} day(s)/week</Td>
                       <Td>{result.vehicle.mpg} mpg</Td>
-                      <Td>${result.result.weekly}</Td>
+                      <Td>${result.result.weekly}/week</Td>
                     </Tr>
                   )
                 })}
               </Tbody>
             </Table>
           </TableContainer>
+          </Center>
         </>
       ) : (
         <Text className='steps'>
