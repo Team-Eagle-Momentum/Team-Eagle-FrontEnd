@@ -11,12 +11,11 @@ import {
   NumberIncrementStepper,
   NumberDecrementStepper,
   Center,
-
   Text,
   Divider,
   SimpleGrid,
   Spacer,
-  useColorModeValue
+  useColorModeValue,
 } from '@chakra-ui/react';
 import { ChevronDownIcon } from '@chakra-ui/icons'
 import React, { useState, useEffect, useRef, useContext } from 'react';
@@ -152,7 +151,10 @@ export default function Home() {
         <>
           <Box m='10px'>Welcome to Commutilator!</Box>
           <Divider h='2vh' variant='unstyled' />
-          <Box w='80%' h='1.5' bg={useColorModeValue('#F0B199', '#a456f0')} borderRadius='full' />
+          <Box w='80%'
+          h='1.5'
+          // bg={useColorModeValue('#F0B199', '#a456f0')}
+          borderRadius='full' />
           <Divider h='2vh' variant='unstyled' />
           <Box m='10px'>
             Commutilator helps you calculate the cost of your commute, whether to work, school, or even the grocery store, using your route, your personal vehicle information, and local gas prices. We hope you are able to use our app to make informed decisions about your drive!
@@ -164,7 +166,7 @@ export default function Home() {
           <Divider h='5vh' variant='unstyled' />
           <ProgressBar
             key={'p-bar'}
-            bgcolor={useColorModeValue('#F0B199', '#a456f0')}
+            // bgcolor={useColorModeValue('#F0B199', '#a456f0')}
             completed={progressBar}
           />
           <Box className='steps' m='10px'>
@@ -280,6 +282,7 @@ export default function Home() {
                 {carMakes.map((carMake, index) => (
                   <option key={index} value={carMake.Id}>
                     {carMake.Name}
+                    </option>
                     ))}
               </select>
               <Text htmlFor='car-model-field'>Car Model:</Text>

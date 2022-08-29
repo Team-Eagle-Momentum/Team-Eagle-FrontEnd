@@ -67,8 +67,8 @@ export default function ResultSlider() {
           <SliderMark value={3} {...labelStyles2}>
             Annually
           </SliderMark>
-          <SliderTrack bg='brand.gray'>
-            <SliderFilledTrack bg='brand.gray'/>
+          <SliderTrack bg='black'>
+            <SliderFilledTrack bg='black'/>
           </SliderTrack>
           <SliderThumb boxSize={5}>
             <Box color='black' as={AiTwotoneCar}/>
