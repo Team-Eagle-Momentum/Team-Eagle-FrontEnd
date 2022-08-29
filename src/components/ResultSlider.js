@@ -8,7 +8,6 @@ import {
   Flex,
   Spacer,
   Text,
-  useColorModeValue
 } from '@chakra-ui/react'
 
 import { useState, useContext } from 'react'
@@ -34,10 +33,12 @@ export default function ResultSlider() {
     ml: '-6',
     fontSize: 'sm',
   }
+
   // before thumb
   // useColorModeValue('#99F0E0', '#a456f0')
   // after thumb
   // useColorModeValue('#E2E8F0', '##1A202C')
+
   return (
     <Flex direction='column' align='center'>
       <Text flex='1'>
@@ -67,10 +68,9 @@ export default function ResultSlider() {
             Annually
           </SliderMark>
           <SliderTrack bg='#E2E8F0'>
-            <SliderFilledTrack bg='#99F0E0'/>
+            <SliderFilledTrack />
           </SliderTrack >
-          <SliderThumb boxSize={6}>
-            <Box bg='red' />
+          <SliderThumb bg='#b0abab' boxSize={5}>
           </SliderThumb>
         </Slider>
       </Box>

@@ -152,7 +152,7 @@ export default function Home() {
         )}
         <ProgressBar
           key={"p-bar"}
-          bgcolor={"#F0B199"}
+          bgcolor={useColorModeValue('#F0B199', '#a456f0')}
           completed={progressBar}
         />
         {currentStep === 1 && (
