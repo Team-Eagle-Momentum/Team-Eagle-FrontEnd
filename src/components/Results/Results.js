@@ -7,6 +7,11 @@ import {
   Th,
   Tbody,
   Td,
+  Stack,
+  Text,
+  Flex,
+  Center,
+  Divider,
 } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
 
@@ -49,24 +54,71 @@ function Results() {
   }
 
   return (
-    <div className='table-container'>
+    <Stack m='10px'>
       {results.length > 0 ? (
         <>
-          <h1 className='results-header'>
-            Welcome {user}! <br /> Here are your calculation results:
-          </h1>
-          <TableContainer>
+          <Text className='steps'>
+            Welcome, {user}!
+          </Text>
+          <Text className='steps'>
+            Here is a list of all your commute calculations. Please click the calculation to view more details.
+          </Text>
+          <Center>
+          <TableContainer whiteSpace='wrap'>
             <Table variant='striped' colorScheme={'teal'}>
               <Thead>
                 <Tr>
-                  <Th>Date</Th>
-                  <Th>Starting location</Th>
-                  <Th>Ending location</Th>
-                  <Th>Vehicle MPG</Th>
-                  <Th>Weekly Cost</Th>
+                  <Th
+                  fontFamily='Source Code Pro'
+                  fontWeight='700'
+                  fontSize='sm'
+                  color='black'
+                  textAlign='center'>
+                    Created At
+                  </Th>
+                  <Th
+                  fontFamily='Source Code Pro'
+                  fontWeight='700'
+                  fontSize='sm'
+                  color='black'
+                  textAlign='center'>
+                    Starting location
+                  </Th>
+                  <Th
+                  fontFamily='Source Code Pro'
+                  fontWeight='700'
+                  fontSize='sm'
+                  color='black'
+                  textAlign='center'>
+                    Ending location
+                  </Th>
+                  <Th
+                  fontFamily='Source Code Pro'
+                  fontWeight='700'
+                  fontSize='sm'
+                  color='black'
+                  textAlign='center'>
+                    Days Commuting
+                  </Th>
+                  <Th
+                  fontFamily='Source Code Pro'
+                  fontWeight='700'
+                  fontSize='sm'
+                  color='black'
+                  textAlign='center'>
+                    Vehicle MPG
+                  </Th>
+                  <Th
+                  fontFamily='Source Code Pro'
+                  fontWeight='700'
+                  fontSize='sm'
+                  color='black'
+                  textAlign='center'>
+                    Weekly Cost
+                  </Th>
                 </Tr>
               </Thead>
-              <Tbody>
+              <Tbody className='description'>
                 {results.map((result) => {
                   return (
                     <Tr
@@ -77,21 +129,23 @@ function Results() {
                       <Td>{formatDate(result.result.created_at)}</Td>
                       <Td>{result.commute.start_location}</Td>
                       <Td>{result.commute.end_location}</Td>
+                      <Td>{result.commute.days_per_week_commuting} day(s)/week</Td>
                       <Td>{result.vehicle.mpg} mpg</Td>
-                      <Td>${result.result.weekly}</Td>
+                      <Td>${result.result.weekly}/week</Td>
                     </Tr>
                   )
                 })}
               </Tbody>
             </Table>
           </TableContainer>
+          </Center>
         </>
       ) : (
-        <h1 className='results-header-no-data'>
-          <br /> You have no calculations, start using the app!
-        </h1>
+        <Text className='steps'>
+          You have no calculations, start using the app!
+        </Text>
       )}
-    </div>
+    </Stack>
   )
 }
 
