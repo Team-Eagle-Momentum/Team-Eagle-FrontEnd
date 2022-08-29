@@ -1,7 +1,6 @@
 import './App.css'
 import React, { useState, createContext } from 'react'
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
-
 import Details from './components/Details'
 import Footer from './components/Footer'
 import Home from './components/Home'
@@ -23,7 +22,7 @@ const colors = {
   },
 }
 
-const theme = extendTheme({ colors })
+// const theme = extendTheme({ colors })
 
 export const AppContext = createContext()
 
@@ -47,7 +46,8 @@ function App() {
   const [currentStep, setCurrentStep] = useState(1)
 
   return (
-    <ChakraProvider theme={theme}>
+    <ChakraProvider>
+      {/* <ChakraProvider theme={theme}> */}
       <AppContext.Provider
         value={{
           resultCalculation,

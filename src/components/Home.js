@@ -11,6 +11,7 @@ import {
   NumberIncrementStepper,
   NumberDecrementStepper,
   Center,
+  useColorModeValue
 } from "@chakra-ui/react";
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { Autocomplete } from "@react-google-maps/api";
@@ -48,6 +49,9 @@ export default function Home() {
   const [duration, setDuration] = useState("");
   const [directionsResponse, setDirectionsResponse] = useState(null);
   const [commuteId, setCommuteId] = useState(0);
+
+  const buttonColor = useColorModeValue('#99F0E0', '#a456f0')
+  const [loadingButton, setLoadingButton] = useState(false)
 
   const {
     resultCalculation,
@@ -317,7 +321,7 @@ export default function Home() {
         {currentStep === 3 && (
           <Button
             className="body"
-            colorScheme="teal"
+            bg={buttonColor}
             onClick={() => {
               setProgressBar(0);
               setCommuteId(0);
@@ -335,7 +339,7 @@ export default function Home() {
         {currentStep === 2 && (
           <Button
             className="body"
-            colorScheme="teal"
+            bg={buttonColor}
             onClick={async (e) => {
               e.preventDefault();
               setProgressBar(100);
@@ -356,12 +360,15 @@ export default function Home() {
         {currentStep === 1 && (
           <Button
             className="body"
-            colorScheme="teal"
+            bg={buttonColor}
+            isLoading={loadingButton}
             onClick={async () => {
+              setLoadingButton(true)
               let [distanceResult] = await Promise.all([calculateRoute()]);
               let [commuteId] = await Promise.all([
                 commutePostData(distanceResult),
               ]);
+              setLoadingButton(false)
               setProgressBar(50);
               setCommuteId(commuteId);
               setCurrentStep(currentStep + 1);
