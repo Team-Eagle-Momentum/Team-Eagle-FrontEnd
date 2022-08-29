@@ -53,10 +53,12 @@ export default function Home() {
   const [duration, setDuration] = useState('')
   const [directionsResponse, setDirectionsResponse] = useState(null)
   const [commuteId, setCommuteId] = useState(0)
-  const buttonColor = useColorModeValue('#99F0E0', '#a456f0')
   const [loadingButton, setLoadingButton] = useState(false)
   const [locationError, setLocationError] = useState(false)
   const [mpgError, setMpgError] = useState(false)
+  // colo theme modes
+  const buttonColor = useColorModeValue('#99F0E0', '#a456f0')
+  const progressBarColor = useColorModeValue('#F0B199', '#a456f0')
 
   const {
     resultCalculation,
@@ -152,6 +154,14 @@ export default function Home() {
       direction='column'
       alignItems='center'
     >
+      {currentStep !== 1 && currentStep !== 4 && (
+        // <ProgressBar key={'p-bar'} completed={progressBar} />
+        <ProgressBar
+          key={'p-bar'}
+          bgcolor={progressBarColor}
+          completed={progressBar}
+        />
+      )}
       {currentStep === 1 && (
         <>
           <Box m='10px'>Welcome to Commutilator!</Box>
@@ -174,11 +184,6 @@ export default function Home() {
       {currentStep === 2 && (
         <>
           <Divider h='5vh' variant='unstyled' />
-          <ProgressBar
-            key={'p-bar'}
-            // bgcolor={useColorModeValue('#F0B199', '#a456f0')}
-            completed={progressBar}
-          />
           <Box className='steps' m='10px'>
             Step 1 - Enter your route information.
           </Box>
@@ -234,11 +239,6 @@ export default function Home() {
       {currentStep === 3 && (
         <>
           <Divider h='5vh' variant='unstyled' />
-          <ProgressBar
-            key={'p-bar'}
-            bgcolor={'#F0B199'}
-            completed={progressBar}
-          />
           <Box className='steps' m='10px'>
             Step 2 - Enter your vehicle information.
           </Box>
