@@ -1,7 +1,7 @@
-import React from "react";
-import { useParams } from "react-router-dom";
-import "../App.css";
-import Map from "./Map";
+import React from 'react'
+import { useParams } from 'react-router-dom'
+import '../App.css'
+import Map from './Map'
 import {
   Box,
   Flex,
@@ -13,78 +13,80 @@ import {
   SimpleGrid,
   HStack,
   Center,
-} from "@chakra-ui/react";
-import Logo from ".././CommutilatorLogo.png";
-import { saveCalculationToUser } from "../utils/api";
-import { splitAddress } from "../utils/helpers";
+} from '@chakra-ui/react'
+import Logo from '.././CommutilatorLogo.png'
+import { saveCalculationToUser } from '../utils/api'
+import { splitAddress } from '../utils/helpers'
 
 export default function Details() {
   const [calcData, setCalcData] = React.useState({
     result: {
-      weekly: "",
-      daily: "",
-      annual: "",
-      monthly: "",
+      weekly: '',
+      daily: '',
+      annual: '',
+      monthly: '',
     },
     commute: {
-      avg_gas_commute: "",
-      end_avg_gas: "",
-      start_avg_gas: "",
+      avg_gas_commute: '',
+      end_avg_gas: '',
+      start_avg_gas: '',
       directions_response: '{ "routes": [] }',
+      start_location: '',
+      end_location: '',
     },
-  });
-  const { id } = useParams();
-  const [directions, setDirections] = React.useState({ routes: [] });
+  })
+  const { id } = useParams()
+  const [directions, setDirections] = React.useState({ routes: [] })
 
   const calculateRoute = async () => {
     // eslint-disable-next-line no-undef
-    const directionsService = new google.maps.DirectionsService();
+    const directionsService = new google.maps.DirectionsService()
     const results = await directionsService.route({
       origin: calcData.commute.start_location,
       destination: calcData.commute.end_location,
       // eslint-disable-next-line no-undef
       travelMode: google.maps.TravelMode.DRIVING,
-    });
-    setDirections(results);
-  };
+    })
+    setDirections(results)
+  }
 
   React.useEffect(() => {
     const saveCalc = async () => {
-      const data = await saveCalculationToUser(id);
-      setCalcData(data);
-    };
-    saveCalc();
-  }, []);
+      const data = await saveCalculationToUser(id)
+      setCalcData(data)
+    }
+    saveCalc()
+  }, [])
 
   React.useEffect(() => {
-    calculateRoute();
-  }, [calcData]);
+    calculateRoute()
+  }, [calcData])
 
   return (
     <>
-      <Stack align="center">
-        <Image mt="10px" boxSize="150px" src={Logo} alt="CommutilatorLogo" />
+      <Stack align='center'>
+        <Image mt='10px' boxSize='150px' src={Logo} alt='CommutilatorLogo' />
         <Text
-          className="subtitle"
-          color="brand.purple"
-          textShadow="0.5px 0.5px #B9B9B9"
+          className='subtitle'
+          color='brand.purple'
+          textShadow='0.5px 0.5px #B9B9B9'
         >
           COMMUTILATOR DETAILS
         </Text>
-        <Divider variant="unstyled" h="5vh" />
+        <Divider variant='unstyled' h='5vh' />
         <SimpleGrid columns={2}>
-          <Box ml="20px" alignItems="center">
-            <Text align="center" className="title">
+          <Box ml='20px' alignItems='center'>
+            <Text align='center' className='title'>
               Result Details
             </Text>
             <Center>
-              <Box className="description">
+              <Box className='description'>
                 <Text>Daily:</Text>
                 <Text>Weekly:</Text>
                 <Text>Monthly:</Text>
                 <Text>Annualy:</Text>
               </Box>
-              <Box ml="20px" className="costs">
+              <Box ml='20px' className='costs'>
                 <Text>${calcData.result.daily}</Text>
                 <Text>${calcData.result.weekly}</Text>
                 <Text>${calcData.result.monthly}</Text>
@@ -92,22 +94,22 @@ export default function Details() {
               </Box>
             </Center>
           </Box>
-          <Box ml="20px" alignItems="center">
-            <Text align="center" className="title">
+          <Box ml='20px' alignItems='center'>
+            <Text align='center' className='title'>
               Calculation Factors
             </Text>
             <Center>
-              <Box className="description">
+              <Box className='description'>
                 <Text>
-                 {calcData.commute.start_location} Gas Price:
+                  Gas price in {splitAddress(calcData.commute.start_location)}:
                 </Text>
                 <Text>
-                  {calcData.commute.end_location} Gas Price
+                  Gas price in {splitAddress(calcData.commute.end_location)}:
                 </Text>
                 <Text>Overall Gas Average:</Text>
                 <Text>Commute Distance:</Text>
               </Box>
-              <Box ml="20px" className="costs">
+              <Box ml='20px' className='costs'>
                 <Text>${calcData.commute.start_avg_gas}</Text>
                 <Text>${calcData.commute.end_avg_gas}</Text>
                 <Text>${calcData.commute.avg_gas_commute}</Text>
@@ -116,13 +118,13 @@ export default function Details() {
             </Center>
           </Box>
         </SimpleGrid>
-        <Divider variant="unstyled" h="5vh" />
+        <Divider variant='unstyled' h='5vh' />
         <Box
-          shadow="base"
-          mt="25px"
-          alignItems="center"
-          w="500px"
-          borderRadius="lg"
+          shadow='base'
+          mt='25px'
+          alignItems='center'
+          w='500px'
+          borderRadius='lg'
         >
           {directions.routes.length > 0 && (
             <Map directionsResponse={directions} />
@@ -130,5 +132,5 @@ export default function Details() {
         </Box>
       </Stack>
     </>
-  );
+  )
 }
