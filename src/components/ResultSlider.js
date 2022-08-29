@@ -35,6 +35,11 @@ export default function ResultSlider() {
     fontSize: 'sm',
   }
 
+  // before thumb
+  // useColorModeValue('#99F0E0', '#a456f0')
+  // after thumb
+  // useColorModeValue('#E2E8F0', '##1A202C')
+
   return (
     <Flex direction='column' align='center' w='100%'>
       <Text flex='1'>

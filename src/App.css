@@ -54,7 +54,7 @@
   font-size: small;
   height: 25vh;
   margin-top: 10rem;
-  background-color: #99f0e0;
+  /* background-color: #99f0e0; */
 }
 
 .footer-content {
@@ -63,7 +63,7 @@
   justify-content: center;
   height: 100%;
   font-size: 14px;
-  color: rgb(71, 71, 71);
+  /* color: rgb(71, 71, 71); */
 }
 
 .footer-content>div {
@@ -90,6 +90,8 @@
   margin-top: 4rem;
 } */
 
+
+/* Result Slider Thumb */
 /* .chakra-slider__thumb.css-1beztny {
   background-color: rgb(176, 171, 171);
 }
@@ -108,6 +110,7 @@
   font-weight: 300;
   font-size: medium;
   color: #ab9bbf;
+  /* color: #300243; */
   margin-bottom: 2rem;
 }
 
@@ -169,7 +172,7 @@
 .nav-items {
   display: flex;
   align-items: center;
-  margin-right: 5rem;
+  margin-right: 2rem;
 }
 
 .nav-item:hover {
@@ -187,4 +190,8 @@
 
 .not-found>p {
   padding-top: 10rem;
+}
+
+.switch-item {
+  margin-right: 5rem;
 }

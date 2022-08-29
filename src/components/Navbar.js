@@ -1,7 +1,8 @@
 import { AppContext } from '../App'
 import { useContext } from 'react'
 import Logo from '.././CommutilatorLogo.png'
-import { Box, Flex, Image, Square, Spacer } from '@chakra-ui/react'
+import { Box, Flex, Image, Square, Spacer, Button, useColorMode, Center, useColorModeValue } from '@chakra-ui/react'
+import { MoonIcon, SunIcon } from '@chakra-ui/icons'
 import { Link, useNavigate } from 'react-router-dom'
 
 export default function Navbar() {
@@ -9,8 +10,10 @@ export default function Navbar() {
   const navigate = useNavigate()
   const { setResultCalculation, setCurrentStep } = useContext(AppContext)
 
+  const { colorMode, toggleColorMode } = useColorMode()
+
   return (
-    <Flex bg='brand.aqua' className='nav-container'>
+    <Flex bg={useColorModeValue('#99F0E0', '#2c2c2c')} className='nav-container'>
       <Square>
         <Image
           m='5px'
@@ -64,6 +67,11 @@ export default function Navbar() {
           </>
         )}
       </ul>
+      <Center>
+        <Button className='switch-item' onClick={toggleColorMode}>
+          {colorMode === 'light' ? <SunIcon /> : <MoonIcon />}
+        </Button>
+      </Center>
     </Flex>
   )
 }
