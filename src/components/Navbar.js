@@ -13,7 +13,7 @@ export default function Navbar() {
   const { colorMode, toggleColorMode } = useColorMode()
 
   return (
-    <Flex bg={useColorModeValue('#99F0E0', '#2c2c2c')} className='nav-container'>
+    <Flex bg={useColorModeValue('light.aqua', 'dark.aqua')} className='nav-container'>
       <Square>
         <Image
           m='5px'

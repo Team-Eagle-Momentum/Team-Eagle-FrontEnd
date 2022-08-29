@@ -53,7 +53,7 @@ export default function Home() {
   const [duration, setDuration] = useState('')
   const [directionsResponse, setDirectionsResponse] = useState(null)
   const [commuteId, setCommuteId] = useState(0)
-  const buttonColor = useColorModeValue('#99F0E0', '#a456f0')
+  const buttonColor = useColorModeValue('light.aqua', 'dark.aqua')
   const [loadingButton, setLoadingButton] = useState(false)
   const [locationError, setLocationError] = useState(false)
   const [mpgError, setMpgError] = useState(false)

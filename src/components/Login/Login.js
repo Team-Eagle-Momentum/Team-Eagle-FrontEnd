@@ -81,7 +81,7 @@ export const LoginForm = () => {
         height={'50vh'}>
         <Divider m='25px' variant='unstyled' />
         <Stack
-          bg={useColorModeValue('#ECF3B1', '#4a4a4a')}
+          bg={useColorModeValue('light.yellow', 'dark.yellow')}
           align='center'
           w='400px'
           h='320px'
