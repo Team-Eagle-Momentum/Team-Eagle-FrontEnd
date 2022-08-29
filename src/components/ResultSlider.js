@@ -10,6 +10,7 @@ import {
   Text,
 } from '@chakra-ui/react'
 
+import { AiTwotoneCar } from 'react-icons/ai'
 import { useState, useContext } from 'react'
 import { AppContext } from '../App'
 
@@ -40,13 +41,12 @@ export default function ResultSlider() {
   // useColorModeValue('#E2E8F0', '##1A202C')
 
   return (
-    <Flex direction='column' align='center'>
+    <Flex direction='column' align='center' w='100%'>
       <Text flex='1'>
         {Object.keys(slides)[sliderValue]} Cost: $
         {Object.values(slides)[sliderValue]}
       </Text>
-      <Spacer />
-      <Box pt={6} pb={6} width='35%' flex='1'>
+      <Box p='10px' width='80%' flex='1'>
         <Slider
           aria-label='slider-ex-6'
           defaultValue={1}
@@ -67,10 +67,11 @@ export default function ResultSlider() {
           <SliderMark value={3} {...labelStyles2}>
             Annually
           </SliderMark>
-          <SliderTrack bg='#E2E8F0'>
-            <SliderFilledTrack />
-          </SliderTrack >
-          <SliderThumb bg='#b0abab' boxSize={5}>
+          <SliderTrack bg='brand.gray'>
+            <SliderFilledTrack bg='brand.gray'/>
+          </SliderTrack>
+          <SliderThumb boxSize={5}>
+            <Box color='black' as={AiTwotoneCar}/>
           </SliderThumb>
         </Slider>
       </Box>

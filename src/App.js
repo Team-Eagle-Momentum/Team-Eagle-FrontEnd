@@ -9,7 +9,7 @@ import Navbar from './components/Navbar'
 import RegisterForm from './components/Register/Register'
 import { extendTheme, ChakraProvider } from '@chakra-ui/react'
 import Results from './components/Results/Results'
-import NotFound from './components/NotFound'
+// import NotFound from './components/NotFound'
 
 const colors = {
   brand: {
@@ -77,7 +77,8 @@ function App() {
               </PrivateRoute>
             }
           />
-          <Route path='*' element={<NotFound />} />
+          <Route path='*'  />
+          {/* element={<NotFound />} */}
         </Routes>
         <Footer></Footer>
       </AppContext.Provider>
