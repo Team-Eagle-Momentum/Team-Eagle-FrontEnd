@@ -54,17 +54,17 @@ function Results() {
   }
 
   return (
-    <Stack>
+    <Stack m='10px'>
       {results.length > 0 ? (
         <>
-          <Text m='10px' className='steps'>
+          <Text className='steps'>
             Welcome, {user}!
           </Text>
-          <Text m='10px' className='steps'>
+          <Text className='steps'>
             Here is a list of all your commute calculations. Please click the calculation to view more details.
           </Text>
           <Center>
-          <TableContainer m='10px' whiteSpace='wrap'>
+          <TableContainer whiteSpace='wrap'>
             <Table variant='striped' colorScheme={'teal'}>
               <Thead>
                 <Tr>
