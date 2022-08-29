@@ -59,6 +59,8 @@ export default function Home() {
   // colo theme modes
   const buttonColor = useColorModeValue('#99F0E0', '#a456f0')
   const progressBarColor = useColorModeValue('#F0B199', '#a456f0')
+  const inputColor = useColorModeValue('#ffffff', '#1A202C')
+  const selectOptionColor = useColorModeValue('#b8b8b8', '#3B3B3B')
 
   const {
     resultCalculation,
@@ -126,6 +128,20 @@ export default function Home() {
     return distanceResult
   }
 
+  const resetFormState = () => {
+    setProgressBar(0)
+    setCommuteId(0)
+    setResultCalculation({
+      result: { weekly: '' },
+    })
+    setCombinedMPGVal('')
+    setCurrentStep(1)
+    setWorkDay(1)
+    setMpgError(false)
+    setLocationError(false)
+    setCombinedMPGVal('')
+  }
+
   const commutePostData = async (distanceValue, directions) => {
     let cityStart = splitAddress(originRef.current.value)
     let cityEnd = splitAddress(destinationRef.current.value)
@@ -155,7 +171,6 @@ export default function Home() {
       alignItems='center'
     >
       {currentStep !== 1 && currentStep !== 4 && (
-        // <ProgressBar key={'p-bar'} completed={progressBar} />
         <ProgressBar
           key={'p-bar'}
           bgcolor={progressBarColor}
@@ -198,7 +213,7 @@ export default function Home() {
               <Autocomplete>
                 <Input
                   shadow='sm'
-                  bg='white'
+                  bg={inputColor}
                   type='text'
                   placeholder='Enter a Location'
                   ref={originRef}
@@ -208,7 +223,7 @@ export default function Home() {
               <Autocomplete>
                 <Input
                   shadow='sm'
-                  bg='white'
+                  bg={inputColor}
                   type='text'
                   placeholder='Enter a Location'
                   ref={destinationRef}
@@ -219,7 +234,7 @@ export default function Home() {
               <Text htmlFor='work-days-field'>Days per Week Commuting:</Text>
               <NumberInput
                 shadow='sm'
-                bg='white'
+                bg={inputColor}
                 min={1}
                 max={7}
                 precision={0}
@@ -252,7 +267,7 @@ export default function Home() {
               <Text htmlFor='mpg-input-field'>MPG:</Text>
               <Input
                 shadow='sm'
-                bg='white'
+                bg={inputColor}
                 placeholder='Enter Miles Per Gallon'
                 id='mpg-input-field'
                 type='number'
@@ -269,6 +284,7 @@ export default function Home() {
               <select
                 id='year-field'
                 defaultValue=''
+                style={{ backgroundColor: selectOptionColor }}
                 onChange={(e) => setSelectYear(e.target.value)}
               >
                 <option value='' disabled hidden>
@@ -283,6 +299,7 @@ export default function Home() {
               <Text htmlFor='car-make-field'>Car Make:</Text>
               <select
                 id='car-make-field'
+                style={{ backgroundColor: selectOptionColor }}
                 defaultValue=''
                 onChange={(e) => setCarMakeID(e.target.value)}
               >
@@ -299,6 +316,7 @@ export default function Home() {
               <select
                 id='car-model-field'
                 defaultValue=''
+                style={{ backgroundColor: selectOptionColor }}
                 onChange={(e) => setCarTrimID(e.target.value)}
               >
                 <option value='' disabled hidden>
@@ -353,7 +371,7 @@ export default function Home() {
           bg={buttonColor}
           colorScheme='black'
           onClick={() => {
-            setProgressBar(0)
+            resetFormState()
             setCurrentStep(currentStep + 1)
           }}
         >
@@ -425,17 +443,7 @@ export default function Home() {
           mt='20px'
           bg={buttonColor}
           onClick={() => {
-            setProgressBar(0)
-            setCommuteId(0)
-            setResultCalculation({
-              result: { weekly: '' },
-            })
-            setCombinedMPGVal('')
-            setCurrentStep(1)
-            setWorkDay(1)
-            setMpgError(false)
-            setLocationError(false)
-            setCombinedMPGVal('')
+            resetFormState()
           }}
           variant='outline'
           colorScheme='black'

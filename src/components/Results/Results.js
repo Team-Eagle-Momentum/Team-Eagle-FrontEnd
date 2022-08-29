@@ -24,6 +24,7 @@ function Results() {
   const [user, setUser] = React.useState('')
   const navigate = useNavigate()
   const tableHeaderColor = useColorModeValue('black', 'white')
+  const tableRowsColor = useColorModeValue('#99F0E0', '#a456f0')
 
   React.useEffect(() => {
     const fetchResults = async () => {
@@ -66,7 +67,7 @@ function Results() {
           </Text>
           <Center>
             <TableContainer whiteSpace='wrap'>
-              <Table variant='striped' colorScheme={'teal'}>
+              <Table variant='striped'>
                 <Thead>
                   <Tr>
                     <Th
@@ -129,6 +130,7 @@ function Results() {
                   {results.map((result) => {
                     return (
                       <Tr
+                        bg={tableRowsColor}
                         onClick={() => navigateToDetails(result.id)}
                         className='results-item'
                         key={result.id}
