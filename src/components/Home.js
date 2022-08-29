@@ -57,6 +57,7 @@ export default function Home() {
   const [loadingButton, setLoadingButton] = useState(false)
   const [locationError, setLocationError] = useState(false)
   const [mpgError, setMpgError] = useState(false)
+  const [avgGasError, setAvgGasError] = useState(false)
   // colo theme modes
   const buttonColor = useColorModeValue('#99F0E0', '#a456f0')
   const progressBarColor = useColorModeValue('#F0B199', '#a456f0')
@@ -149,6 +150,10 @@ export default function Home() {
     let cityEnd = splitAddress(destinationRef.current.value);
     const startAvgGasLocation = await getGasPrice(cityStart);
     const endAvgGasLocation = await getGasPrice(cityEnd);
+    if (startAvgGasLocation === 0 || endAvgGasLocation === 0) {
+      setAvgGasError(true)
+      return
+    }
     const startGas = startAvgGasLocation.data.locationAverage;
     const endGas = endAvgGasLocation.data.locationAverage;
     const avgGasLocation = roundNumber((startGas + endGas) / 2);
@@ -207,6 +212,11 @@ export default function Home() {
           {locationError && (
             <p style={{ color: 'red', paddingBottom: '10px' }}>
               No routes found, please enter different location
+            </p>
+          )}
+          {avgGasError && (
+            <p style={{ color: 'red', paddingBottom: '10px' }}>
+              Could not find gas prices for these locations.
             </p>
           )}
           <Stack className='fields'>
