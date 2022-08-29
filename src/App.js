@@ -7,13 +7,14 @@ import Home from './components/Home'
 import LoginForm from './components/Login/Login'
 import Navbar from './components/Navbar'
 import RegisterForm from './components/Register/Register'
-import { extendTheme, ChakraProvider } from '@chakra-ui/react'
+import theme from './theme'
+import { ChakraProvider } from '@chakra-ui/react'
 import Results from './components/Results/Results'
 // import NotFound from './components/NotFound'
 
 
 
-const theme = extendTheme({ colors })
+// const theme = extendTheme({ colors })
 
 export const AppContext = createContext()
 

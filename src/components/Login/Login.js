@@ -77,14 +77,13 @@ export const LoginForm = () => {
       <Flex
         alignItems='center'
         direction='column'
-        className='body'
-        height={'50vh'}>
+        className='body'>
         <Divider m='25px' variant='unstyled' />
         <Stack
-          bg={useColorModeValue('light.yellow', 'dark.yellow')}
+          bg={useColorModeValue('light.yellow', 'dark.darker')}
           align='center'
           w='400px'
-          h='320px'
+          h='content'
           borderRadius='lg'
           shadow='base'>
           <Text mt='15px' className='description' textShadow='0.5px 0.5px #b9b9b9'>Login</Text>
@@ -95,7 +94,7 @@ export const LoginForm = () => {
                 id='username-field'
                 type='text'
                 shadow='sm'
-                bg={useColorModeValue('#ffffff', '#7d7d7d')}
+                bg={useColorModeValue('white', 'dark.background')}
                 onChange={(e) => setUsername(e.target.value)}
                 required
               >
@@ -107,7 +106,7 @@ export const LoginForm = () => {
                 id='password-field'
                 type='password'
                 shadow='sm'
-                bg={useColorModeValue('#ffffff', '#7d7d7d')}
+                bg={useColorModeValue('white', 'dark.background')}
                 onChange={(e) => setPassword(e.target.value)}
                 required
               >
@@ -129,13 +128,13 @@ export const LoginForm = () => {
               className='subtitle'
               shadow='md'
               mt='20px'
-              bg={useColorModeValue('#99F0E0', '#a456f0')}
+              bg={useColorModeValue('brand.aqua', 'dark.highlight')}
               variant='outline'
               colorScheme='black'>
               Log In
             </Button>
           </form>
-          <Box>
+          <Box p='15px'>
             <Link to={'/register'}>New user? Click to create an account</Link>
           </Box>
         </Stack>

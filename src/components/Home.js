@@ -171,6 +171,7 @@ export default function Home() {
       className='description'
       direction='column'
       alignItems='center'
+      bg={useColorModeValue('white', 'dark.background')}
     >
       {currentStep !== 1 && currentStep !== 4 && (
         <ProgressBar

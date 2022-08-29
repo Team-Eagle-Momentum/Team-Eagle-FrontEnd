@@ -18,6 +18,13 @@ const colors = {
     yellow: '#ECF3B1',
     gray: '#B9B9B9',
   },
+  dark: {
+    darkest: '#2B282B',
+    darker: '#3D383D',
+    dark: '#4F494F',
+    background: '#191719',
+    highlight: '#A456F0',
+  },
 }
 
 // 3. extend the theme
