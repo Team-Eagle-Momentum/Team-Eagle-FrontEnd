@@ -30,7 +30,6 @@ import {
 import { roundNumber, splitAddress } from '../utils/helpers'
 import { YEARS } from '../utils/constants'
 import { AppContext } from '../App'
-import axios from 'axios'
 
 import ResultSlider from './ResultSlider'
 import ProgressBar from './ProgressBar'
@@ -49,9 +48,10 @@ export default function Home() {
   const [duration, setDuration] = useState('')
   const [directionsResponse, setDirectionsResponse] = useState(null)
   const [commuteId, setCommuteId] = useState(0)
-
   const buttonColor = useColorModeValue('#99F0E0', '#a456f0')
   const [loadingButton, setLoadingButton] = useState(false)
+  const [locationError, setLocationError] = useState(false)
+  const [mpgError, setMpgError] = useState(false)
 
   const {
     resultCalculation,
@@ -161,6 +161,11 @@ export default function Home() {
               Step {currentStep} - Enter the starting and ending location of
               your commute.
             </Box>
+            {locationError && (
+              <p style={{ color: 'red', paddingBottom: '10px' }}>
+                No routes found, please enter different location
+              </p>
+            )}
             <Stack spacing={5} mb={3}>
               <Box>
                 <label htmlFor='starting-location-field'>
@@ -212,25 +217,19 @@ export default function Home() {
               Step {currentStep} - Enter your vehicle MPG (or select vehicle
               information)
             </Box>
+            {mpgError && (
+              <p style={{ color: 'red', paddingBottom: '10px' }}>
+                Please enter MPG greater than zero
+              </p>
+            )}
             <Box>
               <Box>Enter MPG</Box>
               <Box>
-                {carModels.length === 0 ? (
-                  <p>No models found, please enter MPG</p>
-                ) : combinedMPGVal === 0.0 ? (
-                  <p>No MPG found, please enter MPG</p>
-                ) : (
-                  ''
-                )}
-
-                {combinedMPGVal === 0.0 && (
-                  <p>No MPG found, please enter MPG</p>
-                )}
                 <label htmlFor='mpg-input-field'>MPG: </label>
                 <input
+                  type='number'
                   placeholder='Enter Miles Per Gallon'
                   id='mpg-input-field'
-                  type='text'
                   value={combinedMPGVal}
                   onChange={(e) => setCombinedMPGVal(e.target.value)}
                   required
@@ -295,7 +294,7 @@ export default function Home() {
                       </option>
                     ))
                   ) : (
-                    <option>No models found</option>
+                    <option>No models found, please enter MPG</option>
                   )}
                 </select>
               </Box>
@@ -331,6 +330,9 @@ export default function Home() {
               setCombinedMPGVal('')
               setCurrentStep(1)
               setWorkDay(1)
+              setMpgError(false)
+              setLocationError(false)
+              setCombinedMPGVal('')
             }}
           >
             New Calculation
@@ -342,6 +344,10 @@ export default function Home() {
             bg={buttonColor}
             onClick={async (e) => {
               e.preventDefault()
+              if (combinedMPGVal <= 0 || combinedMPGVal === '') {
+                setMpgError(true)
+                return
+              }
               setProgressBar(100)
               let [vehicleId] = await Promise.all([
                 createVehicle(combinedMPGVal),
@@ -368,7 +374,7 @@ export default function Home() {
               try {
                 distanceResult = await Promise.all([calculateRoute()])
               } catch (error) {
-                alert('Route not found')
+                setLocationError(true)
                 setLoadingButton(false)
                 return
               }
