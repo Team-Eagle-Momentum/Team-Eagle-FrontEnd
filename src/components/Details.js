@@ -100,18 +100,22 @@ export default function Details() {
             </Text>
             <Center>
               <Box className='description'>
-                <Text>
-                  Gas price in {splitAddress(calcData.commute.start_location)}:
-                </Text>
-                <Text>
-                  Gas price in {splitAddress(calcData.commute.end_location)}:
-                </Text>
+                {calcData.commute.start_avg_gas &&
+                  (<Text>
+                    Gas price in {splitAddress(calcData.commute.start_location)}:
+                  </Text>)}
+                {calcData.commute.end_avg_gas &&
+                  (<Text>
+                    Gas price in {splitAddress(calcData.commute.end_location)}:
+                  </Text>)}
                 <Text>Overall Gas Average:</Text>
                 <Text>Commute Distance:</Text>
               </Box>
               <Box ml='20px' className='costs'>
-                <Text>${calcData.commute.start_avg_gas}</Text>
-                <Text>${calcData.commute.end_avg_gas}</Text>
+                {calcData.commute.start_avg_gas &&
+                  (<Text>${calcData.commute.start_avg_gas}</Text>)}
+                {calcData.commute.end_avg_gas &&
+                  (<Text>${calcData.commute.end_avg_gas}</Text>)}
                 <Text>${calcData.commute.avg_gas_commute}</Text>
                 <Text>{calcData.commute.distance} miles</Text>
               </Box>
