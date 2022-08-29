@@ -16,12 +16,12 @@ import {
   SimpleGrid,
   Spacer,
   useColorModeValue,
-} from '@chakra-ui/react';
+} from '@chakra-ui/react'
 import { ChevronDownIcon } from '@chakra-ui/icons'
-import React, { useState, useEffect, useRef, useContext } from 'react';
-import { Autocomplete } from '@react-google-maps/api';
-import { Link } from 'react-router-dom';
-import Map from './Map';
+import React, { useState, useEffect, useRef, useContext } from 'react'
+import { Autocomplete } from '@react-google-maps/api'
+import { Link } from 'react-router-dom'
+import Map from './Map'
 import {
   createCalcData,
   createCommute,
@@ -146,18 +146,28 @@ export default function Home() {
   }
 
   return (
-    <Flex className='description' direction='column' alignItems='center'>
+    <Flex
+      height={'50vh'}
+      className='description'
+      direction='column'
+      alignItems='center'
+    >
       {currentStep === 1 && (
         <>
           <Box m='10px'>Welcome to Commutilator!</Box>
           <Divider h='2vh' variant='unstyled' />
-          <Box w='80%'
-          h='1.5'
-          // bg={useColorModeValue('#F0B199', '#a456f0')}
-          borderRadius='full' />
+          <Box
+            w='80%'
+            h='1.5'
+            // bg={useColorModeValue('#F0B199', '#a456f0')}
+            borderRadius='full'
+          />
           <Divider h='2vh' variant='unstyled' />
           <Box m='10px'>
-            Commutilator helps you calculate the cost of your commute, whether to work, school, or even the grocery store, using your route, your personal vehicle information, and local gas prices. We hope you are able to use our app to make informed decisions about your drive!
+            Commutilator helps you calculate the cost of your commute, whether
+            to work, school, or even the grocery store, using your route, your
+            personal vehicle information, and local gas prices. We hope you are
+            able to use our app to make informed decisions about your drive!
           </Box>
         </>
       )}
@@ -173,15 +183,13 @@ export default function Home() {
             Step 1 - Enter your route information.
           </Box>
           {locationError && (
-              <p style={{ color: 'red', paddingBottom: '10px' }}>
-                No routes found, please enter different location
-              </p>
-            )}
+            <p style={{ color: 'red', paddingBottom: '10px' }}>
+              No routes found, please enter different location
+            </p>
+          )}
           <Stack className='fields'>
             <Box>
-              <Text htmlFor='starting-location-field'>
-                Start:{' '}
-              </Text>
+              <Text htmlFor='starting-location-field'>Start: </Text>
               <Autocomplete>
                 <Input
                   shadow='sm'
@@ -235,10 +243,10 @@ export default function Home() {
             Step 2 - Enter your vehicle information.
           </Box>
           {mpgError && (
-              <p style={{ color: 'red', paddingBottom: '10px' }}>
-                Please enter an MPG value greater than zero.
-              </p>
-            )}
+            <p style={{ color: 'red', paddingBottom: '10px' }}>
+              Please enter an MPG value greater than zero.
+            </p>
+          )}
           <Stack>
             <Box className='fields'>
               <Text htmlFor='mpg-input-field'>MPG:</Text>
@@ -253,7 +261,9 @@ export default function Home() {
                 required
               />
             </Box>
-            <Text className='steps' m='10px'>OR</Text>
+            <Text className='steps' m='10px'>
+              OR
+            </Text>
             <Box className='fields'>
               <Text htmlFor='year-field'>Car Year:</Text>
               <select
@@ -282,8 +292,8 @@ export default function Home() {
                 {carMakes.map((carMake, index) => (
                   <option key={index} value={carMake.Id}>
                     {carMake.Name}
-                    </option>
-                    ))}
+                  </option>
+                ))}
               </select>
               <Text htmlFor='car-model-field'>Car Model:</Text>
               <select
@@ -301,7 +311,10 @@ export default function Home() {
                     </option>
                   ))
                 ) : (
-                  <option>No models found, please manually enter MPG in the field above.</option>
+                  <option>
+                    No models found, please manually enter MPG in the field
+                    above.
+                  </option>
                 )}
               </select>
             </Box>
@@ -328,11 +341,6 @@ export default function Home() {
               </Link>
             </Stack>
           </SimpleGrid>
-          <ProgressBar
-            key={'p-bar'}
-            bgcolor={'#F0B199'}
-            completed={progressBar}
-          />
         </>
       )}
       {/*buttons*/}
@@ -346,7 +354,7 @@ export default function Home() {
           colorScheme='black'
           onClick={() => {
             setProgressBar(0)
-            setCurrentStep(currentStep + 1);
+            setCurrentStep(currentStep + 1)
           }}
         >
           Click to Begin
@@ -362,23 +370,23 @@ export default function Home() {
           variant='outline'
           colorScheme='black'
           onClick={async () => {
-              setLoadingButton(true)
-              let distanceResult
-              try {
-                distanceResult = await Promise.all([calculateRoute()])
-              } catch (error) {
-                setLocationError(true)
-                setLoadingButton(false)
-                return
-              }
-              let [commuteId] = await Promise.all([
-                commutePostData(distanceResult),
-              ])
+            setLoadingButton(true)
+            let distanceResult
+            try {
+              distanceResult = await Promise.all([calculateRoute()])
+            } catch (error) {
+              setLocationError(true)
               setLoadingButton(false)
-              setProgressBar(50)
-              setCommuteId(commuteId)
-              setCurrentStep(currentStep + 1)
-            }}
+              return
+            }
+            let [commuteId] = await Promise.all([
+              commutePostData(distanceResult),
+            ])
+            setLoadingButton(false)
+            setProgressBar(50)
+            setCommuteId(commuteId)
+            setCurrentStep(currentStep + 1)
+          }}
         >
           Next
         </Button>
@@ -391,23 +399,21 @@ export default function Home() {
           variant='outline'
           colorScheme='black'
           bg={buttonColor}
-            onClick={async (e) => {
-              e.preventDefault()
-              if (combinedMPGVal <= 0 || combinedMPGVal === '') {
-                setMpgError(true)
-                return
-              }
-              setProgressBar(100)
-              let [vehicleId] = await Promise.all([
-                createVehicle(combinedMPGVal),
-              ])
-              let [data] = await Promise.all([
-                createCalcData(commuteId, vehicleId),
-              ])
-              setResultCalculation(data)
-              saveCalculationToUser(data.id)
-              setCurrentStep(currentStep + 1)
-            }}
+          onClick={async (e) => {
+            e.preventDefault()
+            if (combinedMPGVal <= 0 || combinedMPGVal === '') {
+              setMpgError(true)
+              return
+            }
+            setProgressBar(100)
+            let [vehicleId] = await Promise.all([createVehicle(combinedMPGVal)])
+            let [data] = await Promise.all([
+              createCalcData(commuteId, vehicleId),
+            ])
+            setResultCalculation(data)
+            saveCalculationToUser(data.id)
+            setCurrentStep(currentStep + 1)
+          }}
         >
           Commutilate Route
         </Button>
@@ -419,18 +425,18 @@ export default function Home() {
           mt='20px'
           bg={buttonColor}
           onClick={() => {
-              setProgressBar(0)
-              setCommuteId(0)
-              setResultCalculation({
-                result: { weekly: '' },
-              })
-              setCombinedMPGVal('')
-              setCurrentStep(1)
-              setWorkDay(1)
-              setMpgError(false)
-              setLocationError(false)
-              setCombinedMPGVal('')
-            }}
+            setProgressBar(0)
+            setCommuteId(0)
+            setResultCalculation({
+              result: { weekly: '' },
+            })
+            setCombinedMPGVal('')
+            setCurrentStep(1)
+            setWorkDay(1)
+            setMpgError(false)
+            setLocationError(false)
+            setCombinedMPGVal('')
+          }}
           variant='outline'
           colorScheme='black'
         >
@@ -438,5 +444,5 @@ export default function Home() {
         </Button>
       )}
     </Flex>
-  );
+  )
 }
