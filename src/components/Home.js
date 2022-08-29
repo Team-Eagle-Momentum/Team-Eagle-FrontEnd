@@ -14,6 +14,7 @@ import {
   Text,
   Divider,
   SimpleGrid,
+  Spacer,
 } from '@chakra-ui/react';
 import { ChevronDownIcon } from '@chakra-ui/icons'
 import React, { useState, useEffect, useRef, useContext } from 'react';
@@ -145,6 +146,9 @@ export default function Home() {
       {currentStep === 1 && (
         <>
           <Box m='10px'>Welcome to Commutilator!</Box>
+          <Divider h='2vh' variant='unstyled' />
+          <Box w='80%' h='1.5' bg='brand.purple' borderRadius='full' />
+          <Divider h='2vh' variant='unstyled' />
           <Box m='10px'>
             Commutilator helps you calculate the cost of your commute, whether to work, school, or even the grocery store, using your route, your personal vehicle information, and local gas prices. We hope you are able to use our app to make informed decisions about your drive!
           </Box>
@@ -152,6 +156,12 @@ export default function Home() {
       )}
       {currentStep === 2 && (
         <>
+          <Divider h='5vh' variant='unstyled' />
+          <ProgressBar
+            key={'p-bar'}
+            bgcolor={'#F0B199'}
+            completed={progressBar}
+          />
           <Box className='steps' m='10px'>
             Step 1 - Enter your route information.
           </Box>
@@ -205,6 +215,12 @@ export default function Home() {
       )}
       {currentStep === 3 && (
         <>
+          <Divider h='5vh' variant='unstyled' />
+          <ProgressBar
+            key={'p-bar'}
+            bgcolor={'#F0B199'}
+            completed={progressBar}
+          />
           <Box className='steps' m='10px'>
             Step 2 - Enter your vehicle information.
           </Box>
@@ -293,133 +309,112 @@ export default function Home() {
             Commute Results
           </Box>
           <SimpleGrid w='80%' columns={2}>
-            <Map directionsResponse={directionsResponse} />
+            <Box shadow='base'>
+              <Map directionsResponse={directionsResponse} />
+            </Box>
             <Stack alignItems='center' className='description'>
               <ResultSlider />
-              <Divider m='20px' variant='unstyled' />
+              <Spacer />
               <Link
-                style={{ color: '#F0B199'}}
+                style={{ color: '#F0B199' }}
                 to={`/details/${resultCalculation.id}?fromDetails=true`}
               >
                 View More Details
               </Link>
             </Stack>
           </SimpleGrid>
+          <ProgressBar
+            key={'p-bar'}
+            bgcolor={'#F0B199'}
+            completed={progressBar}
+          />
         </>
       )}
 
       {/*buttons*/}
       {currentStep === 1 && (
-        <>
-          <Button
-            className='subtitle'
-            shadow='md'
-            mt='20px'
-            variant='outline'
-            bg='brand.aqua'
-            colorScheme='black'
-            onClick={async () => {
-              setProgressBar(0);
-              setCurrentStep(currentStep + 1);
-            }}
-          >
-            Click to Begin
-          </Button>
-          <Divider h='5vh' variant='unstyled' />
-          <Box w='80%' h='1.5' bg='brand.purple' borderRadius='full' />
-        </>
+        <Button
+          className='subtitle'
+          shadow='md'
+          mt='20px'
+          variant='outline'
+          bg='brand.aqua'
+          colorScheme='black'
+          onClick={async () => {
+            setProgressBar(0)
+            setCurrentStep(currentStep + 1);
+          }}
+        >
+          Click to Begin
+        </Button>
       )}
       {currentStep === 2 && (
-        <>
-          <Button
-            className='subtitle'
-            shadow='md'
-            mt='20px'
-            bg='brand.aqua'
-            variant='outline'
-            colorScheme='black'
-            onClick={async () => {
-              let [distanceResult] = await Promise.all([calculateRoute()]);
-              let [commuteId] = await Promise.all([
-                commutePostData(distanceResult),
-              ]);
-              setProgressBar(0);
-              setCommuteId(commuteId);
-              setCurrentStep(currentStep + 1);
-            }}
-          >
-            Next
-          </Button>
-          <Divider h='5vh' variant='unstyled' />
-          <ProgressBar
-            key={'p-bar'}
-            bgcolor={'#F0B199'}
-            completed={progressBar}
-          />
-        </>
+        <Button
+          className='subtitle'
+          shadow='md'
+          mt='20px'
+          bg='brand.aqua'
+          variant='outline'
+          colorScheme='black'
+          onClick={async () => {
+            let [distanceResult] = await Promise.all([calculateRoute()]);
+            let [commuteId] = await Promise.all([
+              commutePostData(distanceResult),
+            ]);
+            setProgressBar(50);
+            setCommuteId(commuteId);
+            setCurrentStep(currentStep + 1);
+          }}
+        >
+          Next
+        </Button>
       )}
       {currentStep === 3 && (
-        <>
-          <Button
-            className='subtitle'
-            shadow='md'
-            mt='20px'
-            bg='brand.aqua'
-            variant='outline'
-            colorScheme='black'
-            onClick={async (e) => {
-              e.preventDefault();
-              setProgressBar(50);
-              let [vehicleId] = await Promise.all([
-                createVehicle(combinedMPGVal),
-              ]);
-              let [data] = await Promise.all([
-                createCalcData(commuteId, vehicleId),
-              ]);
-              setResultCalculation(data);
-              saveCalculationToUser(data.id);
-              setCurrentStep(currentStep + 1);
-            }}
-          >
-            Commutilate Route
-          </Button>
-          <Divider h='5vh' variant='unstyled' />
-          <ProgressBar
-            key={'p-bar'}
-            bgcolor={'#F0B199'}
-            completed={progressBar}
-          />
-        </>
+        <Button
+          className='subtitle'
+          shadow='md'
+          mt='20px'
+          bg='brand.aqua'
+          variant='outline'
+          colorScheme='black'
+          onClick={async (e) => {
+            e.preventDefault();
+            setProgressBar(100);
+            let [vehicleId] = await Promise.all([
+              createVehicle(combinedMPGVal),
+            ]);
+            let [data] = await Promise.all([
+              createCalcData(commuteId, vehicleId),
+            ]);
+            setResultCalculation(data);
+            saveCalculationToUser(data.id);
+            setCurrentStep(currentStep + 1);
+          }}
+        >
+          Commutilate Route
+        </Button>
       )}
       {currentStep === 4 && (
-        <>
-          <Button
-            className='subtitle'
-            shadow='md'
-            mt='20px'
-            bg='brand.aqua'
-            variant='outline'
-            colorScheme='black'
-            onClick={() => {
-              setProgressBar(100);
-              setCommuteId(0);
-              setResultCalculation({
-                result: { weekly: '' },
-              });
-              setCombinedMPGVal('');
-              setCurrentStep(1);
-              setWorkDay(1);
-            }}
-          >
-            New Calculation
-          </Button>
-          <Divider h='5vh' variant='unstyled' />
-          <ProgressBar
-            key={'p-bar'}
-            bgcolor={'#F0B199'}
-            completed={progressBar}
-          />
-        </>
+        <Button
+          className='subtitle'
+          shadow='md'
+          mt='20px'
+          bg='brand.aqua'
+          variant='outline'
+          colorScheme='black'
+          onClick={() => {
+            setProgressBar(0);
+            setCommuteId(0);
+            setResultCalculation({
+              result: { weekly: '' },
+            });
+            setCombinedMPGVal('');
+            setCurrentStep(1);
+            setWorkDay(1);
+          }}
+        >
+          New Calculation
+        </Button>
       )}
     </Flex>
   );
