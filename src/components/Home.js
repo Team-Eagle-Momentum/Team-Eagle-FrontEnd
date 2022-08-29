@@ -52,7 +52,6 @@ export default function Home() {
 
   const buttonColor = useColorModeValue('#99F0E0', '#a456f0')
   const [loadingButton, setLoadingButton] = useState(false)
-  // F0B199
 
   const {
     resultCalculation,
