@@ -77,20 +77,20 @@ export default function Details() {
         <SimpleGrid columns={2}>
           <Box ml='20px' alignItems='center'>
             <Text align='center' className='title'>
-              Result Details
+              Result Costs
             </Text>
             <Center>
               <Box className='description'>
-                <Text>Daily:</Text>
-                <Text>Weekly:</Text>
-                <Text>Monthly:</Text>
-                <Text>Annualy:</Text>
+                <Text mt='10px'>Daily:</Text>
+                <Text mt='10px'>Weekly:</Text>
+                <Text mt='10px'>Monthly:</Text>
+                <Text mt='10px'>Annualy:</Text>
               </Box>
               <Box ml='20px' className='costs'>
-                <Text>${calcData.result.daily}</Text>
-                <Text>${calcData.result.weekly}</Text>
-                <Text>${calcData.result.monthly}</Text>
-                <Text>${calcData.result.annual}</Text>
+                <Text mt='10px'>${calcData.result.daily}</Text>
+                <Text mt='10px'>${calcData.result.weekly}</Text>
+                <Text mt='10px'>${calcData.result.monthly}</Text>
+                <Text mt='10px'>${calcData.result.annual}</Text>
               </Box>
             </Center>
           </Box>
@@ -109,7 +109,9 @@ export default function Details() {
                     Gas price in {splitAddress(calcData.commute.end_location)}:
                   </Text>)}
                 <Text>Overall Gas Average:</Text>
-                <Text>Commute Distance:</Text>
+                <Text>Estimated MPG:</Text>
+                <Text>Commute Distance (one-way):</Text>
+                <Text>Days Commuting:</Text>
               </Box>
               <Box ml='20px' className='costs'>
                 {calcData.commute.start_avg_gas &&
@@ -117,7 +119,9 @@ export default function Details() {
                 {calcData.commute.end_avg_gas &&
                   (<Text>${calcData.commute.end_avg_gas}</Text>)}
                 <Text>${calcData.commute.avg_gas_commute}</Text>
+                <Text>{calcData.vehicle.mpg} mpg</Text>
                 <Text>{calcData.commute.distance} miles</Text>
+                <Text>{calcData.commute.days_per_week_commuting} days/week</Text>
               </Box>
             </Center>
           </Box>
