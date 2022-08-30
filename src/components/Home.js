@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  ChakraProvider,
   Flex,
   Input,
   Stack,
@@ -14,11 +13,9 @@ import {
   Text,
   Divider,
   SimpleGrid,
-  Spacer,
   useColorModeValue,
-  Select
+  Select,
 } from '@chakra-ui/react'
-import { ChevronDownIcon } from '@chakra-ui/icons'
 import React, { useState, useEffect, useRef, useContext } from 'react'
 import { Autocomplete } from '@react-google-maps/api'
 import { Link } from 'react-router-dom'
@@ -40,7 +37,7 @@ import { AppContext } from '../App'
 
 import ResultSlider from './ResultSlider'
 import ProgressBar from './ProgressBar'
-import Theme from '../theme'
+import { useViewport } from '../utils/helpers'
 
 export default function Home() {
   const originRef = useRef()
@@ -60,6 +57,8 @@ export default function Home() {
   const [locationError, setLocationError] = useState(false)
   const [mpgError, setMpgError] = useState(false)
   const [avgGasError, setAvgGasError] = useState(false)
+  const [windowDimensions] = useViewport()
+  const { width } = windowDimensions
 
   // theme colors
   const buttonColor = useColorModeValue('brand.aqua', 'dark.highlight')
@@ -369,24 +368,47 @@ export default function Home() {
       )}
       {currentStep === 4 && (
         <>
-          <Box style={{ marginTop: '100px' }} className='steps' m='10px'>
-            Commute Results
-          </Box>
-          <SimpleGrid w='100%' columns={2}>
-            <Box shadow='base'>
-              <Map directionsResponse={directionsResponse} />
-            </Box>
-            <Stack alignItems='center' justifyContent='center' spacing={'60px'}>
+          {width < 780 ? (
+            <>
+              <Box style={{ marginTop: '100px' }} className='steps' m='10px'>
+                Commute Results
+              </Box>
               <ResultSlider />
-              {/* <Spacer /> */}
+              <Box style={{ marginBottom: '50px' }} />
+              <Map directionsResponse={directionsResponse} />
+              <Box style={{ marginBottom: '10px' }} />
               <Link
                 style={{ color: detailsLinkColor }}
                 to={`/details/${resultCalculation.id}?fromDetails=true`}
               >
                 View More Details
               </Link>
-            </Stack>
-          </SimpleGrid>
+            </>
+          ) : (
+            <>
+              <Box style={{ marginTop: '100px' }} className='steps' m='10px'>
+                Commute Results
+              </Box>
+              <SimpleGrid w='100%' columns={2}>
+                <Box shadow='base'>
+                  <Map directionsResponse={directionsResponse} />
+                </Box>
+                <Stack
+                  alignItems='center'
+                  justifyContent='center'
+                  spacing={'60px'}
+                >
+                  <ResultSlider />
+                  <Link
+                    style={{ color: detailsLinkColor }}
+                    to={`/details/${resultCalculation.id}?fromDetails=true`}
+                  >
+                    View More Details
+                  </Link>
+                </Stack>
+              </SimpleGrid>
+            </>
+          )}
         </>
       )}
       {/*buttons*/}
