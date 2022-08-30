@@ -71,7 +71,7 @@ export default function Details() {
   }, [calcData])
 
   return (
-    <Stack align='center'>
+    <Stack h='100vh' align='center'>
       <Image
         mt='10px'
         boxSize='150px'

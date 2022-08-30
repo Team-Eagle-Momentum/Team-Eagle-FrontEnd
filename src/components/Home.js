@@ -16,6 +16,7 @@ import {
   SimpleGrid,
   Spacer,
   useColorModeValue,
+  Select
 } from '@chakra-ui/react'
 import { ChevronDownIcon } from '@chakra-ui/icons'
 import React, { useState, useEffect, useRef, useContext } from 'react'
@@ -180,7 +181,7 @@ export default function Home() {
 
   return (
     <Flex
-      height='100%'
+      h='70vh'
       className='description'
       direction='column'
       alignItems='center'
@@ -299,10 +300,12 @@ export default function Home() {
             </Box>
             <Box className='fields'>
               <Text htmlFor='year-field'>Car Year:</Text>
-              <select
+              <Select
                 id='year-field'
                 defaultValue=''
-                style={{ backgroundColor: selectColor }}
+                bg={selectColor}
+                mb='25px'
+                shadow='sm'
                 onChange={(e) => setSelectYear(e.target.value)}
               >
                 <option value='' disabled hidden>
@@ -313,11 +316,13 @@ export default function Home() {
                     {year}
                   </option>
                 ))}
-              </select>
+              </Select>
               <Text htmlFor='car-make-field'>Car Make:</Text>
-              <select
+              <Select
                 id='car-make-field'
-                style={{ backgroundColor: selectColor }}
+                bg={selectColor}
+                mb='25px'
+                shadow='sm'
                 defaultValue=''
                 onChange={(e) => setCarMakeID(e.target.value)}
               >
@@ -329,12 +334,14 @@ export default function Home() {
                     {carMake.Name}
                   </option>
                 ))}
-              </select>
+              </Select>
               <Text htmlFor='car-model-field'>Car Model:</Text>
-              <select
+              <Select
                 id='car-model-field'
                 defaultValue=''
-                style={{ backgroundColor: selectColor }}
+                bg={selectColor}
+                mb='25px'
+                shadow='sm'
                 onChange={(e) => setCarTrimID(e.target.value)}
               >
                 <option value='' disabled hidden>
@@ -352,7 +359,7 @@ export default function Home() {
                     above.
                   </option>
                 )}
-              </select>
+              </Select>
             </Box>
           </Stack>
         </>
