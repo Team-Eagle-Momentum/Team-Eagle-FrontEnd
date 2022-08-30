@@ -1,6 +1,7 @@
 import { AppContext } from '../App'
 import { useContext } from 'react'
-import Logo from '.././CommutilatorLogo.png'
+import LightLogoNav from '.././CommutilatorLogo2.png'
+import DarkLogoNav from '.././CommutilatorLogoDark2.png'
 import {
   Box,
   Flex,
@@ -21,15 +22,17 @@ export default function Navbar() {
   const { setResultCalculation, setCurrentStep } = useContext(AppContext)
 
   const { colorMode, toggleColorMode } = useColorMode()
+  const logo = useColorModeValue(LightLogoNav, DarkLogoNav)
+  const buttonText = useColorModeValue('black', 'white')
 
   return (
-    <Flex bg={useColorModeValue('brand.aqua', 'dark.darkest')}>
+    <Flex bg={useColorModeValue('brand.aqua', 'dark.darker')} shadow={useColorModeValue('md','')}>
       <Square>
         <Image
           m='5px'
           boxSize='80px'
           borderRadius='full'
-          src={Logo}
+          src={logo}
           alt='CommutilatorLogo'
         />
       </Square>
@@ -46,7 +49,7 @@ export default function Navbar() {
       </Box>
       <Spacer />
       <Flex justify='center' wrap='wrap' w='30vw' className='subtitle'>
-        <Button m='10px' variant='link' color='black' fontWeight='500'
+        <Button m='10px' variant='link' color={buttonText} fontWeight='500'
           onClick={() => {
             setCurrentStep(1)
           }}>
@@ -54,19 +57,19 @@ export default function Navbar() {
         </Button>
         {!token ? (
           <>
-            <Button m='10px' variant='link' color='black' fontWeight='500'>
+            <Button m='10px' variant='link' color={buttonText} fontWeight='500'>
               <Link to={'/login'}>Login</Link>
             </Button>
-            <Button m='10px' variant='link' color='black' fontWeight='500'>
+            <Button m='10px' variant='link' color={buttonText} fontWeight='500'>
               <Link to={'/register'}>Register</Link>
             </Button>
           </>
         ) : (
           <>
-            <Button m='10px' variant='link' color='black' fontWeight='500'>
+            <Button m='10px' variant='link' color={buttonText} fontWeight='500'>
               <Link to={'/results'}>My Results</Link>
             </Button>
-            <Button m='10px' variant='link' color='black' fontWeight='500'
+            <Button m='10px' variant='link' color={buttonText} fontWeight='500'
               onClick={() => {
                 localStorage.clear()
                 setResultCalculation({
