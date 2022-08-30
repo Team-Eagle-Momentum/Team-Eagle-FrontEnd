@@ -62,11 +62,11 @@ export default function Home() {
 
   // theme colors
   const buttonColor = useColorModeValue('brand.aqua', 'dark.darkest')
-  const barColor = useColorModeValue('brand.lilac', 'dark.dark')
   const inputColor = useColorModeValue('white', 'dark.background')
   const selectColor = useColorModeValue('white', 'dark.background')
   const detailsLink = useColorModeValue('brand.orange', 'dark.dark')
-
+  const barColor = useColorModeValue('#CED3F5', '#4F494F')
+  const fillColor = useColorModeValue('#9191CC', '#a456f0')
 
   const {
     resultCalculation,
@@ -190,8 +190,10 @@ export default function Home() {
     >
       {currentStep !== 1 && currentStep !== 4 && (
         <ProgressBar
+          barColor={barColor}
+          fillColor={fillColor}
+          // filler={fillColor}
           key={'p-bar'}
-          bgcolor={barColor}
           completed={progressBar}
         />
       )}
