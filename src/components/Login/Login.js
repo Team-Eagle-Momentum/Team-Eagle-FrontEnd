@@ -77,19 +77,19 @@ export const LoginForm = () => {
       <Flex
         alignItems='center'
         direction='column'
-        className='body'>
+        className='description'>
         <Divider m='25px' variant='unstyled' />
         <Stack
-          bg={useColorModeValue('light.yellow', 'dark.darker')}
+          bg={useColorModeValue('brand.yellow', 'dark.darker')}
           align='center'
           w='400px'
           h='content'
           borderRadius='lg'
-          shadow='base'>
-          <Text mt='15px' className='description' textShadow='0.5px 0.5px #b9b9b9'>Login</Text>
+          shadow='md'>
+          <Text mt='15px' className='steps'>Login</Text>
           <form onSubmit={handleSubmit}>
             <Box>
-              <Text htmlFor='username-field'>Username: </Text>
+              <Text htmlFor='username-field'>Username:</Text>
               <Input
                 id='username-field'
                 type='text'
@@ -101,7 +101,7 @@ export const LoginForm = () => {
               </Input>
             </Box>
             <Box mt='5px'>
-              <Text htmlFor='password-field'>Password: </Text>
+              <Text htmlFor='password-field'>Password:</Text>
               <Input
                 id='password-field'
                 type='password'
@@ -119,7 +119,7 @@ export const LoginForm = () => {
             }
             {blankError &&
               <Box mt='10px' color='red'>
-                <Text>Input may not be blank</Text>
+                <Text>Please enter a valid username or password</Text>
               </Box>
             }
             <Button
@@ -134,8 +134,8 @@ export const LoginForm = () => {
               Log In
             </Button>
           </form>
-          <Box p='15px'>
-            <Link to={'/register'}>New user? Click to create an account</Link>
+          <Box pb='15px' pt='5px'>
+            <Link to={'/register'}>New user? Click to create an account.</Link>
           </Box>
         </Stack>
       </Flex>

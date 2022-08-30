@@ -79,20 +79,13 @@ export const RegisterForm = () => {
           align='center'
           w='400px'
           h='content'
-          p='15px'
+          pb='15px'
           borderRadius='lg'
-          shadow='md'
-        >
-          <Text
-            mt='15px'
-            className='description'
-            textShadow='0.5px 0.5px #b9b9b9'
-          >
-            Create an Account
-          </Text>
+          shadow='md'>
+          <Text mt='15px' className='steps'>Register New Account</Text>
           <form onSubmit={handleSubmit}>
             <Box>
-              <Text htmlFor='email-field'>Email: </Text>
+              <Text htmlFor='email-field'>Email:</Text>
               <Input
                 id='email-field'
                 type='email'
@@ -100,11 +93,11 @@ export const RegisterForm = () => {
                 shadow='sm'
                 bg={useColorModeValue('white', 'dark.background')}
                 onChange={(e) => setEmail(e.target.value)}
-                required
-              ></Input>
+                required>
+              </Input>
             </Box>
             <Box mt='5px'>
-              <Text htmlFor='username-field'>Username: </Text>
+              <Text htmlFor='username-field'>Username:</Text>
               <Input
                 id='username-field'
                 type='text'
@@ -117,7 +110,7 @@ export const RegisterForm = () => {
               ></Input>
             </Box>
             <Box mt='5px'>
-              <Text htmlFor='password-field'>Password: </Text>
+              <Text htmlFor='password-field'>Password:</Text>
               <Input
                 id='password-field'
                 type='password'
