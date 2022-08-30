@@ -65,7 +65,7 @@ export default function Home() {
   const buttonColor = useColorModeValue('brand.aqua', 'dark.highlight')
   const inputColor = useColorModeValue('white', 'dark.background')
   const selectColor = useColorModeValue('white', 'dark.background')
-  const detailsLink = useColorModeValue('brand.orange', 'dark.dark')
+  const detailsLinkColor = useColorModeValue('#9191CC', '#a456f0')
   const fillColor = useColorModeValue('#9191CC', '#a456f0')
   const barColor = useColorModeValue('#CED3F5', '#4F494F')
 
@@ -84,7 +84,7 @@ export default function Home() {
       setCarMakes(makes)
     }
     getMakesAsync()
-    setCurrentStep(1)
+    setCurrentStep(4)
   }, [])
 
   useEffect(() => {
@@ -376,11 +376,11 @@ export default function Home() {
             <Box shadow='base'>
               <Map directionsResponse={directionsResponse} />
             </Box>
-            <Stack alignItems='center'>
+            <Stack alignItems='center' justifyContent='center' spacing={'60px'}>
               <ResultSlider />
-              <Spacer />
+              {/* <Spacer /> */}
               <Link
-                style={{ color: '#F0B199' }}
+                style={{ color: detailsLinkColor }}
                 to={`/details/${resultCalculation.id}?fromDetails=true`}
               >
                 View More Details
