@@ -25,25 +25,25 @@
 }
 
 .description {
-  font-family: 'Palanquin';
-  font-weight: 400;
+  font-family: 'Biryani';
+  font-weight: 300;
   font-size: large;
 }
 
 .costs {
-  font-family: 'Palanquin';
-  font-weight: 500;
+  font-family: 'Biryani';
+  font-weight: 600;
   font-size: large;
 }
 
 .steps {
-  font-family: 'Palanquin';
+  font-family: 'Biryani';
   font-weight: 500;
   font-size: medium;
 }
 
 .fields {
-  font-family: 'Palanquin';
+  font-family: 'Biryani';
   font-weight: 300;
   font-size: medium;
 }
