@@ -83,7 +83,7 @@ export default function Home() {
       setCarMakes(makes)
     }
     getMakesAsync()
-    setCurrentStep(4)
+    setCurrentStep(1)
   }, [])
 
   useEffect(() => {
