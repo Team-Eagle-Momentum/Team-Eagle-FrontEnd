@@ -61,14 +61,16 @@ function Results() {
     <Stack m='10px'>
       {results.length > 0 ? (
         <Box maxWidth='1200px' margin='0 auto'>
-          <Text className='steps' mt='25px'>Welcome, {user}!</Text>
+          <Text className='steps' mt='25px'>
+            Welcome, {user}!
+          </Text>
           <Text className='steps' mt='25px'>
             Here is a list of all your commute calculations. Please click the
             calculation to view more details.
           </Text>
           <Center mt='25px'>
             <TableContainer whiteSpace='wrap'>
-              <Table variant={tableVariant}>
+              <Table className='results-table' variant={tableVariant}>
                 <Thead>
                   <Tr>
                     {/* Tr cannot support desired style props, so these must be done at the Th level */}
@@ -77,7 +79,8 @@ function Results() {
                       fontWeight='700'
                       fontSize='md'
                       color={headerTextColor}
-                      textAlign='center'>
+                      textAlign='center'
+                    >
                       Created At
                     </Th>
                     <Th
@@ -85,7 +88,8 @@ function Results() {
                       fontWeight='700'
                       fontSize='md'
                       color={headerTextColor}
-                      textAlign='center'>
+                      textAlign='center'
+                    >
                       Starting location
                     </Th>
                     <Th
@@ -93,7 +97,8 @@ function Results() {
                       fontWeight='700'
                       fontSize='md'
                       color={headerTextColor}
-                      textAlign='center'>
+                      textAlign='center'
+                    >
                       Ending location
                     </Th>
                     <Th
@@ -101,7 +106,8 @@ function Results() {
                       fontWeight='700'
                       fontSize='md'
                       color={headerTextColor}
-                      textAlign='center'>
+                      textAlign='center'
+                    >
                       Days Commuting
                     </Th>
                     <Th
@@ -109,7 +115,8 @@ function Results() {
                       fontWeight='700'
                       fontSize='md'
                       color={headerTextColor}
-                      textAlign='center'>
+                      textAlign='center'
+                    >
                       Vehicle MPG
                     </Th>
                     <Th
@@ -117,7 +124,8 @@ function Results() {
                       fontWeight='700'
                       fontSize='md'
                       color={headerTextColor}
-                      textAlign='center'>
+                      textAlign='center'
+                    >
                       Weekly Cost
                     </Th>
                   </Tr>
@@ -129,7 +137,8 @@ function Results() {
                         bg={tableRowColor}
                         onClick={() => navigateToDetails(result.id)}
                         className='results-item'
-                        key={result.id}>
+                        key={result.id}
+                      >
                         <Td>{formatDate(result.result.created_at)}</Td>
                         <Td>{result.commute.start_location}</Td>
                         <Td>{result.commute.end_location}</Td>
