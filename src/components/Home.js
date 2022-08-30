@@ -191,7 +191,7 @@ export default function Home() {
       {currentStep !== 1 && currentStep !== 4 && (
         <ProgressBar
           key={'p-bar'}
-          bg={barColor}
+          bgcolor={barColor}
           completed={progressBar}
         />
       )}

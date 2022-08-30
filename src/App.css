@@ -105,6 +105,10 @@
   margin-bottom: 2rem;
 }
 
+@media (prefers-color-scheme: dark) {
+
+}
+
 .container-home {
   max-width: 1000px;
 }
