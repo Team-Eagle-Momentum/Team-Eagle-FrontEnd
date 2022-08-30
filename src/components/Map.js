@@ -1,22 +1,20 @@
-import { Box, Flex } from "@chakra-ui/react";
-import { GoogleMap, DirectionsRenderer } from "@react-google-maps/api";
-import { useState } from "react";
+import { Box, Flex } from '@chakra-ui/react';
+import { GoogleMap, DirectionsRenderer } from '@react-google-maps/api';
+import { useState } from 'react';
 
 function Map({ directionsResponse }) {
-  const [map, setMap] = useState(/** @type google.maps.Map */ (null));
+  const [map, setMap] = useState(/** @type google.maps.Map */(null));
 
   return (
     <Flex
-      position="relative"
-      flexDirection="column"
-      alignItems="left"
-      h="50vh"
-      w="100%"
-    >
-      <Box left={0} top={0} h="100%" w="100%">
+      alignItems='left'
+      flexDirection='column'
+      h='50vh'
+      position='relative'
+      w='100%'>
+      <Box left={0} h='100%' top={0} w='100%'>
         <GoogleMap
-          zoom={15}
-          mapContainerStyle={{ height: "100%" }}
+          mapContainerStyle={{ height: '100%' }}
           // options={{
           //   zoomControl: false,
           //   streetViewControl: false,
@@ -24,7 +22,7 @@ function Map({ directionsResponse }) {
           //   fullscreenControl: false,
           // }}
           onLoad={(map) => setMap(map)}
-        >
+          zoom={15}>
           {directionsResponse && (
             <DirectionsRenderer directions={directionsResponse} />
           )}
@@ -33,4 +31,5 @@ function Map({ directionsResponse }) {
     </Flex>
   );
 }
+
 export default Map;

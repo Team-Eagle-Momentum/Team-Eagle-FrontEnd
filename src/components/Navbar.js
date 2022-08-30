@@ -33,22 +33,23 @@ export default function Navbar() {
   const buttonText = useColorModeValue('black', 'white')
   const breakPoint = 820
   const breakPointSm = 483
+  const hamburgerVariant = useColorModeValue('solid', 'outline')
 
   return (
     <Flex
       bg={useColorModeValue('brand.aqua', 'dark.darker')}
-      shadow={useColorModeValue('md', '')}
-    >
+      pt='15px'
+      shadow={useColorModeValue('md', '')}>
       <Square style={{ marginRight: width < breakPoint ? 'auto' : '' }}>
         <Image
+          alt='CommutilatorLogo'
+          borderRadius='full'
+          boxSize='80px'
+          m='5px'
           onClick={() => {
             setCurrentStep(1)
           }}
-          m='5px'
-          boxSize='80px'
-          borderRadius='full'
           src={logo}
-          alt='CommutilatorLogo'
         />
         {width <= breakPoint &&
           (width <= breakPointSm ? (
@@ -59,8 +60,7 @@ export default function Navbar() {
                 className='title'
                 onClick={() => {
                   setCurrentStep(1)
-                }}
-              >
+                }}>
                 <Link to={'/'}>Commutilator</Link>
               </Box>
             </Box>
@@ -74,8 +74,7 @@ export default function Navbar() {
             className='title'
             onClick={() => {
               setCurrentStep(1)
-            }}
-          >
+            }}>
             <Link to={'/'}>Commutilator</Link>
           </Box>
           <Box className='subtitle'>
@@ -83,7 +82,7 @@ export default function Navbar() {
           </Box>
         </Box>
       )}
-      <Flex justify='center' wrap='wrap' className='subtitle'>
+      <Flex className='subtitle' justify='center' wrap='wrap'>
         {!token ? (
           width < breakPoint ? (
             <Center style={{ marginRight: '20px' }}>
@@ -92,28 +91,27 @@ export default function Navbar() {
                   as={IconButton}
                   aria-label='Options'
                   icon={<HamburgerIcon />}
-                  variant='outline'
+                  variant={hamburgerVariant}
                 />
                 <MenuList>
                   <MenuItem>
                     <Button
-                      variant='link'
                       color={buttonText}
                       fontWeight='500'
                       onClick={() => {
                         setCurrentStep(1)
                       }}
-                    >
+                      variant='link'>
                       <Link to={'/'}>New Calculation</Link>
                     </Button>
                   </MenuItem>
                   <MenuItem>
-                    <Button variant='link' color={buttonText} fontWeight='500'>
+                    <Button color={buttonText} fontWeight='500' variant='link'>
                       <Link to={'/login'}>Login</Link>
                     </Button>
                   </MenuItem>
                   <MenuItem>
-                    <Button variant='link' color={buttonText} fontWeight='500'>
+                    <Button color={buttonText} fontWeight='500' variant='link'>
                       <Link to={'/register'}>Register</Link>
                     </Button>
                   </MenuItem>
@@ -123,30 +121,27 @@ export default function Navbar() {
           ) : (
             <>
               <Button
-                m='10px'
-                variant='link'
                 color={buttonText}
                 fontWeight='500'
+                m='10px'
                 onClick={() => {
                   setCurrentStep(1)
                 }}
-              >
+                variant='link'>
                 <Link to={'/'}>New Calculation</Link>
               </Button>
               <Button
-                m='10px'
-                variant='link'
                 color={buttonText}
                 fontWeight='500'
-              >
+                m='10px'
+                variant='link'>
                 <Link to={'/login'}>Login</Link>
               </Button>
               <Button
-                m='10px'
-                variant='link'
                 color={buttonText}
                 fontWeight='500'
-              >
+                m='10px'
+                variant='link'>
                 <Link to={'/register'}>Register</Link>
               </Button>
             </>
@@ -158,29 +153,27 @@ export default function Navbar() {
                 as={IconButton}
                 aria-label='Options'
                 icon={<HamburgerIcon />}
-                variant='outline'
+                variant={hamburgerVariant}
               />
               <MenuList>
                 <MenuItem>
                   <Button
-                    variant='link'
                     color={buttonText}
                     fontWeight='500'
                     onClick={() => {
                       setCurrentStep(1)
                     }}
-                  >
+                    variant='link'>
                     <Link to={'/'}>New Calculation</Link>
                   </Button>
                 </MenuItem>
                 <MenuItem>
-                  <Button variant='link' color={buttonText} fontWeight='500'>
+                  <Button color={buttonText} fontWeight='500' variant='link'>
                     <Link to={'/results'}>My Results</Link>
                   </Button>
                 </MenuItem>
                 <MenuItem>
                   <Button
-                    variant='link'
                     color={buttonText}
                     fontWeight='500'
                     onClick={() => {
@@ -191,7 +184,7 @@ export default function Navbar() {
                       setCurrentStep(1)
                       navigate('/')
                     }}
-                  >
+                    variant='link'>
                     Logout
                   </Button>
                 </MenuItem>
@@ -201,24 +194,22 @@ export default function Navbar() {
         ) : (
           <>
             <Button
-              m='10px'
-              variant='link'
               color={buttonText}
               fontWeight='500'
+              m='10px'
               onClick={() => {
                 setCurrentStep(1)
               }}
-            >
+              variant='link'>
               <Link to={'/'}>New Calculation</Link>
             </Button>
             <Button m='10px' variant='link' color={buttonText} fontWeight='500'>
               <Link to={'/results'}>My Results</Link>
             </Button>
             <Button
-              m='10px'
-              variant='link'
               color={buttonText}
               fontWeight='500'
+              m='10px'
               onClick={() => {
                 localStorage.clear()
                 setResultCalculation({
@@ -227,7 +218,7 @@ export default function Navbar() {
                 setCurrentStep(1)
                 navigate('/')
               }}
-            >
+              variant='link'>
               Logout
             </Button>
           </>
