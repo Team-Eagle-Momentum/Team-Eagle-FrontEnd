@@ -165,8 +165,6 @@ export default function Home() {
     ) {
       throw Error
     }
-    console.log('start gas', startGas)
-    console.log('end gas', endGas)
     const avgGasLocation = roundNumber((startGas + endGas) / 2)
     const response = await createCommute(
       originRef.current.value,
@@ -192,7 +190,6 @@ export default function Home() {
         <ProgressBar
           barColor={barColor}
           fillColor={fillColor}
-          // filler={fillColor}
           key={'p-bar'}
           completed={progressBar}
         />
@@ -201,12 +198,7 @@ export default function Home() {
         <>
           <Box m='25px'>Welcome to Commutilator!</Box>
           <Divider h='2vh' variant='unstyled' />
-          <Box
-            bg={barColor}
-            w='80%'
-            h='1.5'
-            borderRadius='full'
-          />
+          <Box bg={barColor} w='80%' h='1.5' borderRadius='full' />
           <Divider h='2vh' variant='unstyled' />
           <Box m='10px'>
             Commutilator helps you calculate the cost of your commute, whether
@@ -374,14 +366,14 @@ export default function Home() {
       )}
       {currentStep === 4 && (
         <>
-          <Box className='steps' m='10px'>
+          <Box style={{ marginTop: '100px' }} className='steps' m='10px'>
             Commute Results
           </Box>
-          <SimpleGrid w='80%' columns={2}>
+          <SimpleGrid w='100%' columns={2}>
             <Box shadow='base'>
               <Map directionsResponse={directionsResponse} />
             </Box>
-            <Stack alignItems='center' className='description'>
+            <Stack alignItems='center'>
               <ResultSlider />
               <Spacer />
               <Link

@@ -37,12 +37,12 @@ export default function ResultSlider() {
   }
 
   return (
-    <Flex direction='column' align='center' w='100%'>
+    <Flex direction='column' align='center' w='50%'>
       <Text flex='1'>
         {Object.keys(slides)[sliderValue]} Cost: $
         {Object.values(slides)[sliderValue]}
       </Text>
-      <Box p='10px' width='80%' flex='1'>
+      <Box width='100%' flex='1'>
         <Slider
           aria-label='slider-ex-6'
           defaultValue={1}
@@ -64,7 +64,9 @@ export default function ResultSlider() {
             Annually
           </SliderMark>
           <SliderTrack bg={useColorModeValue('brand.gray', 'dark.dark')}>
-            <SliderFilledTrack bg={useColorModeValue('brand.gray', 'dark.dark')} />
+            <SliderFilledTrack
+              bg={useColorModeValue('brand.gray', 'dark.dark')}
+            />
           </SliderTrack>
           <SliderThumb boxSize={5}>
             <Box color='black' as={AiTwotoneCar} />
