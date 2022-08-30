@@ -14,8 +14,7 @@ This application helps you calculate the cost of your commute, whether to work, 
 
 ## Creators
 
-- Back End Team: Metta Rolando and Andres Alcocer
-- Front End Team: Jose Reyes and Michael Perry II
+- Andres Alcocer, Jose Reyes, Metta Rolando and Michael Perry II
 
 ## Link to Production Site:
 
