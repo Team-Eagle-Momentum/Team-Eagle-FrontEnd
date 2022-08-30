@@ -11,6 +11,22 @@
   background-color: #191719 !important;
 }
 
+[data-theme='light'] .css-1baz4v7 {
+  background: #9191CC !important;
+}
+
+[data-theme='dark'] .css-1msymow {
+  background: #a456f0 !important;
+}
+
+[data-theme='light'] .css-1kvxw4v {
+  background: #CED3F5 !important;
+}
+
+[data-theme='dark'] .css-1lkdttl {
+  background: #4F494F !important;
+}
+
 /* Text */
 .title {
   font-family: 'Source Code Pro';
@@ -67,7 +83,7 @@
   /* color: rgb(71, 71, 71); */
 }
 
-.footer-content > div {
+.footer-content>div {
   font-weight: bold;
   text-align: center;
 }
@@ -188,7 +204,7 @@
   height: 50vh;
 }
 
-.not-found > p {
+.not-found>p {
   padding-top: 10rem;
 }
 

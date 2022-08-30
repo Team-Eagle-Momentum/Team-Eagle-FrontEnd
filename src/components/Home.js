@@ -302,10 +302,12 @@ export default function Home() {
               <Text htmlFor='year-field'>Car Year:</Text>
               <Select
                 id='year-field'
-                defaultValue=''
                 bg={selectColor}
                 mb='25px'
                 shadow='sm'
+                minWidth='487px'
+                maxWidth='487px'
+                defaultValue=''
                 onChange={(e) => setSelectYear(e.target.value)}
               >
                 <option value='' disabled hidden>
@@ -323,6 +325,8 @@ export default function Home() {
                 bg={selectColor}
                 mb='25px'
                 shadow='sm'
+                minWidth='487px'
+                maxWidth='487px'
                 defaultValue=''
                 onChange={(e) => setCarMakeID(e.target.value)}
               >
@@ -338,10 +342,12 @@ export default function Home() {
               <Text htmlFor='car-model-field'>Car Model:</Text>
               <Select
                 id='car-model-field'
-                defaultValue=''
                 bg={selectColor}
                 mb='25px'
                 shadow='sm'
+                minWidth='487px'
+                maxWidth='487px'
+                defaultValue=''
                 onChange={(e) => setCarTrimID(e.target.value)}
               >
                 <option value='' disabled hidden>
