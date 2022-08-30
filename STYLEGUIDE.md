@@ -25,7 +25,7 @@
         align='center'
         bg='brand.yellow'
         borderRadius='lg'
-        shadow='base'>
+        shadow='md'>
         <Text
             className='description' 
             textShadow='0.5px 0.5px #B9B9B9'
