@@ -8,6 +8,7 @@ import {
   Button,
   Center,
   colorScheme,
+  DarkMode,
   Divider,
   Flex,
   Input,
@@ -71,15 +72,16 @@ export const RegisterForm = () => {
 
   return (
     <>
-      <Flex alignItems='center' direction='column' className='body' height={'50vh'}>
+      <Flex alignItems='center' direction='column' className='description' height={'50vh'}>
         <Divider m='25px' variant='unstyled' />
         <Stack
-          bg={useColorModeValue('#ECF3B1', '#4a4a4a')}
+          bg={useColorModeValue('brand.yellow', 'dark.darker')}
           align='center'
           w='400px'
-          h='360px'
+          h='content'
+          p='15px'
           borderRadius='lg'
-          shadow='base'
+          shadow='md'
         >
           <Text
             mt='15px'
@@ -96,7 +98,7 @@ export const RegisterForm = () => {
                 type='email'
                 value={email}
                 shadow='sm'
-                bg={useColorModeValue('#ffffff', '#7d7d7d')}
+                bg={useColorModeValue('white', 'dark.background')}
                 onChange={(e) => setEmail(e.target.value)}
                 required
               ></Input>
@@ -108,7 +110,7 @@ export const RegisterForm = () => {
                 type='text'
                 value={username}
                 shadow='sm'
-                bg={useColorModeValue('#ffffff', '#7d7d7d')}
+                bg={useColorModeValue('white', 'dark.background')}
                 onChange={(e) => setUsername(e.target.value)}
                 minLength='8'
                 required
@@ -121,7 +123,7 @@ export const RegisterForm = () => {
                 type='password'
                 value={password}
                 shadow='sm'
-                bg={useColorModeValue('#ffffff', '#7d7d7d')}
+                bg={useColorModeValue('white', 'dark.background')}
                 onChange={(e) => setPassword(e.target.value)}
                 minLength='8'
                 required
