@@ -88,7 +88,40 @@ export default function Navbar() {
       <Flex justify='center' wrap='wrap' className='subtitle'>
         {!token ? (
           width < breakPoint ? (
-            <p>hello</p>
+            <Center style={{ marginRight: '20px' }}>
+              <Menu>
+                <MenuButton
+                  as={IconButton}
+                  aria-label='Options'
+                  icon={<HamburgerIcon />}
+                  variant='outline'
+                />
+                <MenuList>
+                  <MenuItem>
+                    <Button
+                      variant='link'
+                      color={buttonText}
+                      fontWeight='500'
+                      onClick={() => {
+                        setCurrentStep(1)
+                      }}
+                    >
+                      <Link to={'/'}>New Calculation</Link>
+                    </Button>
+                  </MenuItem>
+                  <MenuItem>
+                    <Button variant='link' color={buttonText} fontWeight='500'>
+                      <Link to={'/login'}>Login</Link>
+                    </Button>
+                  </MenuItem>
+                  <MenuItem>
+                    <Button variant='link' color={buttonText} fontWeight='500'>
+                      <Link to={'/register'}>Register</Link>
+                    </Button>
+                  </MenuItem>
+                </MenuList>
+              </Menu>
+            </Center>
           ) : (
             <>
               <Button
