@@ -11,19 +11,19 @@
   background-color: #191719 !important;
 }
 
-[data-theme='light'] .css-1baz4v7 {
+[data-theme='light'] .results-filled {
   background: #9191CC !important;
 }
 
-[data-theme='dark'] .css-1msymow {
+[data-theme='dark'] .results-filled {
   background: #a456f0 !important;
 }
 
-[data-theme='light'] .css-1kvxw4v {
+[data-theme='light'] .results-track {
   background: #CED3F5 !important;
 }
 
-[data-theme='dark'] .css-1lkdttl {
+[data-theme='dark'] .results-track {
   background: #4F494F !important;
 }
 

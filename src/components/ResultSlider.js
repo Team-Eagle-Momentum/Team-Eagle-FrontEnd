@@ -63,9 +63,10 @@ export default function ResultSlider() {
           <SliderMark value={3} {...labelStyles2}>
             Annually
           </SliderMark>
-          <SliderTrack>
+          <SliderTrack className='results-track'>
             {/* <SliderTrack bg={useColorModeValue('brand.gray', 'dark.dark')}> */}
             <SliderFilledTrack
+              className='results-filled'
             // bg={useColorModeValue('brand.gray', 'dark.dark')}
             />
           </SliderTrack>
