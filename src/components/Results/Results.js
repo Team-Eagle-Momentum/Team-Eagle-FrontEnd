@@ -1,17 +1,16 @@
 import React from 'react'
 import {
+  Box,
+  Center,
+  Stack,
   TableContainer,
   Table,
+  Text,
   Thead,
   Tr,
   Th,
   Tbody,
   Td,
-  Stack,
-  Text,
-  Flex,
-  Center,
-  Divider,
   useColorModeValue,
 } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
@@ -23,8 +22,10 @@ function Results() {
   const [results, setResults] = React.useState([])
   const [user, setUser] = React.useState('')
   const navigate = useNavigate()
-  const tableHeaderColor = useColorModeValue('black', 'white')
-  const tableRowsColor = useColorModeValue('#99F0E0', '#a456f0')
+
+  const headerTextColor = useColorModeValue('black', 'white')
+  const tableRowColor = useColorModeValue('brand.aqua', 'dark.darkest')
+  const tableVariant = useColorModeValue('striped', 'simple')
 
   React.useEffect(() => {
     const fetchResults = async () => {
@@ -59,71 +60,64 @@ function Results() {
   return (
     <Stack m='10px'>
       {results.length > 0 ? (
-        <div
-          style={{ maxWidth: '1200px', margin: '0 auto', marginTop: '50px' }}
-        >
-          <Text className='steps'>Welcome, {user}!</Text>
-          <Text className='steps' marginBottom={'50px'}>
+        <Box maxWidth='1200px' margin='0 auto'>
+          <Text className='steps' mt='25px'>Welcome, {user}!</Text>
+          <Text className='steps' mt='25px'>
             Here is a list of all your commute calculations. Please click the
             calculation to view more details.
           </Text>
-          <Center>
+          <Center mt='25px'>
             <TableContainer whiteSpace='wrap'>
-              <Table variant='striped'>
+              <Table variant={tableVariant}>
                 <Thead>
                   <Tr>
+                    {/* Tr cannot support desired style props, so these must be done at the Th level */}
                     <Th
                       fontFamily='Source Code Pro'
                       fontWeight='700'
-                      fontSize='sm'
-                      color={tableHeaderColor}
-                      textAlign='center'
-                    >
+                      fontSize='md'
+                      color={headerTextColor}
+                      textAlign='center'>
                       Created At
                     </Th>
                     <Th
                       fontFamily='Source Code Pro'
                       fontWeight='700'
-                      fontSize='sm'
-                      color={tableHeaderColor}
-                      textAlign='center'
-                    >
+                      fontSize='md'
+                      color={headerTextColor}
+                      textAlign='center'>
                       Starting location
                     </Th>
                     <Th
                       fontFamily='Source Code Pro'
                       fontWeight='700'
-                      fontSize='sm'
-                      color={tableHeaderColor}
-                      textAlign='center'
-                    >
+                      fontSize='md'
+                      color={headerTextColor}
+                      textAlign='center'>
                       Ending location
                     </Th>
                     <Th
                       fontFamily='Source Code Pro'
                       fontWeight='700'
-                      fontSize='sm'
-                      color={tableHeaderColor}
-                      textAlign='center'
-                    >
+                      fontSize='md'
+                      color={headerTextColor}
+                      textAlign='center'>
                       Days Commuting
                     </Th>
                     <Th
                       fontFamily='Source Code Pro'
                       fontWeight='700'
-                      fontSize='sm'
-                      color={tableHeaderColor}
-                      textAlign='center'
-                    >
+                      fontSize='md'
+                      color={headerTextColor}
+                      textAlign='center'>
                       Vehicle MPG
                     </Th>
                     <Th
                       fontFamily='Source Code Pro'
                       fontWeight='700'
-                      fontSize='sm'
-                      color={tableHeaderColor}
-                      textAlign='center'
-                    >
+                      fontSize='md'
+                      color={headerTextColor}
+                      textAlign='center'>
                       Weekly Cost
                     </Th>
                   </Tr>
@@ -132,11 +126,10 @@ function Results() {
                   {results.map((result) => {
                     return (
                       <Tr
-                        bg={tableRowsColor}
+                        bg={tableRowColor}
                         onClick={() => navigateToDetails(result.id)}
                         className='results-item'
-                        key={result.id}
-                      >
+                        key={result.id}>
                         <Td>{formatDate(result.result.created_at)}</Td>
                         <Td>{result.commute.start_location}</Td>
                         <Td>{result.commute.end_location}</Td>
@@ -152,7 +145,7 @@ function Results() {
               </Table>
             </TableContainer>
           </Center>
-        </div>
+        </Box>
       ) : (
         <Text
           maxWidth={'1000px'}
