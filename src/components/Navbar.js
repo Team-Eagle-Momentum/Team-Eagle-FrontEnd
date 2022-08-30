@@ -46,6 +46,9 @@ export default function Navbar() {
     >
       <Square style={{ marginRight: width < breakPoint ? 'auto' : '' }}>
         <Image
+          onClick={() => {
+            setCurrentStep(1)
+          }}
           m='5px'
           boxSize='80px'
           borderRadius='full'
