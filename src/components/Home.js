@@ -66,8 +66,8 @@ export default function Home() {
   const inputColor = useColorModeValue('white', 'dark.background')
   const selectColor = useColorModeValue('white', 'dark.background')
   const detailsLink = useColorModeValue('brand.orange', 'dark.dark')
-  const barColor = useColorModeValue('#CED3F5', '#4F494F')
   const fillColor = useColorModeValue('#9191CC', '#a456f0')
+  const barColor = useColorModeValue('#CED3F5', '#4F494F')
 
   const {
     resultCalculation,
@@ -305,8 +305,7 @@ export default function Home() {
                 bg={selectColor}
                 mb='25px'
                 shadow='sm'
-                minWidth='487px'
-                maxWidth='487px'
+                width='487px'
                 defaultValue=''
                 onChange={(e) => setSelectYear(e.target.value)}
               >
@@ -325,8 +324,7 @@ export default function Home() {
                 bg={selectColor}
                 mb='25px'
                 shadow='sm'
-                minWidth='487px'
-                maxWidth='487px'
+                width='487px'
                 defaultValue=''
                 onChange={(e) => setCarMakeID(e.target.value)}
               >
@@ -345,8 +343,7 @@ export default function Home() {
                 bg={selectColor}
                 mb='25px'
                 shadow='sm'
-                minWidth='487px'
-                maxWidth='487px'
+                width='487px'
                 defaultValue=''
                 onChange={(e) => setCarTrimID(e.target.value)}
               >
