@@ -6,7 +6,6 @@ export default function Footer() {
     return (
         <Box className='footer'>
             <Box
-                // bg='brand.aqua'
                 bg={useColorModeValue('brand.aqua', 'dark.darker')}
                 alignItems='center'
                 className='footer-content'
