@@ -39,6 +39,7 @@ import { AppContext } from '../App'
 
 import ResultSlider from './ResultSlider'
 import ProgressBar from './ProgressBar'
+import Theme from '../theme'
 
 export default function Home() {
   const originRef = useRef()
@@ -58,11 +59,14 @@ export default function Home() {
   const [locationError, setLocationError] = useState(false)
   const [mpgError, setMpgError] = useState(false)
   const [avgGasError, setAvgGasError] = useState(false)
-  // colo theme modes
-  const buttonColor = useColorModeValue('#99F0E0', '#a456f0')
-  const progressBarColor = useColorModeValue('#F0B199', '#a456f0')
-  const inputColor = useColorModeValue('#ffffff', '#1A202C')
-  const selectOptionColor = useColorModeValue('#b8b8b8', '#3B3B3B')
+
+  // theme colors
+  const buttonColor = useColorModeValue('brand.aqua', 'dark.darkest')
+  const inputColor = useColorModeValue('white', 'dark.background')
+  const selectColor = useColorModeValue('white', 'dark.background')
+  const detailsLink = useColorModeValue('brand.orange', 'dark.dark')
+  const barColor = useColorModeValue('#CED3F5', '#4F494F')
+  const fillColor = useColorModeValue('#9191CC', '#a456f0')
 
   const {
     resultCalculation,
@@ -178,26 +182,28 @@ export default function Home() {
 
   return (
     <Flex
-      height={'50vh'}
+      height='100%'
       className='description'
       direction='column'
       alignItems='center'
     >
       {currentStep !== 1 && currentStep !== 4 && (
         <ProgressBar
+          barColor={barColor}
+          fillColor={fillColor}
+          // filler={fillColor}
           key={'p-bar'}
-          bgcolor={progressBarColor}
           completed={progressBar}
         />
       )}
       {currentStep === 1 && (
         <>
-          <Box m='10px'>Welcome to Commutilator!</Box>
+          <Box m='25px'>Welcome to Commutilator!</Box>
           <Divider h='2vh' variant='unstyled' />
           <Box
+            bg={barColor}
             w='80%'
             h='1.5'
-            // bg={useColorModeValue('#F0B199', '#a456f0')}
             borderRadius='full'
           />
           <Divider h='2vh' variant='unstyled' />
@@ -227,7 +233,7 @@ export default function Home() {
           )}
           <Stack className='fields'>
             <Box>
-              <Text htmlFor='starting-location-field'>Start: </Text>
+              <Text htmlFor='starting-location-field'>Start:</Text>
               <Autocomplete>
                 <Input
                   shadow='sm'
@@ -304,7 +310,7 @@ export default function Home() {
               <select
                 id='year-field'
                 defaultValue=''
-                style={{ backgroundColor: selectOptionColor }}
+                style={{ backgroundColor: selectColor }}
                 onChange={(e) => setSelectYear(e.target.value)}
               >
                 <option value='' disabled hidden>
@@ -319,7 +325,7 @@ export default function Home() {
               <Text htmlFor='car-make-field'>Car Make:</Text>
               <select
                 id='car-make-field'
-                style={{ backgroundColor: selectOptionColor }}
+                style={{ backgroundColor: selectColor }}
                 defaultValue=''
                 onChange={(e) => setCarMakeID(e.target.value)}
               >
@@ -336,7 +342,7 @@ export default function Home() {
               <select
                 id='car-model-field'
                 defaultValue=''
-                style={{ backgroundColor: selectOptionColor }}
+                style={{ backgroundColor: selectColor }}
                 onChange={(e) => setCarTrimID(e.target.value)}
               >
                 <option value='' disabled hidden>

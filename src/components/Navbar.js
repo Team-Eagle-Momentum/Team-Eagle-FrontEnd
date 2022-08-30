@@ -24,7 +24,7 @@ export default function Navbar() {
 
   return (
     <Flex
-      bg={useColorModeValue('#99F0E0', '#2c2c2c')}
+      bg={useColorModeValue('brand.aqua', 'dark.darkest')}
       className='nav-container'
     >
       <Square>

@@ -7,22 +7,11 @@ import Home from './components/Home'
 import LoginForm from './components/Login/Login'
 import Navbar from './components/Navbar'
 import RegisterForm from './components/Register/Register'
-import { extendTheme, ChakraProvider } from '@chakra-ui/react'
+import theme from './theme'
+import { ChakraProvider } from '@chakra-ui/react'
 import Results from './components/Results/Results'
 // import NotFound from './components/NotFound'
 
-const colors = {
-  brand: {
-    lightBlue: '#C1F1F1',
-    aqua: '#99F0E0',
-    purple: '#CED3F5',
-    orange: '#F0B199',
-    yellow: '#ECF3B1',
-    gray: '#B9B9B9',
-  },
-}
-
-// const theme = extendTheme({ colors })
 
 export const AppContext = createContext()
 
@@ -46,8 +35,7 @@ function App() {
   const [currentStep, setCurrentStep] = useState(1)
 
   return (
-    <ChakraProvider>
-      {/* <ChakraProvider theme={theme}> */}
+    <ChakraProvider theme={theme}>
       <AppContext.Provider
         value={{
           resultCalculation,

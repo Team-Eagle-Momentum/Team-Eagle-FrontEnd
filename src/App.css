@@ -3,6 +3,14 @@
   font-family: 'Source Code Pro', 'Palanquin';
 }
 
+[data-theme='light'] #root {
+  background-color: #FFFFFF !important;
+}
+
+[data-theme='dark'] #root {
+  background-color: #191719 !important;
+}
+
 /* Text */
 .title {
   font-family: 'Source Code Pro';
