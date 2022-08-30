@@ -15,7 +15,8 @@ import {
   Center,
   useColorModeValue,
 } from '@chakra-ui/react'
-import Logo from '.././CommutilatorLogo.png'
+import LightLogo from '.././CommutilatorLogo.png'
+import DarkLogo from '.././CommutilatorLogoDark.png'
 import { saveCalculationToUser } from '../utils/api'
 import { splitAddress } from '../utils/helpers'
 
@@ -42,6 +43,8 @@ export default function Details() {
   })
   const { id } = useParams()
   const [directions, setDirections] = React.useState({ routes: [] })
+
+  const logo = useColorModeValue(LightLogo, DarkLogo)
 
   const calculateRoute = async () => {
     // eslint-disable-next-line no-undef
@@ -72,7 +75,7 @@ export default function Details() {
       <Image
         mt='10px'
         boxSize='150px'
-        src={Logo}
+        src={logo}
         alt='CommutilatorLogo' />
       <Text
         className='subtitle'
