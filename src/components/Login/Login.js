@@ -74,7 +74,7 @@ export const LoginForm = () => {
 
   return (
     <>
-      <Flex
+      <Flex h='70vh'
         alignItems='center'
         direction='column'
         className='body'>
