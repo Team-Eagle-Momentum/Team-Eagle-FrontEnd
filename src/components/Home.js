@@ -62,12 +62,12 @@ export default function Home() {
   const [avgGasError, setAvgGasError] = useState(false)
 
   // theme colors
-  const buttonColor = useColorModeValue('brand.aqua', 'dark.darkest')
+  const buttonColor = useColorModeValue('brand.aqua', 'dark.highlight')
   const inputColor = useColorModeValue('white', 'dark.background')
   const selectColor = useColorModeValue('white', 'dark.background')
   const detailsLink = useColorModeValue('brand.orange', 'dark.dark')
-  const barColor = useColorModeValue('#CED3F5', '#4F494F')
   const fillColor = useColorModeValue('#9191CC', '#a456f0')
+  const barColor = useColorModeValue('#CED3F5', '#4F494F')
 
   const {
     resultCalculation,
@@ -302,10 +302,11 @@ export default function Home() {
               <Text htmlFor='year-field'>Car Year:</Text>
               <Select
                 id='year-field'
-                defaultValue=''
                 bg={selectColor}
                 mb='25px'
                 shadow='sm'
+                width='487px'
+                defaultValue=''
                 onChange={(e) => setSelectYear(e.target.value)}
               >
                 <option value='' disabled hidden>
@@ -323,6 +324,7 @@ export default function Home() {
                 bg={selectColor}
                 mb='25px'
                 shadow='sm'
+                width='487px'
                 defaultValue=''
                 onChange={(e) => setCarMakeID(e.target.value)}
               >
@@ -338,10 +340,11 @@ export default function Home() {
               <Text htmlFor='car-model-field'>Car Model:</Text>
               <Select
                 id='car-model-field'
-                defaultValue=''
                 bg={selectColor}
                 mb='25px'
                 shadow='sm'
+                width='487px'
+                defaultValue=''
                 onChange={(e) => setCarTrimID(e.target.value)}
               >
                 <option value='' disabled hidden>
