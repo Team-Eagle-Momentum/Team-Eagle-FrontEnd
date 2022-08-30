@@ -1,4 +1,4 @@
 .results-item:hover > td {
   cursor: pointer;
-  background-color: rgba(97, 97, 97, 0.84) !important;
+  background-color: #B9B9B9 !important;
 }
