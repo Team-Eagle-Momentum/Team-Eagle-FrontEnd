@@ -64,7 +64,7 @@ function Results() {
           <Text className='steps' mt='25px'>
             Welcome, {user}!
           </Text>
-          <Text className='steps' mt='25px'>
+          <Text className='description' mt='25px'>
             Here is a list of all your commute calculations. Please click the
             calculation to view more details.
           </Text>

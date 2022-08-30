@@ -1,30 +1,25 @@
-import { AppContext } from '../App'
-import { useContext } from 'react'
-import LightLogoNav from '.././CommutilatorLogo2.png'
-import DarkLogoNav from '.././CommutilatorLogoDark2.png'
 import {
   Box,
-  Flex,
-  Image,
-  Square,
-  Spacer,
   Button,
-  useColorMode,
   Center,
-  useColorModeValue,
+  Flex,
+  IconButton,
+  Image,
   Menu,
   MenuButton,
   MenuList,
   MenuItem,
-  MenuItemOption,
-  MenuGroup,
-  MenuOptionGroup,
-  MenuDivider,
-  IconButton,
+  Square,
+  useColorMode,
+  useColorModeValue,
 } from '@chakra-ui/react'
 import { MoonIcon, SunIcon, HamburgerIcon } from '@chakra-ui/icons'
+import { useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
+import { AppContext } from '../App'
+import LightLogoNav from '.././CommutilatorLogo2.png'
+import DarkLogoNav from '.././CommutilatorLogoDark2.png'
 import { useViewport } from '../utils/helpers'
 
 export default function Navbar() {
