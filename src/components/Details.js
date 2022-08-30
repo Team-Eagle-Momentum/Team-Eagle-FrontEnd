@@ -19,8 +19,11 @@ import LightLogo from '.././CommutilatorLogo.png'
 import DarkLogo from '.././CommutilatorLogoDark.png'
 import { saveCalculationToUser } from '../utils/api'
 import { splitAddress } from '../utils/helpers'
+import { useViewport } from '../utils/helpers'
 
 export default function Details() {
+  const [windowDimensions] = useViewport()
+  const { width } = windowDimensions
   const [calcData, setCalcData] = React.useState({
     result: {
       weekly: '',
@@ -72,26 +75,22 @@ export default function Details() {
 
   return (
     <Stack h='100vh' align='center'>
-      <Image
-        mt='10px'
-        boxSize='150px'
-        src={logo}
-        alt='CommutilatorLogo' />
+      <Image mt='10px' boxSize='150px' src={logo} alt='CommutilatorLogo' />
       <Text
         className='subtitle'
         color={useColorModeValue('brand.purple', 'dark.highlight')}
-        textShadow={useColorModeValue('0.5px 0.5px #B9B9B9', '' )}
+        textShadow={useColorModeValue('0.5px 0.5px #B9B9B9', '')}
       >
         COMMUTILATOR DETAILS
       </Text>
       <Divider variant='unstyled' h='5vh' />
-      <SimpleGrid columns={2}>
+      <SimpleGrid columns={width < 780 ? '1' : '2'}>
         <Box ml='20px' alignItems='center'>
           <Text align='center' className='title'>
             Result Costs
           </Text>
           <Center>
-            <Box className='description'>
+            <Box>
               <Text mt='10px'>Daily:</Text>
               <Text mt='10px'>Weekly:</Text>
               <Text mt='10px'>Monthly:</Text>
@@ -110,25 +109,29 @@ export default function Details() {
             Calculation Factors
           </Text>
           <Center>
-            <Box className='description'>
-              {calcData.commute.start_avg_gas &&
-                (<Text>
+            <Box>
+              {calcData.commute.start_avg_gas && (
+                <Text>
                   Gas price in {splitAddress(calcData.commute.start_location)}:
-                </Text>)}
-              {calcData.commute.end_avg_gas &&
-                (<Text>
+                </Text>
+              )}
+              {calcData.commute.end_avg_gas && (
+                <Text>
                   Gas price in {splitAddress(calcData.commute.end_location)}:
-                </Text>)}
+                </Text>
+              )}
               <Text>Overall Gas Average:</Text>
               <Text>Estimated MPG:</Text>
               <Text>Commute Distance (one-way):</Text>
               <Text>Days Commuting:</Text>
             </Box>
             <Box ml='20px' className='costs'>
-              {calcData.commute.start_avg_gas &&
-                (<Text>${calcData.commute.start_avg_gas}</Text>)}
-              {calcData.commute.end_avg_gas &&
-                (<Text>${calcData.commute.end_avg_gas}</Text>)}
+              {calcData.commute.start_avg_gas && (
+                <Text>${calcData.commute.start_avg_gas}</Text>
+              )}
+              {calcData.commute.end_avg_gas && (
+                <Text>${calcData.commute.end_avg_gas}</Text>
+              )}
               <Text>${calcData.commute.avg_gas_commute}</Text>
               <Text>{calcData.vehicle.mpg} mpg</Text>
               <Text>{calcData.commute.distance} miles</Text>
