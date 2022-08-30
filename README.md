@@ -2,7 +2,9 @@
 
 ## Description
 
-This application helps you calculate the cost of your commute, whether to work, school, or even the grocery store, using your route, your personal vehicle information, and local gas prices. We hope you are able to use our app to make informed decisions about your drive!
+This application helps you calculate the cost of your commute, whether to work, school, or even the grocery store, using your route, your personal vehicle information, and local gas prices. Real-time gas price data and is obtained from the GasBuddy API while calculating the cost of the route. Vehicle miles-per-gallon values (when not manually entered) are also obtained from the GasBuddy API.The route and distance is calculated using the GoogleMaps API.
+
+We hope you are able to use our app to make informed decisions about your drive!
 
 ## Installation
 
