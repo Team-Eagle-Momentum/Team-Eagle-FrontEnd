@@ -2,27 +2,24 @@ import { Box, Flex, Divider, Link, Icon, Text, useColorModeValue } from '@chakra
 import { GoMarkGithub } from 'react-icons/go'
 
 export default function Footer() {
-  return (
-    <div className='footer'>
-      <Box
-        // bg='brand.aqua'
-        bg={useColorModeValue('brand.aqua', 'dark.darkest')}
-        alignItems='center'
-        className='footer-content'
-        gap='2'
-      >
-        <div>
-          <Box>
 
-            Made by Momentum Team 13 Eagles - August 2022{' '}
-
-            <Link href='https://github.com/Team-Eagle-Momentum' isExternal>
-              <Icon as={GoMarkGithub} mt='5px'></Icon>
-            </Link>
-          </Box>
-          <p style={{ marginTop: '30px' }}>Commutilator</p>
-        </div>
-      </Box>
-    </div>
-  )
+    return (
+        <Box className='footer'>
+            <Box
+                bg={useColorModeValue('brand.aqua', 'dark.darker')}
+                alignItems='center'
+                className='footer-content'
+                gap='2'>
+                <Box>
+                    <Box>
+                        Made by Momentum Team 13 Eagles - August 2022{' '}
+                        <Link href='https://github.com/Team-Eagle-Momentum' isExternal>
+                            <Icon as={GoMarkGithub} mt='5px'></Icon>
+                        </Link>
+                    </Box>
+                    <Box mt='30px'>Commutilator</Box>
+                </Box>
+            </Box>
+        </Box>
+    )
 }

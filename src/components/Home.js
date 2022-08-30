@@ -182,7 +182,7 @@ export default function Home() {
 
   return (
     <Flex
-      height='100%'
+      h='70vh'
       className='description'
       direction='column'
       alignItems='center'

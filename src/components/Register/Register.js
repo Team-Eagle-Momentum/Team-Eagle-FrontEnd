@@ -72,7 +72,7 @@ export const RegisterForm = () => {
 
   return (
     <>
-      <Flex alignItems='center' direction='column' className='description' height={'50vh'}>
+      <Flex alignItems='center' direction='column' className='body' h='70vh'>
         <Divider m='25px' variant='unstyled' />
         <Stack
           bg={useColorModeValue('brand.yellow', 'dark.darker')}

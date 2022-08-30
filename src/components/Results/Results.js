@@ -152,7 +152,7 @@ function Results() {
           </Center>
         </>
       ) : (
-        <Text className='steps'>
+        <Text h='70vh' className='steps'>
           You have no calculations, start using the app!
         </Text>
       )}
