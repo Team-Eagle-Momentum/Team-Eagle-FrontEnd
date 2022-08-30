@@ -59,9 +59,11 @@ function Results() {
   return (
     <Stack m='10px'>
       {results.length > 0 ? (
-        <>
+        <div
+          style={{ maxWidth: '1200px', margin: '0 auto', marginTop: '50px' }}
+        >
           <Text className='steps'>Welcome, {user}!</Text>
-          <Text className='steps'>
+          <Text className='steps' marginBottom={'50px'}>
             Here is a list of all your commute calculations. Please click the
             calculation to view more details.
           </Text>
@@ -150,9 +152,13 @@ function Results() {
               </Table>
             </TableContainer>
           </Center>
-        </>
+        </div>
       ) : (
-        <Text className='steps'>
+        <Text
+          maxWidth={'1000px'}
+          style={{ margin: '0 auto', textAlign: 'center' }}
+          className='steps'
+        >
           You have no calculations, start using the app!
         </Text>
       )}

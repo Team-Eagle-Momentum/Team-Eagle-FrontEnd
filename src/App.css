@@ -4,7 +4,7 @@
 }
 
 [data-theme='light'] #root {
-  background-color: #FFFFFF !important;
+  background-color: #ffffff !important;
 }
 
 [data-theme='dark'] #root {
@@ -28,6 +28,8 @@
   font-family: 'Palanquin';
   font-weight: 400;
   font-size: large;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .costs {
