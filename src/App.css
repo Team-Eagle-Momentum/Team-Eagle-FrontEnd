@@ -193,5 +193,12 @@
 }
 
 .switch-item {
-  margin-right: 5rem;
+  margin-right: 2rem;
+}
+
+/* Nav Bar mobile styles */
+@media only screen and (max-width: 690px) {
+  .switch-item {
+    margin-right: 10px;
+  }
 }
