@@ -62,7 +62,7 @@ export default function Home() {
   const [avgGasError, setAvgGasError] = useState(false)
 
   // theme colors
-  const buttonColor = useColorModeValue('brand.aqua', 'dark.darkest')
+  const buttonColor = useColorModeValue('brand.aqua', 'dark.highlight')
   const inputColor = useColorModeValue('white', 'dark.background')
   const selectColor = useColorModeValue('white', 'dark.background')
   const detailsLink = useColorModeValue('brand.orange', 'dark.dark')
