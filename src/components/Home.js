@@ -181,7 +181,7 @@ export default function Home() {
       alignItems='center'
       className='description'
       direction='column'
-      h='150vh'>
+      h='100vh'>
       {currentStep !== 1 && currentStep !== 4 && (
         <ProgressBar
           barColor={barColor}
