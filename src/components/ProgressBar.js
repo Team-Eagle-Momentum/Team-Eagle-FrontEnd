@@ -1,8 +1,4 @@
 import react from 'react'
-// import theme from '../theme'
-// import { AppContext } from '../App'
-import { useColorModeValue } from '@chakra-ui/react'
-
 
 const ProgressBar = (props) => {
   const { barColor, fillColor, completed } = props
@@ -31,7 +27,7 @@ const ProgressBar = (props) => {
         style={{
           ...containerStyles,
           marginTop:
-            completed === 50 ? '128px' : completed === 0 ? '128px' : '0',
+            completed === 50 ? '25px' : completed === 0 ? '25px' : '0',
         }}
       >
         <div style={fillerStyles}></div>

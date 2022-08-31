@@ -23,7 +23,7 @@ function Results() {
   const [user, setUser] = React.useState('')
   const navigate = useNavigate()
 
-  const headerTextColor = useColorModeValue('black', 'white')
+  const headerTextColor = useColorModeValue('black', 'dark.highlight')
   const tableRowColor = useColorModeValue('brand.aqua', 'dark.darkest')
   const tableVariant = useColorModeValue('striped', 'simple')
 
@@ -64,7 +64,7 @@ function Results() {
           <Text className='steps' mt='25px'>
             Welcome, {user}!
           </Text>
-          <Text className='steps' mt='25px'>
+          <Text className='description' mt='25px'>
             Here is a list of all your commute calculations. Please click the
             calculation to view more details.
           </Text>

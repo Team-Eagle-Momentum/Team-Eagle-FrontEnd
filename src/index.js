@@ -1,12 +1,14 @@
+import { ColorModeScript } from '@chakra-ui/react'
+import { LoadScript } from '@react-google-maps/api'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import './index.css'
-import App from './App'
-import reportWebVitals from './reportWebVitals'
 import { BrowserRouter } from 'react-router-dom'
-import { LoadScript } from '@react-google-maps/api'
-import { ColorModeScript } from '@chakra-ui/react'
+
+import reportWebVitals from './reportWebVitals'
+import App from './App'
 import theme from './theme'
+import './index.css'
+
 const libraries = ['places']
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(

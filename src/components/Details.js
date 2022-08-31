@@ -1,22 +1,20 @@
-import React from 'react'
-import { useParams } from 'react-router-dom'
-import '../App.css'
-import Map from './Map'
 import {
   Box,
-  Flex,
   Divider,
   Text,
-  Spacer,
   Image,
   Stack,
   SimpleGrid,
-  HStack,
   Center,
   useColorModeValue,
 } from '@chakra-ui/react'
+import React from 'react'
+import { useParams } from 'react-router-dom'
+
+import '../App.css'
 import LightLogo from '.././CommutilatorLogo.png'
 import DarkLogo from '.././CommutilatorLogoDark.png'
+import Map from './Map'
 import { saveCalculationToUser } from '../utils/api'
 import { splitAddress } from '../utils/helpers'
 import { useViewport } from '../utils/helpers'
@@ -74,18 +72,22 @@ export default function Details() {
   }, [calcData])
 
   return (
-    <Stack h='100vh' align='center'>
-      <Image mt='10px' boxSize='150px' src={logo} alt='CommutilatorLogo' />
+    <Stack h='150vh' align='center'>
+      <Image
+        alt='CommutilatorLogo'
+        boxSize='150px'
+        mt='10px'
+        src={logo}
+      />
       <Text
         className='subtitle'
         color={useColorModeValue('brand.purple', 'dark.highlight')}
-        textShadow={useColorModeValue('0.5px 0.5px #B9B9B9', '')}
-      >
-        COMMUTILATOR DETAILS
+        textShadow={useColorModeValue('0.5px 0.5px #B9B9B9', '')}>
+        COMMUTE DETAILS
       </Text>
-      <Divider variant='unstyled' h='5vh' />
-      <SimpleGrid columns={width < 780 ? '1' : '2'}>
-        <Box ml='20px' alignItems='center'>
+      <Divider h='5vh' variant='unstyled' />
+      <SimpleGrid className='description' columns={width < 780 ? '1' : '2'}>
+        <Box alignItems='center' ml='20px'>
           <Text align='center' className='title'>
             Result Costs
           </Text>
@@ -96,7 +98,7 @@ export default function Details() {
               <Text mt='10px'>Monthly:</Text>
               <Text mt='10px'>Annualy:</Text>
             </Box>
-            <Box ml='20px' className='costs'>
+            <Box className='costs' ml='20px'>
               <Text mt='10px'>${calcData.result.daily}</Text>
               <Text mt='10px'>${calcData.result.weekly}</Text>
               <Text mt='10px'>${calcData.result.monthly}</Text>
@@ -104,7 +106,7 @@ export default function Details() {
             </Box>
           </Center>
         </Box>
-        <Box ml='20px' alignItems='center'>
+        <Box alignItems='center' ml='20px'>
           <Text align='center' className='title'>
             Calculation Factors
           </Text>
@@ -125,7 +127,7 @@ export default function Details() {
               <Text>Commute Distance (one-way):</Text>
               <Text>Days Commuting:</Text>
             </Box>
-            <Box ml='20px' className='costs'>
+            <Box className='costs' ml='20px'>
               {calcData.commute.start_avg_gas && (
                 <Text>${calcData.commute.start_avg_gas}</Text>
               )}
@@ -142,12 +144,10 @@ export default function Details() {
       </SimpleGrid>
       <Divider variant='unstyled' h='5vh' />
       <Box
-        shadow='md'
-        mt='25px'
         alignItems='center'
-        w='500px'
-        borderRadius='lg'
-      >
+        mt='25px'
+        shadow='md'
+        w='500px'>
         {directions.routes.length > 0 && (
           <Map directionsResponse={directions} />
         )}

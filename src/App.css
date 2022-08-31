@@ -11,22 +11,6 @@
   background-color: #191719 !important;
 }
 
-[data-theme='light'] .results-filled {
-  background: #9191cc !important;
-}
-
-[data-theme='dark'] .results-filled {
-  background: #a456f0 !important;
-}
-
-[data-theme='light'] .results-track {
-  background: #ced3f5 !important;
-}
-
-[data-theme='dark'] .results-track {
-  background: #4f494f !important;
-}
-
 /* Text */
 .title {
   font-family: 'Source Code Pro';
@@ -72,15 +56,15 @@
   font-size: small;
   height: 25vh;
   margin-top: 10rem;
-  /* background-color: #99f0e0; */
 }
 
+
+/* Footer */
 .footer-content {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100%;
-  /* color: rgb(71, 71, 71); */
 }
 
 .footer-content > div {
@@ -88,48 +72,7 @@
   text-align: center;
 }
 
-.map-container {
-  display: flex;
-  width: 100%;
-  max-width: 1000px;
-}
-
-.pg-bar-text {
-  font-family: 'Palanquin';
-  font-weight: 300;
-  font-size: medium;
-  color: #ab9bbf;
-  /* color: #300243; */
-  margin-bottom: 2rem;
-}
-
-.container-home {
-  max-width: 1000px;
-}
-
-.hero-text {
-  max-width: 50%;
-  text-align: center;
-  margin: 0 auto;
-  margin-bottom: 4rem;
-  margin-top: 12rem;
-  font-size: 18px;
-}
-
-.form-step-title {
-  font-weight: bold;
-  font-size: 18px;
-  padding-bottom: 2rem;
-}
-
-.form-title {
-  margin-bottom: 4rem;
-  font-size: 1.2rem;
-  font-weight: bold;
-}
-
-/* Nav Bar */
-
+/* NavBar */
 .nav-container {
   padding-left: 5rem;
   padding-top: 1rem;
@@ -170,6 +113,7 @@
   font-weight: bold;
 }
 
+/* Other */
 .not-found {
   font-size: 22px;
   font-weight: bold;
@@ -185,7 +129,7 @@
   margin-right: 2rem;
 }
 
-/* Nav Bar mobile styles */
+/* NavBar mobile styles */
 @media only screen and (max-width: 690px) {
   .switch-item {
     margin-right: 10px;
