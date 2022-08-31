@@ -28,19 +28,19 @@ If the route is unable to accessed via car, the end-user will receive an error m
 \
 If no route is able to be calculated, the end-user will receive an error message requesting that they enter a different location.
 
-## Calculations
+## Formulas
 
 ### Daily
-daily_result = round((((commute.distance * 2) / vehicle.mpg) * commute.avg_gas_commute), 2)
+`daily_result = round((((commute.distance * 2) / vehicle.mpg) * commute.avg_gas_commute), 2)`
 
 ### Weekly
-weekly_result = round((((commute.distance * 2) / vehicle.mpg) * commute.avg_gas_commute) * commute.days_per_week_commuting, 2)
+`weekly_result = round((((commute.distance * 2) / vehicle.mpg) * commute.avg_gas_commute) * commute.days_per_week_commuting, 2)`
 
 ### Monthly
-monthly_result = round((((commute.distance * 2) / vehicle.mpg) * commute.avg_gas_commute) * (commute.days_per_week_commuting * (len(calendar.monthcalendar(today.year, today.month)))), 2)
+`monthly_result = round((((commute.distance * 2) / vehicle.mpg) * commute.avg_gas_commute) * (commute.days_per_week_commuting * (len(calendar.monthcalendar(today.year, today.month)))), 2)`
 
 ### Annual
-annual_result = round((((commute.distance * 2) / vehicle.mpg) * commute.avg_gas_commute) * commute.days_per_week_commuting * 52, 2)
+`annual_result = round((((commute.distance * 2) / vehicle.mpg) * commute.avg_gas_commute) * commute.days_per_week_commuting * 52, 2)`
 
 ## Installation
 
@@ -54,7 +54,8 @@ annual_result = round((((commute.distance * 2) / vehicle.mpg) * commute.avg_gas_
 
 - Andres Alcocer, Jose Reyes, Metta Rolando, and Michael Perry II
 
-## Link to Production Site:
+## Links
 
-`https://commutilator.netlify.app/`
-
+**Production Site**: https://commutilator.netlify.app/ \
+**Back End Repository**: https://github.com/Team-Eagle-Momentum/Team-Eagle-Backend \
+**Back End on Heroku**: https://commutilator-api.herokuapp.com/
