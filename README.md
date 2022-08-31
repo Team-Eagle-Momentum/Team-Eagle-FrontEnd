@@ -31,16 +31,24 @@ If no route is able to be calculated, the end-user will receive an error message
 ## Formulas
 
 ### Daily
-`daily_result = round((((commute.distance * 2) / vehicle.mpg) * commute.avg_gas_commute), 2)`
+```python
+daily_result = round((((commute.distance * 2) / vehicle.mpg) * commute.avg_gas_commute), 2)
+```
 
 ### Weekly
-`weekly_result = round((((commute.distance * 2) / vehicle.mpg) * commute.avg_gas_commute) * commute.days_per_week_commuting, 2)`
+```python
+weekly_result = round((((commute.distance * 2) / vehicle.mpg) * commute.avg_gas_commute) * commute.days_per_week_commuting, 2)
+```
 
 ### Monthly
-`monthly_result = round((((commute.distance * 2) / vehicle.mpg) * commute.avg_gas_commute) * (commute.days_per_week_commuting * (len(calendar.monthcalendar(today.year, today.month)))), 2)`
+```python
+monthly_result = round((((commute.distance * 2) / vehicle.mpg) * commute.avg_gas_commute) * (commute.days_per_week_commuting * (len(calendar.monthcalendar(today.year, today.month)))), 2)
+```
 
 ### Annual
-`annual_result = round((((commute.distance * 2) / vehicle.mpg) * commute.avg_gas_commute) * commute.days_per_week_commuting * 52, 2)`
+```python
+annual_result = round((((commute.distance * 2) / vehicle.mpg) * commute.avg_gas_commute) * commute.days_per_week_commuting * 52, 2)
+```
 
 ## Installation
 
