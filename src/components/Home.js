@@ -36,7 +36,7 @@ import {
   saveCalculationToUser,
 } from '../utils/api'
 import { YEARS } from '../utils/constants'
-import { roundNumber, splitAddress } from '../utils/helpers'
+import { roundNumber, splitAddress, useViewport } from '../utils/helpers'
 
 export default function Home() {
   const originRef = useRef()
@@ -56,13 +56,15 @@ export default function Home() {
   const [locationError, setLocationError] = useState(false)
   const [mpgError, setMpgError] = useState(false)
   const [avgGasError, setAvgGasError] = useState(false)
+  const [windowDimensions] = useViewport()
+  const { width } = windowDimensions
 
   const buttonColor = useColorModeValue('brand.aqua', 'dark.highlight')
   const inputColor = useColorModeValue('white', 'dark.background')
   const selectColor = useColorModeValue('white', 'dark.background')
+  const detailsLink = useColorModeValue('brand.orange', 'dark.highlight')
   const fillColor = useColorModeValue('#9191CC', '#A456F0')
   const barColor = useColorModeValue('#CED3F5', '#4F494F')
-  const detailsLink = useColorModeValue('#F0B199', '#4F494F')
   // Elements in HEX are not Chakra elements and therefore can't use the branding
 
   const {
@@ -353,125 +355,152 @@ export default function Home() {
       )}
       {currentStep === 4 && (
         <>
-          <Box className='steps' m='25px'>
-            Commute Results
-          </Box>
-          <SimpleGrid columns={2} w='100%'>
-            <Box shadow='base'>
-              <Map directionsResponse={directionsResponse} />
-            </Box>
-            <Stack alignItems='center'>
+          {width < 780 ? (
+            <>
+              <Box className='steps' m='25px'>
+                Commute Results
+              </Box>
               <ResultSlider />
-              <Spacer />
-              <Button color={detailsLink} variant='link'>
-              <Link
-                // style={{color: detailsLink}}
-                to={`/details/${resultCalculation.id}?fromDetails=true`}
-              >
-                View More Details
-              </Link>
+              <Box m='25px'>
+                <Map directionsResponse={directionsResponse} />
+              </Box>
+              <Button color='detailsLink' variant='link'>
+                <Link to={`/details/${resultCalculation.id}?fromDetails=true`}>
+                  View More Details
+                </Link>
               </Button>
-            </Stack>
-          </SimpleGrid>
+            </>
+          ) : (
+            <>
+              <Box className='steps' m='25px'>
+                Commute Results
+              </Box>
+              <SimpleGrid columns={2} w='80%'>
+                <Box shadow='base'>
+                  <Map directionsResponse={directionsResponse} />
+                </Box>
+                <Stack
+                  alignItems='center'
+                  justifyContent='center'
+                  spacing={'60px'}>
+                  <ResultSlider />
+                  <Button color='detailsLink' variant='link'>
+                    <Link to={`/details/${resultCalculation.id}?fromDetails=true`}>
+                      View More Details
+                    </Link>
+                  </Button>
+                </Stack>
+              </SimpleGrid>
+            </>
+          )}
         </>
-      )}
+      )
+      }
+
       {/*buttons*/}
-      {currentStep === 1 && (
-        <Button
-          className='subtitle'
-          shadow='md'
-          mt='20px'
-          variant='outline'
-          bg={buttonColor}
-          colorScheme='black'
-          onClick={() => {
-            resetFormState()
-            setCurrentStep(currentStep + 1)
-          }}
-        >
-          Click to Begin
-        </Button>
-      )}
-      {currentStep === 2 && (
-        <Button
-          className='subtitle'
-          shadow='md'
-          mt='20px'
-          bg={buttonColor}
-          isLoading={loadingButton}
-          variant='outline'
-          colorScheme='black'
-          onClick={async () => {
-            setLoadingButton(true)
-            let distanceResult
-            let commuteId
-            try {
-              distanceResult = await Promise.all([calculateRoute()])
-            } catch (error) {
-              setLocationError(true)
-              setLoadingButton(false)
-              return
-            }
-            try {
-              ;[commuteId] = await Promise.all([
-                commutePostData(distanceResult),
+      {
+        currentStep === 1 && (
+          <Button
+            bg={buttonColor}
+            className='subtitle'
+            colorScheme='black'
+            mt='20px'
+            onClick={() => {
+              resetFormState()
+              setCurrentStep(currentStep + 1)
+            }}
+            shadow='md'
+            variant='outline'>
+            Click to Begin
+          </Button>
+        )
+      }
+      {
+        currentStep === 2 && (
+          <Button
+            className='subtitle'
+            shadow='md'
+            mt='20px'
+            bg={buttonColor}
+            isLoading={loadingButton}
+            variant='outline'
+            colorScheme='black'
+            onClick={async () => {
+              setLoadingButton(true)
+              let distanceResult
+              let commuteId
+              try {
+                distanceResult = await Promise.all([calculateRoute()])
+              } catch (error) {
+                setLocationError(true)
+                setLoadingButton(false)
+                return
+              }
+              try {
+                ;[commuteId] = await Promise.all([
+                  commutePostData(distanceResult),
+                ])
+              } catch (error) {
+                setAvgGasError(true)
+                setLoadingButton(false)
+                return
+              }
+              setProgressBar(50)
+              setCommuteId(commuteId)
+              setCurrentStep(currentStep + 1)
+            }}
+          >
+            Next
+          </Button>
+        )
+      }
+      {
+        currentStep === 3 && (
+          <Button
+            className='subtitle'
+            shadow='md'
+            mt='20px'
+            variant='outline'
+            colorScheme='black'
+            bg={buttonColor}
+            onClick={async (e) => {
+              e.preventDefault()
+              if (combinedMPGVal <= 0 || combinedMPGVal === '') {
+                setMpgError(true)
+                return
+              }
+              setProgressBar(100)
+              let [vehicleId] = await Promise.all([createVehicle(combinedMPGVal)])
+              console.log('COMMUTE ID', commuteId)
+              let [data] = await Promise.all([
+                createCalcData(commuteId, vehicleId),
               ])
-            } catch (error) {
-              setAvgGasError(true)
-              setLoadingButton(false)
-              return
-            }
-            setProgressBar(50)
-            setCommuteId(commuteId)
-            setCurrentStep(currentStep + 1)
-          }}
-        >
-          Next
-        </Button>
-      )}
-      {currentStep === 3 && (
-        <Button
-          className='subtitle'
-          shadow='md'
-          mt='20px'
-          variant='outline'
-          colorScheme='black'
-          bg={buttonColor}
-          onClick={async (e) => {
-            e.preventDefault()
-            if (combinedMPGVal <= 0 || combinedMPGVal === '') {
-              setMpgError(true)
-              return
-            }
-            setProgressBar(100)
-            let [vehicleId] = await Promise.all([createVehicle(combinedMPGVal)])
-            console.log('COMMUTE ID', commuteId)
-            let [data] = await Promise.all([
-              createCalcData(commuteId, vehicleId),
-            ])
-            setResultCalculation(data)
-            saveCalculationToUser(data.id)
-            setCurrentStep(currentStep + 1)
-          }}
-        >
-          Commutilate Route
-        </Button>
-      )}
-      {currentStep === 4 && (
-        <Button
-          className='subtitle'
-          shadow='md'
-          mt='20px'
-          bg={buttonColor}
-          onClick={() => {
-            resetFormState()
-          }}
-          variant='outline'
-          colorScheme='black'
-        >
-          New Calculation
-        </Button>
-      )}
-    </Flex>
+              setResultCalculation(data)
+              saveCalculationToUser(data.id)
+              setCurrentStep(currentStep + 1)
+            }}
+          >
+            Commutilate Route
+          </Button>
+        )
+      }
+      {
+        currentStep === 4 && (
+          <Button
+            className='subtitle'
+            shadow='md'
+            mt='20px'
+            bg={buttonColor}
+            onClick={() => {
+              resetFormState()
+            }}
+            variant='outline'
+            colorScheme='black'
+          >
+            New Calculation
+          </Button>
+        )
+      }
+    </Flex >
   )
 }
