@@ -23,7 +23,7 @@ function Results() {
   const [user, setUser] = React.useState('')
   const navigate = useNavigate()
 
-  const headerTextColor = useColorModeValue('black', 'white')
+  const headerTextColor = useColorModeValue('black', 'dark.highlight')
   const tableRowColor = useColorModeValue('brand.aqua', 'dark.darkest')
   const tableVariant = useColorModeValue('striped', 'simple')
 

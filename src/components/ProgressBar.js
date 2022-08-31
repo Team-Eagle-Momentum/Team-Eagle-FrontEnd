@@ -31,7 +31,7 @@ const ProgressBar = (props) => {
         style={{
           ...containerStyles,
           marginTop:
-            completed === 50 ? '128px' : completed === 0 ? '128px' : '0',
+            completed === 50 ? '25px' : completed === 0 ? '25px' : '0',
         }}
       >
         <div style={fillerStyles}></div>

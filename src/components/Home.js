@@ -360,9 +360,9 @@ export default function Home() {
                 Commute Results
               </Box>
               <ResultSlider />
-              <Box m='25px'>
-                <Map directionsResponse={directionsResponse} />
-              </Box>
+              <Box style={{ marginBottom: '50px' }} />
+              <Map directionsResponse={directionsResponse} />
+              <Box style={{ marginBottom: '10px' }} />
               <Button color={detailsLink} variant='link'>
                 <Link to={`/details/${resultCalculation.id}?fromDetails=true`}>
                   View More Details
