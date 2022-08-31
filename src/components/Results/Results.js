@@ -24,7 +24,8 @@ function Results() {
   const navigate = useNavigate()
 
   const headerTextColor = useColorModeValue('black', 'white')
-  const tableRowColor = useColorModeValue("#99F0E0", "#a456f0")
+  const tableRowColor = useColorModeValue('brand.aqua', 'dark.darkest')
+  const tableVariant = useColorModeValue('striped', 'simple')
 
   React.useEffect(() => {
     const fetchResults = async () => {
@@ -69,7 +70,7 @@ function Results() {
           </Text>
           <Center mt='25px'>
             <TableContainer whiteSpace='wrap'>
-              <Table className='results-table' variant="striped">
+              <Table className='results-table' variant={tableVariant}>
                 <Thead>
                   <Tr>
                     {/* Tr cannot support desired style props, so these must be done at the Th level */}
