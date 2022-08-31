@@ -61,7 +61,7 @@ export default function Home() {
   const buttonColor = useColorModeValue('brand.aqua', 'dark.highlight')
   const inputColor = useColorModeValue('white', 'dark.background')
   const selectColor = useColorModeValue('white', 'dark.background')
-  const detailsLink = useColorModeValue('brand.orange', 'dark.highlight')
+  const detailsLink = useColorModeValue('brand.gray', 'dark.highlight')
   const fillColor = useColorModeValue('#9191CC', '#A456F0')
   const barColor = useColorModeValue('#CED3F5', '#4F494F')
   // Elements in HEX are not Chakra elements and therefore can't use the branding
@@ -193,10 +193,10 @@ export default function Home() {
       {currentStep === 1 && (
         <>
           <Box m='25px'>Welcome to Commutilator!</Box>
-          <Divider h='2vh' variant='unstyled' />
+          <Divider h='10px' variant='unstyled' />
           <Box bg={barColor} borderRadius='full' h='1.5' w='80%' />
-          <Divider h='2vh' variant='unstyled' />
-          <Box m='10px'>
+          <Divider h='10px' variant='unstyled' />
+          <Box m='15px'>
             Commutilator helps you calculate the cost of your commute, whether
             to work, school, or even the grocery store, using your route, your
             personal vehicle information, and local gas prices. We hope you are
@@ -206,8 +206,7 @@ export default function Home() {
       )}
       {currentStep === 2 && (
         <>
-          <Divider h='5vh' variant='unstyled' />
-          <Box className='steps' m='10px'>
+          <Box className='steps' m='25px'>
             Step 1 - Enter your route information.
           </Box>
           {locationError && (
@@ -265,7 +264,7 @@ export default function Home() {
       )}
       {currentStep === 3 && (
         <>
-          <Divider h='5vh' variant='unstyled' />
+          <Divider h='10px' variant='unstyled' />
           <Box className='steps' m='10px'>
             Step 2 - Enter your vehicle information.
           </Box>
@@ -363,7 +362,7 @@ export default function Home() {
               <Box style={{ marginBottom: '50px' }} />
               <Map directionsResponse={directionsResponse} />
               <Box style={{ marginBottom: '10px' }} />
-              <Button color={detailsLink} variant='link'>
+              <Button className='subtitle' color={detailsLink} variant='link'>
                 <Link to={`/details/${resultCalculation.id}?fromDetails=true`}>
                   View More Details
                 </Link>
@@ -383,7 +382,7 @@ export default function Home() {
                   justifyContent='center'
                   spacing={'60px'}>
                   <ResultSlider />
-                  <Button color={detailsLink} variant='link'>
+                  <Button className='subtitle' color={detailsLink} variant='link'>
                     <Link to={`/details/${resultCalculation.id}?fromDetails=true`}>
                       View More Details
                     </Link>

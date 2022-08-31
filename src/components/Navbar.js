@@ -38,7 +38,7 @@ export default function Navbar() {
   return (
     <Flex
       bg={useColorModeValue('brand.aqua', 'dark.darker')}
-      pt='15px'
+      py='15px'
       shadow={useColorModeValue('md', '')}>
       <Square style={{ marginRight: width < breakPoint ? 'auto' : '' }}>
         <Image
