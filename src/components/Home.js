@@ -1,29 +1,30 @@
 import {
   Box,
   Button,
-  ChakraProvider,
+  Center,
+  Divider,
   Flex,
   Input,
-  Stack,
   NumberInput,
   NumberInputField,
   NumberInputStepper,
   NumberIncrementStepper,
   NumberDecrementStepper,
-  Center,
-  Text,
-  Divider,
+  Select,
   SimpleGrid,
   Spacer,
+  Stack,
+  Text,
   useColorModeValue,
-  Select
 } from '@chakra-ui/react'
-import { ChevronDownIcon } from '@chakra-ui/icons'
-import React, { useState, useEffect, useRef, useContext } from 'react'
 import { Autocomplete } from '@react-google-maps/api'
+import React, { useState, useEffect, useRef, useContext } from 'react'
 import { Link } from 'react-router-dom'
-import Map from './Map'
 
+import { AppContext } from '../App'
+import Map from './Map'
+import ProgressBar from './ProgressBar'
+import ResultSlider from './ResultSlider'
 import {
   createCalcData,
   createCommute,
@@ -34,13 +35,8 @@ import {
   getVehicleSpecs,
   saveCalculationToUser,
 } from '../utils/api'
-import { roundNumber, splitAddress } from '../utils/helpers'
 import { YEARS } from '../utils/constants'
-import { AppContext } from '../App'
-
-import ResultSlider from './ResultSlider'
-import ProgressBar from './ProgressBar'
-import Theme from '../theme'
+import { roundNumber, splitAddress } from '../utils/helpers'
 
 export default function Home() {
   const originRef = useRef()
@@ -61,13 +57,13 @@ export default function Home() {
   const [mpgError, setMpgError] = useState(false)
   const [avgGasError, setAvgGasError] = useState(false)
 
-  // theme colors
   const buttonColor = useColorModeValue('brand.aqua', 'dark.highlight')
   const inputColor = useColorModeValue('white', 'dark.background')
   const selectColor = useColorModeValue('white', 'dark.background')
-  const detailsLink = useColorModeValue('brand.orange', 'dark.dark')
-  const fillColor = useColorModeValue('#9191CC', '#a456f0')
+  const fillColor = useColorModeValue('#9191CC', '#A456F0')
   const barColor = useColorModeValue('#CED3F5', '#4F494F')
+  const detailsLink = useColorModeValue('#F0B199', '#4F494F')
+  // Elements in HEX are not Chakra elements and therefore can't use the branding
 
   const {
     resultCalculation,
@@ -181,24 +177,23 @@ export default function Home() {
 
   return (
     <Flex
-      h='70vh'
+      alignItems='center'
       className='description'
       direction='column'
-      alignItems='center'
-    >
+      h='content'>
       {currentStep !== 1 && currentStep !== 4 && (
         <ProgressBar
           barColor={barColor}
+          completed={progressBar}
           fillColor={fillColor}
           key={'p-bar'}
-          completed={progressBar}
         />
       )}
       {currentStep === 1 && (
         <>
           <Box m='25px'>Welcome to Commutilator!</Box>
           <Divider h='2vh' variant='unstyled' />
-          <Box bg={barColor} w='80%' h='1.5' borderRadius='full' />
+          <Box bg={barColor} borderRadius='full' h='1.5' w='80%' />
           <Divider h='2vh' variant='unstyled' />
           <Box m='10px'>
             Commutilator helps you calculate the cost of your commute, whether
@@ -215,49 +210,48 @@ export default function Home() {
             Step 1 - Enter your route information.
           </Box>
           {locationError && (
-            <p style={{ color: 'red', paddingBottom: '10px' }}>
-              No routes found, please enter different location
-            </p>
+            <Box color='red' mt='10px'>
+              <Text>No routes found; please enter different location.</Text>
+            </Box>
           )}
           {avgGasError && (
-            <p style={{ color: 'red', paddingBottom: '10px' }}>
-              Could not find gas prices for these locations.
-            </p>
+            <Box color='red' mt='10px'>
+              <Text>Could not find gas prices for these locations.</Text>
+            </Box>
           )}
           <Stack className='fields'>
             <Box>
-              <Text htmlFor='starting-location-field'>Start:</Text>
+              <Text htmlFor='starting-location-field' mt='15px'>Start:</Text>
               <Autocomplete>
                 <Input
-                  shadow='sm'
                   bg={inputColor}
-                  type='text'
                   placeholder='Enter a Location'
                   ref={originRef}
+                  shadow='sm'
+                  type='text'
                 />
               </Autocomplete>
-              <Text htmlFor='ending-location-field'>End: </Text>
+              <Text htmlFor='ending-location-field' mt='15px'>End: </Text>
               <Autocomplete>
                 <Input
-                  shadow='sm'
                   bg={inputColor}
-                  type='text'
                   placeholder='Enter a Location'
                   ref={destinationRef}
+                  shadow='sm'
+                  type='text'
                 />
               </Autocomplete>
             </Box>
             <Box>
-              <Text htmlFor='work-days-field'>Days per Week Commuting:</Text>
+              <Text htmlFor='work-days-field' mt='15px'>Days per Week Commuting:</Text>
               <NumberInput
-                shadow='sm'
                 bg={inputColor}
                 min={1}
                 max={7}
-                precision={0}
-                value={workDay}
                 onChange={(workDay) => setWorkDay(workDay)}
-              >
+                precision={0}
+                shadow='sm'
+                value={workDay}>
                 <NumberInputField />
                 <NumberInputStepper>
                   <NumberIncrementStepper />
@@ -275,40 +269,34 @@ export default function Home() {
             Step 2 - Enter your vehicle information.
           </Box>
           {mpgError && (
-            <p style={{ color: 'red', paddingBottom: '10px' }}>
-              Please enter an MPG value greater than zero.
-            </p>
+            <Box color='red' mt='10px'>
+              <Text>Please enter an MPG value greater than zero.</Text>
+            </Box>
           )}
           <Stack>
             <Box className='fields'>
               <Text htmlFor='mpg-input-field'>MPG:</Text>
               <Input
-                shadow='sm'
                 bg={inputColor}
-                placeholder='Enter Miles Per Gallon'
                 id='mpg-input-field'
+                onChange={(e) => setCombinedMPGVal(e.target.value)}
+                placeholder='Enter Miles Per Gallon'
+                required
+                shadow='sm'
                 type='number'
                 value={combinedMPGVal}
-                onChange={(e) => setCombinedMPGVal(e.target.value)}
-                required
               />
             </Box>
-            <Box m={5}>
-              <Center>
-                <b>OR</b>
-              </Center>
-            </Box>
+            <Center className='steps' m='15px'>OR</Center>
             <Box className='fields'>
               <Text htmlFor='year-field'>Car Year:</Text>
               <Select
-                id='year-field'
                 bg={selectColor}
-                mb='25px'
-                shadow='sm'
-                width='487px'
                 defaultValue=''
+                id='year-field'
                 onChange={(e) => setSelectYear(e.target.value)}
-              >
+                shadow='sm'
+                width='487px'>
                 <option value='' disabled hidden>
                   Select Car Year
                 </option>
@@ -318,16 +306,14 @@ export default function Home() {
                   </option>
                 ))}
               </Select>
-              <Text htmlFor='car-make-field'>Car Make:</Text>
+              <Text htmlFor='car-make-field' mt='15px'>Car Make:</Text>
               <Select
-                id='car-make-field'
                 bg={selectColor}
-                mb='25px'
-                shadow='sm'
-                width='487px'
                 defaultValue=''
+                id='car-make-field'
                 onChange={(e) => setCarMakeID(e.target.value)}
-              >
+                shadow='sm'
+                width='487px'>
                 <option value='' disabled hidden>
                   Select Car Make
                 </option>
@@ -337,16 +323,14 @@ export default function Home() {
                   </option>
                 ))}
               </Select>
-              <Text htmlFor='car-model-field'>Car Model:</Text>
+              <Text htmlFor='car-model-field' mt='15px'>Car Model:</Text>
               <Select
-                id='car-model-field'
                 bg={selectColor}
-                mb='25px'
-                shadow='sm'
-                width='487px'
                 defaultValue=''
+                id='car-model-field'
                 onChange={(e) => setCarTrimID(e.target.value)}
-              >
+                shadow='sm'
+                width='487px'>
                 <option value='' disabled hidden>
                   Select Car Model
                 </option>
@@ -369,22 +353,24 @@ export default function Home() {
       )}
       {currentStep === 4 && (
         <>
-          <Box style={{ marginTop: '100px' }} className='steps' m='10px'>
+          <Box className='steps' m='25px'>
             Commute Results
           </Box>
-          <SimpleGrid w='100%' columns={2}>
+          <SimpleGrid columns={2} w='100%'>
             <Box shadow='base'>
               <Map directionsResponse={directionsResponse} />
             </Box>
             <Stack alignItems='center'>
               <ResultSlider />
               <Spacer />
+              <Button color={detailsLink} variant='link'>
               <Link
-                style={{ color: '#F0B199' }}
+                // style={{color: detailsLink}}
                 to={`/details/${resultCalculation.id}?fromDetails=true`}
               >
                 View More Details
               </Link>
+              </Button>
             </Stack>
           </SimpleGrid>
         </>
