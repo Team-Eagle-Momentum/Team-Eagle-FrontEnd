@@ -1,18 +1,17 @@
 import {
+  Box,
+  Flex,
   Slider,
   SliderTrack,
   SliderFilledTrack,
   SliderThumb,
   SliderMark,
-  Box,
-  Flex,
-  Spacer,
   Text,
   useColorModeValue,
 } from '@chakra-ui/react'
-
 import { AiTwotoneCar } from 'react-icons/ai'
 import { useState, useContext } from 'react'
+
 import { AppContext } from '../App'
 
 export default function ResultSlider() {
@@ -37,7 +36,10 @@ export default function ResultSlider() {
   }
 
   return (
-    <Flex direction='column' align='center' w='50%'>
+    <Flex
+      align='center'
+      direction='column'
+      w='50%'>
       <Text flex='1'>
         {Object.keys(slides)[sliderValue]} Cost: $
         {Object.values(slides)[sliderValue]}
@@ -67,7 +69,7 @@ export default function ResultSlider() {
             <SliderFilledTrack bg={useColorModeValue('brand.purple', 'dark.highlight')} />
           </SliderTrack>
           <SliderThumb boxSize={5}>
-            <Box color='black' as={AiTwotoneCar} />
+            <Box as={AiTwotoneCar} color='black' />
           </SliderThumb>
         </Slider>
       </Box>

@@ -1,8 +1,4 @@
 import react from 'react'
-// import theme from '../theme'
-// import { AppContext } from '../App'
-import { useColorModeValue } from '@chakra-ui/react'
-
 
 const ProgressBar = (props) => {
   const { barColor, fillColor, completed } = props
