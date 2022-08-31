@@ -1,15 +1,16 @@
-import './App.css'
 import React, { useState, createContext } from 'react'
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
+import { ChakraProvider } from '@chakra-ui/react'
+
+import './App.css'
 import Details from './components/Details'
 import Footer from './components/Footer'
 import Home from './components/Home'
 import LoginForm from './components/Login'
 import Navbar from './components/Navbar'
 import RegisterForm from './components/Register'
-import theme from './theme'
-import { ChakraProvider } from '@chakra-ui/react'
 import Results from './components/Results/Results'
+import theme from './theme'
 // import NotFound from './components/NotFound'
 
 
@@ -42,8 +43,7 @@ function App() {
           setResultCalculation,
           currentStep,
           setCurrentStep,
-        }}
-      >
+        }}>
         <Navbar></Navbar>
         <Routes>
           <Route path='/' element={<Home />} />
