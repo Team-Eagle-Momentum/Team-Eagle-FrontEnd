@@ -124,7 +124,7 @@ export default function Details() {
               )}
               <Text>Overall Gas Average:</Text>
               <Text>Estimated MPG:</Text>
-              <Text>Commute Distance (one-way):</Text>
+              <Text>One-way Distance:</Text>
               <Text>Days Commuting:</Text>
             </Box>
             <Box className='costs' ml='20px'>
