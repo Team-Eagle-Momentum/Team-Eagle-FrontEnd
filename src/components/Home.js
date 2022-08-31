@@ -12,7 +12,6 @@ import {
   NumberDecrementStepper,
   Select,
   SimpleGrid,
-  Spacer,
   Stack,
   Text,
   useColorModeValue,
@@ -364,7 +363,7 @@ export default function Home() {
               <Box m='25px'>
                 <Map directionsResponse={directionsResponse} />
               </Box>
-              <Button color='detailsLink' variant='link'>
+              <Button color={detailsLink} variant='link'>
                 <Link to={`/details/${resultCalculation.id}?fromDetails=true`}>
                   View More Details
                 </Link>
@@ -384,7 +383,7 @@ export default function Home() {
                   justifyContent='center'
                   spacing={'60px'}>
                   <ResultSlider />
-                  <Button color='detailsLink' variant='link'>
+                  <Button color={detailsLink} variant='link'>
                     <Link to={`/details/${resultCalculation.id}?fromDetails=true`}>
                       View More Details
                     </Link>
@@ -394,113 +393,102 @@ export default function Home() {
             </>
           )}
         </>
-      )
-      }
+      )}
 
       {/*buttons*/}
-      {
-        currentStep === 1 && (
-          <Button
-            bg={buttonColor}
-            className='subtitle'
-            colorScheme='black'
-            mt='20px'
-            onClick={() => {
-              resetFormState()
-              setCurrentStep(currentStep + 1)
-            }}
-            shadow='md'
-            variant='outline'>
-            Click to Begin
-          </Button>
-        )
-      }
-      {
-        currentStep === 2 && (
-          <Button
-            className='subtitle'
-            shadow='md'
-            mt='20px'
-            bg={buttonColor}
-            isLoading={loadingButton}
-            variant='outline'
-            colorScheme='black'
-            onClick={async () => {
-              setLoadingButton(true)
-              let distanceResult
-              let commuteId
-              try {
-                distanceResult = await Promise.all([calculateRoute()])
-              } catch (error) {
-                setLocationError(true)
-                setLoadingButton(false)
-                return
-              }
-              try {
-                ;[commuteId] = await Promise.all([
-                  commutePostData(distanceResult),
-                ])
-              } catch (error) {
-                setAvgGasError(true)
-                setLoadingButton(false)
-                return
-              }
-              setProgressBar(50)
-              setCommuteId(commuteId)
-              setCurrentStep(currentStep + 1)
-            }}
-          >
-            Next
-          </Button>
-        )
-      }
-      {
-        currentStep === 3 && (
-          <Button
-            className='subtitle'
-            shadow='md'
-            mt='20px'
-            variant='outline'
-            colorScheme='black'
-            bg={buttonColor}
-            onClick={async (e) => {
-              e.preventDefault()
-              if (combinedMPGVal <= 0 || combinedMPGVal === '') {
-                setMpgError(true)
-                return
-              }
-              setProgressBar(100)
-              let [vehicleId] = await Promise.all([createVehicle(combinedMPGVal)])
-              console.log('COMMUTE ID', commuteId)
-              let [data] = await Promise.all([
-                createCalcData(commuteId, vehicleId),
+      {currentStep === 1 && (
+        <Button
+          bg={buttonColor}
+          className='subtitle'
+          colorScheme='black'
+          mt='20px'
+          onClick={() => {
+            resetFormState()
+            setCurrentStep(currentStep + 1)
+          }}
+          shadow='md'
+          variant='outline'>
+          Click to Begin
+        </Button>
+      )}
+      {currentStep === 2 && (
+        <Button
+          bg={buttonColor}
+          className='subtitle'
+          colorScheme='black'
+          isLoading={loadingButton}
+          mt='20px'
+          shadow='md'
+          variant='outline'
+          onClick={async () => {
+            setLoadingButton(true)
+            let distanceResult
+            let commuteId
+            try {
+              distanceResult = await Promise.all([calculateRoute()])
+            } catch (error) {
+              setLocationError(true)
+              setLoadingButton(false)
+              return
+            }
+            try {
+              ;[commuteId] = await Promise.all([
+                commutePostData(distanceResult),
               ])
-              setResultCalculation(data)
-              saveCalculationToUser(data.id)
-              setCurrentStep(currentStep + 1)
-            }}
-          >
-            Commutilate Route
-          </Button>
-        )
-      }
-      {
-        currentStep === 4 && (
-          <Button
-            className='subtitle'
-            shadow='md'
-            mt='20px'
-            bg={buttonColor}
-            onClick={() => {
-              resetFormState()
-            }}
-            variant='outline'
-            colorScheme='black'
-          >
-            New Calculation
-          </Button>
-        )
-      }
+            } catch (error) {
+              setAvgGasError(true)
+              setLoadingButton(false)
+              return
+            }
+            setProgressBar(50)
+            setCommuteId(commuteId)
+            setCurrentStep(currentStep + 1)
+          }}
+        >
+          Next
+        </Button>
+      )}
+      {currentStep === 3 && (
+        <Button
+          bg={buttonColor}
+          className='subtitle'
+          colorScheme='black'
+          mt='20px'
+          shadow='md'
+          variant='outline'
+          onClick={async (e) => {
+            e.preventDefault()
+            if (combinedMPGVal <= 0 || combinedMPGVal === '') {
+              setMpgError(true)
+              return
+            }
+            setProgressBar(100)
+            let [vehicleId] = await Promise.all([createVehicle(combinedMPGVal)])
+            console.log('COMMUTE ID', commuteId)
+            let [data] = await Promise.all([
+              createCalcData(commuteId, vehicleId),
+            ])
+            setResultCalculation(data)
+            saveCalculationToUser(data.id)
+            setCurrentStep(currentStep + 1)
+          }}>
+          Commutilate Route
+        </Button>
+      )}
+      {currentStep === 4 && (
+        <Button
+          bg={buttonColor}
+          className='subtitle'
+          colorScheme='black'
+          mt='20px'
+          shadow='md'
+          variant='outline'
+          onClick={() => {
+            resetFormState()
+          }}>
+          New Calculation
+        </Button>
+      )}
     </Flex >
   )
 }
