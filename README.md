@@ -60,7 +60,7 @@ annual_result = round((((commute.distance * 2) / vehicle.mpg) * commute.avg_gas_
 
 ## Creators
 
-- Andres Alcocer, Jose Reyes, Metta Rolando, and Michael Perry II
+- [Andres Alcocer](https://github.com/devandres-tech), [Jose Reyes](https://github.com/jreyesri13), [Metta Rolando](https://github.com/mnrolando3), and [Michael Perry II](https://github.com/moperry2)
 
 ## Links
 
