@@ -1,4 +1,4 @@
-# Commutilator - Momentum Team 13 Eagles
+# COMMUTILATOR - Momentum Team 13 Eagles
 
 ## Description
 
